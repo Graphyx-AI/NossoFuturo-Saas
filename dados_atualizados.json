@@ -1,0 +1,1992 @@
+{
+  "psicologo": [
+    {
+      "nome": "Clínica Psiquiátrica da Gávea",
+      "telefone": "",
+      "endereco": "Clínica Psiquiátrica da Gávea, Estrada da Gávea 151, Gávea, Rio de Janeiro - RJ, 22451-262, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Med Neuro",
+      "telefone": "",
+      "endereco": "Med Neuro, Rua Isolina 33, Méier, Rio de Janeiro - RJ, 20710-080, Brazil",
+      "site": "",
+      "status": "novo"
+    }
+  ],
+  "imobiliaria": [
+    {
+      "nome": "Copacabana Holiday",
+      "telefone": "+55-21-25421525",
+      "endereco": "Copacabana Holiday, Rua Barata Ribeiro 90, Copacabana, Rio de Janeiro - RJ, 22011-002, Brazil",
+      "site": "http://www.copacabanaholiday.com.br",
+      "status": "novo"
+    },
+    {
+      "nome": "Styllus Imobiliária",
+      "telefone": "+552135494949",
+      "endereco": "Styllus Imobiliária, Rua Manuela Barbosa, Méier, Rio de Janeiro - RJ, 20735-080, Brazil",
+      "site": "https://www.styllusimobiliaria.com.br/",
+      "status": "novo"
+    },
+    {
+      "nome": "Torres & Oliveira Consultoria Imobiliária Ltda",
+      "telefone": "+55 21 98806 8466",
+      "endereco": "Torres & Oliveira Consultoria Imobiliária Ltda, Avenida Almirante Barroso 81, Centro, Rio de Janeiro - RJ, 20031-004, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Adak Imóveis",
+      "telefone": "",
+      "endereco": "Adak Imóveis, Avenida Nossa Senhora de Fátima 50-B, Centro, Rio de Janeiro - RJ, 20240-051, Brazil",
+      "site": "https://www.adakimoveis.com.br/",
+      "status": "novo"
+    },
+    {
+      "nome": "Patrimóvel",
+      "telefone": "",
+      "endereco": "Patrimóvel, Avenida das Américas 4201, Barra da Tijuca, Rio de Janeiro - RJ, 22631-390, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "MJ Imóveis",
+      "telefone": "",
+      "endereco": "MJ Imóveis, Rua Presidente Backer, Icaraí, Niterói - RJ, 24220-045, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "The City",
+      "telefone": "",
+      "endereco": "The City, Avenida Engenheiro Carlos Carvalho, Barra Olímpica, Rio de Janeiro - RJ, 22775-020, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "APSA Imóveis",
+      "telefone": "",
+      "endereco": "APSA Imóveis, Rua General Roca, Tijuca, Rio de Janeiro - RJ, 20521-070, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Palace Atlantica Imoveis",
+      "telefone": "",
+      "endereco": "Palace Atlantica Imoveis, Avenida Nossa Senhora de Copacabana 252, Copacabana, Rio de Janeiro - RJ, 22020-050, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "PDG Vendas",
+      "telefone": "",
+      "endereco": "PDG Vendas, Rua Nelson Mandela 100 Loja 108, Botafogo, Rio de Janeiro - RJ, 22260-005, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Abas",
+      "telefone": "",
+      "endereco": "Abas, Rua Barata Ribeiro 54A, Copacabana, Rio de Janeiro - RJ, 22011-002, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Marcela Vila",
+      "telefone": "",
+      "endereco": "Marcela Vila, Estrada dos Bandeirantes 7967, Jacarepaguá, Rio de Janeiro - RJ, 22780-085, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "NR Luz Imóveis",
+      "telefone": "",
+      "endereco": "NR Luz Imóveis, Estrada dos Bandeirantes, Vargem Pequena, Rio de Janeiro - RJ, 22783-560, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Barra Wind",
+      "telefone": "",
+      "endereco": "Barra Wind, Rua Ruy Porto, Barra da Tijuca, Rio de Janeiro - RJ, 22630-013, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Espaço Tegra",
+      "telefone": "",
+      "endereco": "Espaço Tegra, Avenida Júlio de Sá Bierrenbach, Barra Olímpica, Rio de Janeiro - RJ, 22775-039, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "LIG",
+      "telefone": "",
+      "endereco": "LIG, Avenida Olof Palme 765, Camorim, Rio de Janeiro - RJ, 22783-127, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Carvalho Hosken S/A",
+      "telefone": "",
+      "endereco": "Carvalho Hosken S/A, Rua Bruno Giorgi, Barra Olímpica, Rio de Janeiro - RJ, 22775-040, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Riobens",
+      "telefone": "",
+      "endereco": "Riobens, Estrada dos Bandeirantes, Jacarepaguá, Rio de Janeiro - RJ, 22780-085, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Lopes",
+      "telefone": "",
+      "endereco": "Lopes, Rua Senador Vergueiro, Flamengo, Rio de Janeiro - RJ, 22230-000, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Fernando & Fernandes",
+      "telefone": "",
+      "endereco": "Fernando & Fernandes, Rua Marquês de Abrantes, Flamengo, Rio de Janeiro - RJ, 22230-061, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Privilégio Imóveis",
+      "telefone": "",
+      "endereco": "Privilégio Imóveis, Rua Marquês de Abrantes, Flamengo, Rio de Janeiro - RJ, 22230-061, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Miguez Imobiliária",
+      "telefone": "",
+      "endereco": "Miguez Imobiliária, Rua Doutor Satamini, Tijuca, Rio de Janeiro - RJ, 20270-230, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Nova Época Imobiliária",
+      "telefone": "",
+      "endereco": "Nova Época Imobiliária, Rua Doutor Satamini, Tijuca, Rio de Janeiro - RJ, 20270-230, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Mais veloz",
+      "telefone": "",
+      "endereco": "Mais veloz, Rua Conde de Baependi, Laranjeiras, Rio de Janeiro - RJ, 22231-160, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Dna",
+      "telefone": "",
+      "endereco": "Dna, Rua do Pinheiro 50, Flamengo, Rio de Janeiro - RJ, 22220-050, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Nova época",
+      "telefone": "",
+      "endereco": "Nova época, Praia do Flamengo, Flamengo, Rio de Janeiro - RJ, 22210-070, Brazil",
+      "site": "",
+      "status": "novo"
+    }
+  ],
+  "curso_online": [],
+  "dentista": [
+    {
+      "nome": "Dra. Daniela Botti Meodentista",
+      "telefone": "55-21-996926413",
+      "endereco": "Dra. Daniela Botti Meodentista, Praça do Chafariz Bloco 21 sala 315, Barra da Tijuca, Rio de Janeiro - RJ, 22640-100, Brazil",
+      "site": "https://linktr.ee/dradanielabotti",
+      "status": "novo"
+    },
+    {
+      "nome": "Dr Paulo R A Castro",
+      "telefone": "+55 21 9590 40238",
+      "endereco": "Dr Paulo R A Castro, Avenida das Américas 3333, Barra da Tijuca, Rio de Janeiro - RJ, 22631-003, Brazil",
+      "site": "https://www.odontomicroscopia.com.br/",
+      "status": "novo"
+    },
+    {
+      "nome": "Moraes Odontologia Preventiva",
+      "telefone": "+55 21 97951 3372",
+      "endereco": "Moraes Odontologia Preventiva, Avenida Nossa Senhora de Copacabana 1052, Copacabana, Rio de Janeiro - RJ, 22060-000, Brazil",
+      "site": "https://www.moraesodonto.com.br/home/index.php",
+      "status": "novo"
+    },
+    {
+      "nome": "SOI Dentistas",
+      "telefone": "+55 21 2440-6664",
+      "endereco": "SOI Dentistas, Estrada do Rio Grande 1770, Taquara, Rio de Janeiro - RJ, 22720-011, Brazil",
+      "site": "http://leonardosoi.wix.com/1",
+      "status": "novo"
+    },
+    {
+      "nome": "Clean Bucal",
+      "telefone": "+55 21 2440-0380",
+      "endereco": "Clean Bucal, Rua Salinópolis 64, Taquara, Rio de Janeiro - RJ, 22720-000, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Consultório Dr. Victor Augusto",
+      "telefone": "+55 21 97132 2028",
+      "endereco": "Consultório Dr. Victor Augusto, Rua Barão de São Francisco 373, Vila Isabel, Rio de Janeiro - RJ, 20541-371, Brazil",
+      "site": "https://www.drvitoraugusto.com",
+      "status": "novo"
+    },
+    {
+      "nome": "Marcos Teixeira",
+      "telefone": "+55-21-22593976",
+      "endereco": "Marcos Teixeira, Rua José Joaquim Seabra, Lagoa, Rio de Janeiro - RJ, 22470-130, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Tijuca Odontologia",
+      "telefone": "",
+      "endereco": "Tijuca Odontologia, Rua Camaragibe 13, Tijuca, Rio de Janeiro - RJ, 20520-130, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Odontoclínica do Complexo Santos Dumont",
+      "telefone": "",
+      "endereco": "Odontoclínica do Complexo Santos Dumont, Avenida General Justo, Centro, Rio de Janeiro - RJ, 20021-200, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Túlio Régis Salomão & Gilberto Ranchini",
+      "telefone": "",
+      "endereco": "Túlio Régis Salomão & Gilberto Ranchini, Rua Barata Ribeiro 51, Copacabana, Rio de Janeiro - RJ, 22011-002, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "CJI Dentistas",
+      "telefone": "",
+      "endereco": "CJI Dentistas, Rua Silveira Martins 115A, Catete, Rio de Janeiro - RJ, 22221-000, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Diga X",
+      "telefone": "",
+      "endereco": "Diga X, Rua do Bispo 3, Rio Comprido, Rio de Janeiro - RJ, 20261-060, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "4ª Odontoclínica Militar Ten Cel Grey Caetano Coimbra",
+      "telefone": "",
+      "endereco": "4ª Odontoclínica Militar Ten Cel Grey Caetano Coimbra, Avenida Paulo de Frontin, Rio Comprido, Rio de Janeiro - RJ, 20261-243, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Diga X",
+      "telefone": "",
+      "endereco": "Diga X, Rua do Bispo 3, Rio Comprido, Rio de Janeiro - RJ, 20261-060, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Cirurgiã Dentista Dra. Adelina Curzio",
+      "telefone": "",
+      "endereco": "Cirurgiã Dentista Dra. Adelina Curzio, Rua Marechal Bittencourt 93, Riachuelo, Rio de Janeiro - RJ, 20950-200, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Apelbaum Odontologia Integrada",
+      "telefone": "",
+      "endereco": "Apelbaum Odontologia Integrada, Rua Mariz e Barros, Maracanã, Rio de Janeiro - RJ, 20271-280, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "CER",
+      "telefone": "",
+      "endereco": "CER, Rua Nelson Mandela 100 Lojas 119 e 120, Botafogo, Rio de Janeiro - RJ, 22260-005, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Odontoplus",
+      "telefone": "",
+      "endereco": "Odontoplus, Rua Nelson Mandela 100 Loja 104, Botafogo, Rio de Janeiro - RJ, 22260-005, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Centro Odontológico São José",
+      "telefone": "",
+      "endereco": "Centro Odontológico São José, Rua Barata Ribeiro 13, Copacabana, Rio de Janeiro - RJ, 22011-001, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Clínica Odontológica",
+      "telefone": "",
+      "endereco": "Clínica Odontológica, Avenida das Américas 6700 Bl 2 Sala 211, Barra da Tijuca, Rio de Janeiro - RJ, 22793-911, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Doutora Ilda Pereira",
+      "telefone": "",
+      "endereco": "Doutora Ilda Pereira, Estrada dos Bandeirantes, Jacarepaguá, Rio de Janeiro - RJ, 22780-085, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "GS Odontologia",
+      "telefone": "",
+      "endereco": "GS Odontologia, Rua Xavier de Araújo, Jacarepaguá, Rio de Janeiro - RJ, 22780-085, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Dental Consult Saúde e Estética",
+      "telefone": "",
+      "endereco": "Dental Consult Saúde e Estética, Avenida Henrique Valadares 143 - Sobrado, Centro, Rio de Janeiro - RJ, 20231-031, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Dentistas",
+      "telefone": "",
+      "endereco": "Dentistas, Rua Iguapé Açú, Jacarepaguá, Rio de Janeiro - RJ, 22780-085, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Odontosister",
+      "telefone": "",
+      "endereco": "Odontosister, Rua Iguapé Açú, Jacarepaguá, Rio de Janeiro - RJ, 22780-085, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Sorriso Odontologia",
+      "telefone": "",
+      "endereco": "Sorriso Odontologia, Rua Bruno Giorgi, Barra Olímpica, Rio de Janeiro - RJ, 22775-040, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Arte Dental",
+      "telefone": "",
+      "endereco": "Arte Dental, Rua Marquês de Abrantes, Flamengo, Rio de Janeiro - RJ, 22230-061, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Centro Odontológico Laranjeiras - COL",
+      "telefone": "",
+      "endereco": "Centro Odontológico Laranjeiras - COL, Rua General Glicério 364B, Laranjeiras, Rio de Janeiro - RJ, 22245-100, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "ASFODONTO",
+      "telefone": "",
+      "endereco": "ASFODONTO, Rua Evaristo da Veiga 35, Centro, Rio de Janeiro - RJ, 20031-040, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Odonto Company",
+      "telefone": "",
+      "endereco": "Odonto Company, Rua Conde de Bonfim, Tijuca, Rio de Janeiro - RJ, 20530-000, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Meraky",
+      "telefone": "",
+      "endereco": "Meraky, Rua Visconde de Ouro Preto, Botafogo, Rio de Janeiro - RJ, 22250-180, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Odonto Company",
+      "telefone": "",
+      "endereco": "Odonto Company, Estrada dos Bandeirantes, Curicica, Rio de Janeiro - RJ, 22780-500, Brazil",
+      "site": "",
+      "status": "novo"
+    }
+  ],
+  "clinica_estetica": [
+    {
+      "nome": "Barbearia e Tabacaria Tabaco e Tesoura",
+      "telefone": "55 21 97539-3806",
+      "endereco": "Barbearia e Tabacaria Tabaco e Tesoura, Ladeira dos Tabajaras 143, Copacabana, Rio de Janeiro - RJ, 22031-071, Brazil",
+      "site": "http://www.shoppingcidadecopacabana.com.br/comochegar.asp",
+      "status": "novo"
+    },
+    {
+      "nome": "Mais Depil",
+      "telefone": "+55 21 3456-3988; +55 21 99845-2600",
+      "endereco": "Mais Depil, Avenida dos Mananciais 835, Taquara, Rio de Janeiro - RJ, 22720-400, Brazil",
+      "site": "http://www.maisdepil.com.br/",
+      "status": "novo"
+    },
+    {
+      "nome": "Los Muchachos Borrachos",
+      "telefone": "+55 21 37963940",
+      "endereco": "Los Muchachos Borrachos, Rua Antônio Maroun, Recreio dos Bandeirantes, Rio de Janeiro - RJ, 22790-710, Brazil",
+      "site": "www.losmuchachosborrachos.com.br",
+      "status": "novo"
+    },
+    {
+      "nome": "Não+Pelo",
+      "telefone": "+55 21 2552-3040",
+      "endereco": "Não+Pelo, Rua Senador Vergueiro 182, Flamengo, Rio de Janeiro - RJ, 22230-001, Brazil",
+      "site": "http://naomaispelo.com.br/unidades/rj/rio-de-janeiro/flamengo/",
+      "status": "novo"
+    },
+    {
+      "nome": "Espaço Pérola's",
+      "telefone": "+5521974662093",
+      "endereco": "Espaço Pérola's, Estrada do Pau-Ferro 329, Pechincha, Rio de Janeiro - RJ, 22743-050, Brazil",
+      "site": "https://espacoperolasrj.negocio.site/",
+      "status": "novo"
+    },
+    {
+      "nome": "PLURALL BARBEARIA",
+      "telefone": "021999327016",
+      "endereco": "PLURALL BARBEARIA, Rua Vinícius de Moraes, Ipanema, Rio de Janeiro - RJ, 22411-010, Brazil",
+      "site": "https://www.plurallbarbearia.com.br/",
+      "status": "novo"
+    },
+    {
+      "nome": "Casablanca Hair Style",
+      "telefone": "+55-21-31716433",
+      "endereco": "Casablanca Hair Style, Rua Nelson Mandela 100 Loja 118, Botafogo, Rio de Janeiro - RJ, 22260-005, Brazil",
+      "site": "http://www.casablancahs.com.br/",
+      "status": "novo"
+    },
+    {
+      "nome": "Beauty Center by Marize",
+      "telefone": "+55 21 2440-4349; +55 21 3594-1638",
+      "endereco": "Beauty Center by Marize, Avenida dos Mananciais 950, Taquara, Rio de Janeiro - RJ, 22720-410, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Espaço Ellas",
+      "telefone": "+55 21 2475-4525; +55 21 2456-1858",
+      "endereco": "Espaço Ellas, Estrada do Rio Grande 1665, Taquara, Rio de Janeiro - RJ, 22720-010, Brazil",
+      "site": "http://espacoellas.wix.com/espacoellas",
+      "status": "novo"
+    },
+    {
+      "nome": "Spa Carioca",
+      "telefone": "+55 21 3852-4478;+55 21 2505-7132",
+      "endereco": "Spa Carioca, Rua dos Inválidos 63, Centro, Rio de Janeiro - RJ, 20231-043, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Vitoria's",
+      "telefone": "+55 21 2014-8097",
+      "endereco": "Vitoria's, Rua dos Inválidos 18, Centro, Rio de Janeiro - RJ, 20231-012, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Studio Beauty Karine Lima",
+      "telefone": "(21) 97881-0968",
+      "endereco": "Studio Beauty Karine Lima, Rua Nova 3, Jacarepaguá, Rio de Janeiro - RJ, 22753-211, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Blush Hair",
+      "telefone": "+55 (21) 2433-1078",
+      "endereco": "Blush Hair, Avenida Lúcio Costa 8000, Barra da Tijuca, Rio de Janeiro - RJ, 22795-006, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Elsa Estheticién",
+      "telefone": "+55 21 2578-1235",
+      "endereco": "Elsa Estheticién, Avenida Engenheiro Richard 105, Grajaú, Rio de Janeiro - RJ, 20561-055, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Studio Paloma Pinheiro",
+      "telefone": "+5521972789081",
+      "endereco": "Studio Paloma Pinheiro, Rua dos Inválidos 123, Centro, Rio de Janeiro - RJ, 20231-045, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Renata Lima Nail Spa",
+      "telefone": "+5521971878062",
+      "endereco": "Renata Lima Nail Spa, Rua Frei Henrique 6, Vidigal, Rio de Janeiro - RJ, 22452-300, Brazil",
+      "site": "https://www.instagram.com/renatalima.nailspa/",
+      "status": "novo"
+    },
+    {
+      "nome": "Espaço Musa",
+      "telefone": "21978878286",
+      "endereco": "Espaço Musa, Estrada do Pau-Ferro 160, Pechincha, Rio de Janeiro - RJ, 22743-051, Brazil",
+      "site": "https://espacomusarj.negocio.site/?m=true",
+      "status": "novo"
+    },
+    {
+      "nome": "Salão Grajaú",
+      "telefone": "+55 21 2577-4259",
+      "endereco": "Salão Grajaú, Avenida Engenheiro Richard 160, Grajaú, Rio de Janeiro - RJ, 20561-096, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Mr. Barber - Barbearia Tattoo e Piercing Ipanema",
+      "telefone": "+552134355129",
+      "endereco": "Mr. Barber - Barbearia Tattoo e Piercing Ipanema, Rua Visconde de Pirajá 207, Ipanema, Rio de Janeiro - RJ, 22411-010, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Don Ramiro Barber Club",
+      "telefone": "+5521966236065",
+      "endereco": "Don Ramiro Barber Club, Rua José Vicente 74, Grajaú, Rio de Janeiro - RJ, 20540-330, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Barbearia de Ouro",
+      "telefone": "+55 21 3557 2555",
+      "endereco": "Barbearia de Ouro, Rua das Laranjeiras 122, Laranjeiras, Rio de Janeiro - RJ, 22240-000, Brazil",
+      "site": "https://www.barbeariadeouro.com.br/",
+      "status": "novo"
+    },
+    {
+      "nome": "Brito Cabeleireiros",
+      "telefone": "+55 21 2274 1995",
+      "endereco": "Brito Cabeleireiros, Rua das Acácias, Gávea, Rio de Janeiro - RJ, 22451-040, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Help Coiffeur",
+      "telefone": "+552122059600",
+      "endereco": "Help Coiffeur, Rua Bento Lisboa 41, Catete, Rio de Janeiro - RJ, 22221-011, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Giva's Coiffeur",
+      "telefone": "+55-21-22257526",
+      "endereco": "Giva's Coiffeur, Rua Pedro Américo 64B, Catete, Rio de Janeiro - RJ, 22211-200, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Leandra Coiffeur",
+      "telefone": "+55-21-22450130",
+      "endereco": "Leandra Coiffeur, Rua do Catete 70, Catete, Rio de Janeiro - RJ, 22220-000, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Espaço Cor da Pele",
+      "telefone": "",
+      "endereco": "Espaço Cor da Pele, Rua Noé, Cidade de Deus, Rio de Janeiro - RJ, 22770-334, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Elianas",
+      "telefone": "+55-21-22651404; +55-21-22253489",
+      "endereco": "Elianas, Rua Andrade Pertence, Catete, Rio de Janeiro - RJ, 22221-000, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Palácio Cabelereiros",
+      "telefone": "+55-21-25563043",
+      "endereco": "Palácio Cabelereiros, Rua Silveira Martins, Catete, Rio de Janeiro - RJ, 22221-000, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Concordes",
+      "telefone": "+55-21-25577530",
+      "endereco": "Concordes, Rua Machado de Assis, Flamengo, Rio de Janeiro - RJ, 22220-060, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Well",
+      "telefone": "+55-21-22255273; +55-21-22057891",
+      "endereco": "Well, Rua Arno Konder, Flamengo, Rio de Janeiro - RJ, 22220-901, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Marone",
+      "telefone": "+55-21-22455687",
+      "endereco": "Marone, Rua Machado de Assis, Flamengo, Rio de Janeiro - RJ, 22220-060, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Bella Lizz",
+      "telefone": "+55-21-22651017",
+      "endereco": "Bella Lizz, Praia do Flamengo, Flamengo, Rio de Janeiro - RJ, 22210-901, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Silvanio's",
+      "telefone": "+55-21-22855998",
+      "endereco": "Silvanio's, Rua das Laranjeiras 62, Laranjeiras, Rio de Janeiro - RJ, 22221-070, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Malaquias",
+      "telefone": "+55-21-22757748; +55-21-25418198",
+      "endereco": "Malaquias, Avenida Pasteur, Botafogo, Rio de Janeiro - RJ, 22290-240, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "L'Or Coiffeur",
+      "telefone": "+55-21-22624192",
+      "endereco": "L'Or Coiffeur, Avenida Treze de Maio, Centro, Rio de Janeiro - RJ, 20031-007, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Adelma's",
+      "telefone": "+55-21-22059872",
+      "endereco": "Adelma's, Rua Senador Corrêa, Laranjeiras, Rio de Janeiro - RJ, 22231-160, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "maria cabeleireiro",
+      "telefone": "55 21 2618 0850",
+      "endereco": "maria cabeleireiro, Rua Doutor Nilo Peçanha 149, Ingá, Niterói - RJ, 24210-480, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Oligoflora Studio de Estética e Bem-estar",
+      "telefone": "",
+      "endereco": "Oligoflora Studio de Estética e Bem-estar, Rua das Laranjeiras Loja B, Laranjeiras, Rio de Janeiro - RJ, 22240-003, Brazil",
+      "site": "https://oligoflora.com.br/",
+      "status": "novo"
+    },
+    {
+      "nome": "Art Hair",
+      "telefone": "+55-21-25379080",
+      "endereco": "Art Hair, Rua Real Grandeza 176, Botafogo, Rio de Janeiro - RJ, 22270-080, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Joper",
+      "telefone": "+55-21-25381434",
+      "endereco": "Joper, Rua Voluntários da Pátria 239 Loja B, Botafogo, Rio de Janeiro - RJ, 22280-030, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Pemuric",
+      "telefone": "+55-21-25113447",
+      "endereco": "Pemuric, Rua Visconde da Graça 18F, Jardim Botânico, Rio de Janeiro - RJ, 22460-010, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Aragão Coiffeur",
+      "telefone": "+55-21-22948297",
+      "endereco": "Aragão Coiffeur, Rua Visconde da Graça, Jardim Botânico, Rio de Janeiro - RJ, 22460-010, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Britt Coiffeur",
+      "telefone": "+55-21-22860499",
+      "endereco": "Britt Coiffeur, Rua Voluntários da Pátria 45, Botafogo, Rio de Janeiro - RJ, 22290-030, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Amaro",
+      "telefone": "+55-21-22663305",
+      "endereco": "Amaro, Rua Professor Álvaro Rodrigues, Botafogo, Rio de Janeiro - RJ, 22280-040, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Kicorte",
+      "telefone": "+55-21-22350346",
+      "endereco": "Kicorte, Rua Siqueira Campos 74, Copacabana, Rio de Janeiro - RJ, 22031-050, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Alice Beauty",
+      "telefone": "+55-21-22572102",
+      "endereco": "Alice Beauty, Praça Vereador Rocha Leão, Copacabana, Rio de Janeiro - RJ, 22031-012, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Requinte",
+      "telefone": "",
+      "endereco": "Requinte, Rua Barão de Mesquita 459, Vila Isabel, Rio de Janeiro - RJ, 20511-001, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Vitória's Coiffeur",
+      "telefone": "+55-21-25560796",
+      "endereco": "Vitória's Coiffeur, Rua Pedro Américo 166, Catete, Rio de Janeiro - RJ, 22211-200, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Farani Hair",
+      "telefone": "+55-21-25534706",
+      "endereco": "Farani Hair, Rua Farani 42, Botafogo, Rio de Janeiro - RJ, 22231-020, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Espaço Contemporâneo",
+      "telefone": "+55 21 3311-5438",
+      "endereco": "Espaço Contemporâneo, Acesso às Docas, Barra da Tijuca, Rio de Janeiro - RJ, 22775-003, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Prya - Centro de Beleza e Estética",
+      "telefone": "+55 21 2711-5500",
+      "endereco": "Prya - Centro de Beleza e Estética, Rua Ator Paulo Gustavo 241, Icaraí, Niterói - RJ, 24230-063, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Hairnibal Barbearia e Cervejaria",
+      "telefone": "",
+      "endereco": "Hairnibal Barbershop and Beer Station, Estrada da Gávea 308, Rocinha, Rio de Janeiro - RJ, 22451-264, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Barbearia do Portuga",
+      "telefone": "",
+      "endereco": "Barbearia do Portuga, Rua Corrêa Dutra 16A, Flamengo, Rio de Janeiro - RJ, 22210-050, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Vania Stilo's",
+      "telefone": "+55 21 2242 2670",
+      "endereco": "Vania Stilo's, Rua do Resende 207, Centro, Rio de Janeiro - RJ, 20231-091, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Régua Clube",
+      "telefone": "+55 21 999 981 355",
+      "endereco": "Régua Clube, Rua do Rezende 169, Centro, Rio de Janeiro - RJ, 20231-091, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Gê & Aldo",
+      "telefone": "+55 21 2523 9901",
+      "endereco": "Gê & Aldo, Rua Teixeira de Melo 77, Ipanema, Rio de Janeiro - RJ, 22410-001, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Rio Barber Beer",
+      "telefone": "",
+      "endereco": "Rio Barber Beer, Rua Barão de Mesquita 404, Vila Isabel, Rio de Janeiro - RJ, 20511-001, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Barberia BR",
+      "telefone": "",
+      "endereco": "Barberia BR, Avenida Nossa Senhora de Copacabana, Copacabana, Rio de Janeiro - RJ, 22020-050, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Werner",
+      "telefone": "",
+      "endereco": "Werner, Avenida Ataulfo de Paiva 386, Leblon, Rio de Janeiro - RJ, 22440-033, Brazil",
+      "site": "https://wernercoiffeur.com.br/",
+      "status": "novo"
+    },
+    {
+      "nome": "NATURELLES ESTÉTICA E SAÚDE INTEGRATIVA",
+      "telefone": "+5521999143883",
+      "endereco": "NATURELLES ESTÉTICA E SAÚDE INTEGRATIVA, Avenida Engenheiro Carlos Carvalho 01, Barra da Tijuca, Rio de Janeiro - RJ, 22775-040, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "barbearia duque",
+      "telefone": "5521988355794",
+      "endereco": "barbearia duque, Rua Doutor Nilo Peçanha lj 101, Ingá, Niterói - RJ, 24210-480, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "BodyFace",
+      "telefone": "",
+      "endereco": "BodyFace, Rua Ator Paulo Gustavo, Icaraí, Niterói - RJ, 24230-061, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Werner Coiffeur",
+      "telefone": "",
+      "endereco": "Werner Coiffeur, Rua Ator Paulo Gustavo, Icaraí, Niterói - RJ, 24230-063, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Thalita's Hair Design",
+      "telefone": "",
+      "endereco": "Thalita's Hair Design, Rua Dois de Dezembro, Catete, Rio de Janeiro - RJ, 22220-040, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Carminha Coiffeur",
+      "telefone": "",
+      "endereco": "Carminha Coiffeur, Rua General Pereira da Silva 186, Icaraí, Niterói - RJ, 24220-031, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Amaro",
+      "telefone": "",
+      "endereco": "Amaro, Rua Professor Álvaro Rodrigues 170b, Botafogo, Rio de Janeiro - RJ, 22280-040, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Star & Beleza",
+      "telefone": "",
+      "endereco": "Star & Beleza, Rua das Laranjeiras 103E, Laranjeiras, Rio de Janeiro - RJ, 22240-000, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Salão York",
+      "telefone": "",
+      "endereco": "Salão York, Rua do Catete 180, Catete, Rio de Janeiro - RJ, 22220-000, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Dukiko",
+      "telefone": "",
+      "endereco": "Dukiko, Rua do Catete, Catete, Rio de Janeiro - RJ, 22211-140, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Cristal Coiffeur",
+      "telefone": "",
+      "endereco": "Cristal Coiffeur, Rua dos Inválidos 17, Centro, Rio de Janeiro - RJ, 20231-012, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Barbearia Amorim",
+      "telefone": "",
+      "endereco": "Barbearia Amorim, Rua dos Inválidos 9, Centro, Rio de Janeiro - RJ, 20231-012, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Nordene - espaço de estética e beleza",
+      "telefone": "",
+      "endereco": "Nordene - espaço de estética e beleza, Rua Presidente Backer, Icaraí, Niterói - RJ, 24110-206, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Barbearia do Kadim",
+      "telefone": "",
+      "endereco": "Barbearia do Kadim, Rua Jericó 121, Jacarepaguá, Rio de Janeiro - RJ, 22775-903, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Barbearia K & MK",
+      "telefone": "",
+      "endereco": "Barbearia K & MK, Rua Jericó 192, Cidade de Deus, Rio de Janeiro - RJ, 22775-903, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "New Look",
+      "telefone": "",
+      "endereco": "New Look, Rua Sousa Franco, Vila Isabel, Rio de Janeiro - RJ, 20560-010, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "New Stylist",
+      "telefone": "",
+      "endereco": "New Stylist, Rua Pereira Nunes, Vila Isabel, Rio de Janeiro - RJ, 20541-015, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "By Dellas",
+      "telefone": "",
+      "endereco": "By Dellas, Rua Pereira Nunes, Vila Isabel, Rio de Janeiro - RJ, 20541-015, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Scenario",
+      "telefone": "",
+      "endereco": "Scenario, Rua Sousa Franco, Vila Isabel, Rio de Janeiro - RJ, 20551-080, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Vogue",
+      "telefone": "",
+      "endereco": "Vogue, Rua Santa Luzia, Centro, Rio de Janeiro - RJ, 20040-009, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Hair & Co.",
+      "telefone": "",
+      "endereco": "Hair & Co., Rua Sete de Setembro, Centro, Rio de Janeiro - RJ, 20051-050, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Clínica da Família José de Souza Herdy",
+      "telefone": "+55 21 97441 8697",
+      "endereco": "Clínica da Família José de Souza Herdy, Avenida Ayrton Senna 3383, Barra da Tijuca, Rio de Janeiro - RJ, 22775-001, Brazil",
+      "site": "https://smscfjsherdy.blogspot.com/",
+      "status": "novo"
+    },
+    {
+      "nome": "Dra. Daniela Botti Meodentista",
+      "telefone": "55-21-996926413",
+      "endereco": "Dra. Daniela Botti Meodentista, Praça do Chafariz Bloco 21 sala 315, Barra da Tijuca, Rio de Janeiro - RJ, 22640-100, Brazil",
+      "site": "https://linktr.ee/dradanielabotti",
+      "status": "novo"
+    },
+    {
+      "nome": "Dr Paulo R A Castro",
+      "telefone": "+55 21 9590 40238",
+      "endereco": "Dr Paulo R A Castro, Avenida das Américas 3333, Barra da Tijuca, Rio de Janeiro - RJ, 22631-003, Brazil",
+      "site": "https://www.odontomicroscopia.com.br/",
+      "status": "novo"
+    },
+    {
+      "nome": "Moraes Odontologia Preventiva",
+      "telefone": "+55 21 97951 3372",
+      "endereco": "Moraes Odontologia Preventiva, Avenida Nossa Senhora de Copacabana 1052, Copacabana, Rio de Janeiro - RJ, 22060-000, Brazil",
+      "site": "https://www.moraesodonto.com.br/home/index.php",
+      "status": "novo"
+    },
+    {
+      "nome": "Coordenacao de Emergencia Regional Cer Barra",
+      "telefone": "+55 35507060",
+      "endereco": "Coordenacao de Emergencia Regional Cer Barra, Ciclovia Ayrton Senna, Barra da Tijuca, Rio de Janeiro - RJ, 22775-055, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Coordenacao de Emergencia Regional Leblon",
+      "telefone": "+55 2529-9227",
+      "endereco": "Coordenacao de Emergencia Regional Leblon, Rua Mário Ribeiro, Leblon, Rio de Janeiro - RJ, 22430-160, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Centro Municipal de Saúde Joao Barros Barreto",
+      "telefone": "+55 21 3208-5295",
+      "endereco": "Centro Municipal de Saúde Joao Barros Barreto, Rua Tenreiro Aranha, Copacabana, Rio de Janeiro - RJ, 22031-040, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "GIOE",
+      "telefone": "",
+      "endereco": "wax and mani pedi, Rua Domingos Ferreira 59, Copacabana, Rio de Janeiro - RJ, 22050-011, Brazil",
+      "site": "http://gioepeemao.com.br",
+      "status": "novo"
+    },
+    {
+      "nome": "Multi-Imagem",
+      "telefone": "(21) 2522-2001",
+      "endereco": "Multi-Imagem, Rua Almirante Saddock de Sá 266, Ipanema, Rio de Janeiro - RJ, 22411-040, Brazil",
+      "site": "https://www.multi-imagemrj.com.br/",
+      "status": "novo"
+    },
+    {
+      "nome": "Quiropraxia Elisa Dallegravs",
+      "telefone": "+5521991898369",
+      "endereco": "Quiropraxia Elisa Dallegravs, Avenida Armando Lombardi 597, Barra da Tijuca, Rio de Janeiro - RJ, 22640-000, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Clínica da Família Cantagalo Pavão - Pavãozinho",
+      "telefone": "+55 21 25234127",
+      "endereco": "Clínica da Família Cantagalo Pavão - Pavãozinho, Estrada do Cantagalo, Copacabana, Rio de Janeiro - RJ, 22420-010, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Clínica da Família Jose de Souza Herdy",
+      "telefone": "+55 35238635",
+      "endereco": "Clínica da Família Jose de Souza Herdy, Ciclovia Avenida Ayrton Senna, Barra da Tijuca, Rio de Janeiro - RJ, 22775-002, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Consulta Carioca",
+      "telefone": "+55 21 2042-0303",
+      "endereco": "Consulta Carioca, Avenida Nossa Senhora de Copacabana 731, Copacabana, Rio de Janeiro - RJ, 22050-002, Brazil",
+      "site": "https://www.consultacarioca.com.br/",
+      "status": "novo"
+    },
+    {
+      "nome": "Clínica Odontológica BelAcarda",
+      "telefone": "(21) 99630-8273",
+      "endereco": "Clínica Odontológica BelAcarda, Rua Santa Clara 60, Copacabana, Rio de Janeiro - RJ, 22050-001, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Centro Médico Richet Barra",
+      "telefone": "+55 (21) 2430-1500",
+      "endereco": "Centro Médico Richet Barra, Avenida das Américas 4801, Barra da Tijuca, Rio de Janeiro - RJ, 22631-004, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "NATURELLES ESTÉTICA E SAÚDE INTEGRATIVA",
+      "telefone": "+5521999143883",
+      "endereco": "NATURELLES ESTÉTICA E SAÚDE INTEGRATIVA, Avenida Engenheiro Carlos Carvalho 01, Barra da Tijuca, Rio de Janeiro - RJ, 22775-040, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Bela Ferraz",
+      "telefone": "",
+      "endereco": "Bela Ferraz, Rua Visconde de Pirajá 259, Ipanema, Rio de Janeiro - RJ, 22411-010, Brazil",
+      "site": "https://belaferraz.com.br/lojas/",
+      "status": "novo"
+    },
+    {
+      "nome": "Melo Franco Medical Center",
+      "telefone": "",
+      "endereco": "Melo Franco Medical Center, Avenida Afrânio de Melo Franco 141, Leblon, Rio de Janeiro - RJ, 22440-060, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Centro Médico BarraShopping",
+      "telefone": "",
+      "endereco": "Centro Médico BarraShopping, Avenida Luís Carlos Prestes, Barra da Tijuca, Rio de Janeiro - RJ, 22775-055, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Túlio Régis Salomão & Gilberto Ranchini",
+      "telefone": "",
+      "endereco": "Túlio Régis Salomão & Gilberto Ranchini, Rua Barata Ribeiro 51, Copacabana, Rio de Janeiro - RJ, 22011-002, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Yasgrig Med",
+      "telefone": "",
+      "endereco": "Yasgrig Med, Rua Duvivier 96, Copacabana, Rio de Janeiro - RJ, 22020-002, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Centro Odontológico São José",
+      "telefone": "",
+      "endereco": "Centro Odontológico São José, Rua Barata Ribeiro 13, Copacabana, Rio de Janeiro - RJ, 22011-001, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "CoPa DePil",
+      "telefone": "",
+      "endereco": "CoPa DePil, Rua Barata Ribeiro 194G, Copacabana, Rio de Janeiro - RJ, 22011-002, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Barra Baby",
+      "telefone": "",
+      "endereco": "Barra Baby, Avenida das Américas 6700 Bl 2 Sala 212, Barra da Tijuca, Rio de Janeiro - RJ, 22793-911, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Clínica Odontológica",
+      "telefone": "",
+      "endereco": "Clínica Odontológica, Avenida das Américas 6700 Bl 2 Sala 211, Barra da Tijuca, Rio de Janeiro - RJ, 22793-911, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Dr Orlando Silva Telles",
+      "telefone": "",
+      "endereco": "Dr Orlando Silva Telles, Avenida das Américas 6700 Bloco 2 Sala 205, Barra da Tijuca, Rio de Janeiro - RJ, 22793-911, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Dra Elizabeth Maria Ribeiro",
+      "telefone": "",
+      "endereco": "Dra Elizabeth Maria Ribeiro, Avenida das Américas 6700 Bloco 2 Sala 206, Barra da Tijuca, Rio de Janeiro - RJ, 22793-911, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "DraTania Koutsoukos DraMarcia Weiland",
+      "telefone": "",
+      "endereco": "DraTania Koutsoukos DraMarcia Weiland, Avenida das Américas 6700 Bloco 2 Sala 208, Barra da Tijuca, Rio de Janeiro - RJ, 22793-911, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Oftalmo Clínica Pinho",
+      "telefone": "",
+      "endereco": "Oftalmo Clínica Pinho, Avenida das Américas 6700 Bloco 2 Sala 207, Barra da Tijuca, Rio de Janeiro - RJ, 22793-911, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Prophylaxis - Clínica de Vacinação",
+      "telefone": "",
+      "endereco": "Prophylaxis - Clínica de Vacinação, Avenida das Américas 6700 Bloco 1 Sala 215, Barra da Tijuca, Rio de Janeiro - RJ, 22793-911, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Dra Roberta de Sá F Leite",
+      "telefone": "",
+      "endereco": "Dra Roberta de Sá F Leite, Avenida das Américas 6700 Bloco 1 Sala 216, Barra da Tijuca, Rio de Janeiro - RJ, 22793-911, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Espaço Pé & Mão",
+      "telefone": "",
+      "endereco": "Espaço Pé & Mão, Acesso às Docas, Barra da Tijuca, Rio de Janeiro - RJ, 22775-003, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Oficina das Unhas",
+      "telefone": "",
+      "endereco": "Oficina das Unhas, Avenida General Felicíssimo Cardoso, Barra da Tijuca, Rio de Janeiro - RJ, 22631-003, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Maison 25",
+      "telefone": "",
+      "endereco": "Maison 25, Avenida Nossa Senhora de Copacabana, Leme, Rio de Janeiro - RJ, 22011-010, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Ambulatório Vera Resende Suassuna",
+      "telefone": "",
+      "endereco": "Ambulatório Vera Resende Suassuna, Praça Euvaldo Lodi, Barra da Tijuca, Rio de Janeiro - RJ, 22640-010, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Duo Capelli",
+      "telefone": "",
+      "endereco": "Duo Capelli, Rua Desembargador João Claudino Oliveira Cruz, Barra da Tijuca, Rio de Janeiro - RJ, 22793-909, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Cia Médica",
+      "telefone": "",
+      "endereco": "Cia Médica, Avenida das Américas 6700, Barra da Tijuca, Rio de Janeiro - RJ, 22793-911, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "MG Studio",
+      "telefone": "",
+      "endereco": "MG Studio, Ala Belize, Barra da Tijuca, Rio de Janeiro - RJ, 22793-074, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Clínica do Emagrecimento",
+      "telefone": "",
+      "endereco": "Clínica do Emagrecimento, Ala Antigua, Barra da Tijuca, Rio de Janeiro - RJ, 22793-074, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Rycardo Ximenes Studio",
+      "telefone": "",
+      "endereco": "Rycardo Ximenes Studio, Ala Antigua, Barra da Tijuca, Rio de Janeiro - RJ, 22793-074, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Salão",
+      "telefone": "",
+      "endereco": "Salão, Rua Conselheiro Lafaiete 110, Copacabana, Rio de Janeiro - RJ, 22081-025, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Casa do Médico",
+      "telefone": "",
+      "endereco": "Casa do Médico, Ciclovia Ayrton Senna, Barra da Tijuca, Rio de Janeiro - RJ, 22775-055, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Corpus de Lune",
+      "telefone": "",
+      "endereco": "Corpus de Lune, Avenida das Américas 5001, Barra da Tijuca, Rio de Janeiro - RJ, 22631-004, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Clínica Ortopedista",
+      "telefone": "",
+      "endereco": "Clínica Ortopedista, Avenida das Américas 4801, Barra da Tijuca, Rio de Janeiro - RJ, 22631-004, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Toque Médico",
+      "telefone": "",
+      "endereco": "Toque Médico, Ciclovia Ayrton Senna, Barra da Tijuca, Rio de Janeiro - RJ, 22775-055, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Centro de Tratamento Reumatológico & Esportivo",
+      "telefone": "",
+      "endereco": "Centro de Tratamento Reumatológico & Esportivo, Avenida Embaixador Abelardo Bueno 3500, Barra da Tijuca, Rio de Janeiro - RJ, 22775-060, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Depyl Action",
+      "telefone": "",
+      "endereco": "Depyl Action, Rua Bruno Giorgi, Barra Olímpica, Rio de Janeiro - RJ, 22775-040, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Sorriso Odontologia",
+      "telefone": "",
+      "endereco": "Sorriso Odontologia, Rua Bruno Giorgi, Barra Olímpica, Rio de Janeiro - RJ, 22775-040, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Núcleo Fisionline",
+      "telefone": "",
+      "endereco": "Núcleo Fisionline, Rua Bruno Giorgi, Barra Olímpica, Rio de Janeiro - RJ, 22775-040, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "PDC - Saúde",
+      "telefone": "",
+      "endereco": "PDC - Saúde, Ciclovia Avenida Ayrton Senna, Barra da Tijuca, Rio de Janeiro - RJ, 22775-002, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "PDC - Saúde",
+      "telefone": "",
+      "endereco": "PDC - Saúde, Ciclovia Avenida Ayrton Senna, Barra da Tijuca, Rio de Janeiro - RJ, 22775-002, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Clínica Felippe Mattoso",
+      "telefone": "",
+      "endereco": "Clínica Felippe Mattoso, Avenida das Américas, Barra da Tijuca, Rio de Janeiro - RJ, 22631-390, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "World Free",
+      "telefone": "",
+      "endereco": "World Free, Avenida das Américas 5150, Barra da Tijuca, Rio de Janeiro - RJ, 22640-102, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Care Body & Soul",
+      "telefone": "",
+      "endereco": "Care Body & Soul, Rua Barão de Jaguaripe, Ipanema, Rio de Janeiro - RJ, 22410-002, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Bella Ilha",
+      "telefone": "",
+      "endereco": "Bella Ilha, Alameda das Palmeiras, Barra da Tijuca, Rio de Janeiro - RJ, 22640-352, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Centro Médico BarraShopping II",
+      "telefone": "",
+      "endereco": "Centro Médico BarraShopping II, Avenida das Américas 4666, Barra da Tijuca, Rio de Janeiro - RJ, 22640-120, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Quem Disse, Berenice?",
+      "telefone": "",
+      "endereco": "Quem Disse, Berenice?, Avenida Engenheiro Carlos Carvalho 1300, Barra Olímpica, Rio de Janeiro - RJ, 22775-040, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Ronaldo Pontes",
+      "telefone": "",
+      "endereco": "Ronaldo Pontes, Rua Aníbal de Mendonça, Ipanema, Rio de Janeiro - RJ, 22410-050, Brazil",
+      "site": "",
+      "status": "novo"
+    }
+  ],
+  "barbearia": [
+    {
+      "nome": "Barbearia e Tabacaria Tabaco e Tesoura",
+      "telefone": "55 21 97539-3806",
+      "endereco": "Barbearia e Tabacaria Tabaco e Tesoura, Ladeira dos Tabajaras 143, Copacabana, Rio de Janeiro - RJ, 22031-071, Brazil",
+      "site": "http://www.shoppingcidadecopacabana.com.br/comochegar.asp",
+      "status": "novo"
+    },
+    {
+      "nome": "PLURALL BARBEARIA",
+      "telefone": "021999327016",
+      "endereco": "PLURALL BARBEARIA, Rua Vinícius de Moraes, Ipanema, Rio de Janeiro - RJ, 22411-010, Brazil",
+      "site": "https://www.plurallbarbearia.com.br/",
+      "status": "novo"
+    },
+    {
+      "nome": "Mr. Barber - Barbearia Tattoo e Piercing Ipanema",
+      "telefone": "+552134355129",
+      "endereco": "Mr. Barber - Barbearia Tattoo e Piercing Ipanema, Rua Visconde de Pirajá 207, Ipanema, Rio de Janeiro - RJ, 22411-010, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Don Ramiro Barber Club",
+      "telefone": "+5521966236065",
+      "endereco": "Don Ramiro Barber Club, Rua José Vicente 74, Grajaú, Rio de Janeiro - RJ, 20540-330, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Barbearia de Ouro",
+      "telefone": "+55 21 3557 2555",
+      "endereco": "Barbearia de Ouro, Rua das Laranjeiras 122, Laranjeiras, Rio de Janeiro - RJ, 22240-000, Brazil",
+      "site": "https://www.barbeariadeouro.com.br/",
+      "status": "novo"
+    },
+    {
+      "nome": "Hairnibal Barbearia e Cervejaria",
+      "telefone": "",
+      "endereco": "Hairnibal Barbershop and Beer Station, Estrada da Gávea 308, Rocinha, Rio de Janeiro - RJ, 22451-264, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Barbearia do Portuga",
+      "telefone": "",
+      "endereco": "Barbearia do Portuga, Rua Corrêa Dutra 16A, Flamengo, Rio de Janeiro - RJ, 22210-050, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Rio Barber Beer",
+      "telefone": "",
+      "endereco": "Rio Barber Beer, Rua Barão de Mesquita 404, Vila Isabel, Rio de Janeiro - RJ, 20511-001, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Barberia BR",
+      "telefone": "",
+      "endereco": "Barberia BR, Avenida Nossa Senhora de Copacabana, Copacabana, Rio de Janeiro - RJ, 22020-050, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "barbearia duque",
+      "telefone": "5521988355794",
+      "endereco": "barbearia duque, Rua Doutor Nilo Peçanha lj 101, Ingá, Niterói - RJ, 24210-480, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Barbearia do Kadim",
+      "telefone": "",
+      "endereco": "Barbearia do Kadim, Rua Jericó 121, Jacarepaguá, Rio de Janeiro - RJ, 22775-903, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Barbearia K & MK",
+      "telefone": "",
+      "endereco": "Barbearia K & MK, Rua Jericó 192, Cidade de Deus, Rio de Janeiro - RJ, 22775-903, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Barbearia General",
+      "telefone": "",
+      "endereco": "Barbearia General, Rua General Cristóvão Barcelos, Laranjeiras, Rio de Janeiro - RJ, 22245-120, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Barbearia Colecionador",
+      "telefone": "",
+      "endereco": "Barbearia Colecionador, Rua do Senado 49 - Sobreloja, Centro, Rio de Janeiro - RJ, 20231-000, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Barbearia do Pirro",
+      "telefone": "",
+      "endereco": "Barbearia do Pirro, Rua Barão de Petrópolis, Rio Comprido, Rio de Janeiro - RJ, 20251-140, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Barbearia Black & White",
+      "telefone": "",
+      "endereco": "Barbearia Black & White, Rua do Senado 84, Centro, Rio de Janeiro - RJ, 20231-000, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Barbearia Alvorada Express",
+      "telefone": "",
+      "endereco": "Barbearia Alvorada Express, Avenida das Américas, Barra da Tijuca, Rio de Janeiro - RJ, 22631-004, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Barbearia & etc",
+      "telefone": "",
+      "endereco": "Barbearia & etc, Rua Xavier de Araújo, Jacarepaguá, Rio de Janeiro - RJ, 22780-085, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Barbearia",
+      "telefone": "",
+      "endereco": "Barbearia, Avenida das Américas 6700, Barra da Tijuca, Rio de Janeiro - RJ, 22793-911, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Barbearia Fama",
+      "telefone": "",
+      "endereco": "Barbearia Fama, Rua Célio Fernandes dos Santos, Vargem Pequena, Rio de Janeiro - RJ, 22783-560, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Barbearia de primeira",
+      "telefone": "",
+      "endereco": "Barbearia de primeira, Avenida das Américas 6700, Barra da Tijuca, Rio de Janeiro - RJ, 22793-911, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Barbearia Retrô",
+      "telefone": "",
+      "endereco": "Barbearia Retrô, Rua Marquês de Paraná, Flamengo, Rio de Janeiro - RJ, 22230-030, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Barbearia do Zé",
+      "telefone": "",
+      "endereco": "Barbearia do Zé, Rua Mem de Sá 151, Icaraí, Niterói - RJ, 24220-260, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Barbearia Santo Cristo",
+      "telefone": "",
+      "endereco": "Barbearia Santo Cristo, Rua Santo Cristo 235 Loja A, Santo Cristo, Rio de Janeiro - RJ, 20220-302, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Barbearia Mr Max",
+      "telefone": "",
+      "endereco": "Barbearia Mr Max, Estrada dos Bandeirantes, Jacarepaguá, Rio de Janeiro - RJ, 22783-110, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Barbearia do Ed",
+      "telefone": "",
+      "endereco": "Barbearia do Ed, Rua Chalé, Jacarepaguá, Rio de Janeiro - RJ, 22780-085, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Barbearia Velhos do Rio",
+      "telefone": "",
+      "endereco": "Barbearia Velhos do Rio, Estrada dos Bandeirantes 7967, Jacarepaguá, Rio de Janeiro - RJ, 22780-085, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Barbearia da Telma",
+      "telefone": "",
+      "endereco": "Barbearia da Telma, Rua Jerônimo Serqueira, Jacarepaguá, Rio de Janeiro - RJ, 22780-085, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Barber Shop by Paulo Robert",
+      "telefone": "",
+      "endereco": "Barber Shop by Paulo Robert, Rua Presidente Backer, Icaraí, Niterói - RJ, 24230-062, Brazil",
+      "site": "",
+      "status": "novo"
+    }
+  ],
+  "empresa_limpeza": [
+    {
+      "nome": "Viva Lapa",
+      "telefone": "+55 21 2120 0403;+55 21 999 573 707",
+      "endereco": "Viva Lapa, Rua Washington Luis 75, Centro, Rio de Janeiro - RJ, 20231-084, Brazil",
+      "site": "https://www.instagram.com/vivalapalavanderia/",
+      "status": "novo"
+    },
+    {
+      "nome": "Omo Lavenderia",
+      "telefone": "+5521984318787",
+      "endereco": "Omo Lavenderia, Rua Vinícius de Moraes 170, Ipanema, Rio de Janeiro - RJ, 22411-000, Brazil",
+      "site": "https://especializada.omolavanderia.com.br/",
+      "status": "novo"
+    },
+    {
+      "nome": "Lavanderia do Bairro",
+      "telefone": "+55-21-36491828",
+      "endereco": "Lavanderia do Bairro, Rua Barata Ribeiro 54B, Copacabana, Rio de Janeiro - RJ, 22011-002, Brazil",
+      "site": "https://www.lavanderiadobairro.com.br/",
+      "status": "novo"
+    },
+    {
+      "nome": "Lavanderia",
+      "telefone": "+5521992674064",
+      "endereco": "Laundromat, Rua Miguel Lemos, Copacabana, Rio de Janeiro - RJ, 22060-000, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Luar",
+      "telefone": "+55-21-22850119",
+      "endereco": "Luar, Rua Pedro Américo 110D, Catete, Rio de Janeiro - RJ, 22211-200, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Lavstar",
+      "telefone": "+55-21-22856201; +55-21-22659854",
+      "endereco": "Lavstar, Rua Andrade Pertence 33C, Catete, Rio de Janeiro - RJ, 22220-010, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Vilarinho",
+      "telefone": "+55-21-22657351",
+      "endereco": "Vilarinho, Rua Andrade Pertence, Catete, Rio de Janeiro - RJ, 22221-000, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Lavabenne",
+      "telefone": "",
+      "endereco": "Lavabenne, Rua Presidente João Pessoa 143, Icaraí, Niterói - RJ, 24220-370, Brazil",
+      "site": "https://www.facebook.com/lavabennelavanderia",
+      "status": "novo"
+    },
+    {
+      "nome": "Água e Sol",
+      "telefone": "+55-21-22254797; +55-21-22256561",
+      "endereco": "Água e Sol, Rua Bento Lisboa 9 loja E, Catete, Rio de Janeiro - RJ, 22221-011, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Ponte",
+      "telefone": "+55-21-22348068",
+      "endereco": "Ponte, Rua São Francisco Xavier, Maracanã, Rio de Janeiro - RJ, 20550-201, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Lav Fácil",
+      "telefone": "+55-21-38740177",
+      "endereco": "Lav Fácil, Rua Jardim Botânico 601, Lagoa, Rio de Janeiro - RJ, 22470-130, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Lavanderia Primus",
+      "telefone": "+55 21 3432-1161",
+      "endereco": "Lavanderia Primus, Estrada da Soca 89, Taquara, Rio de Janeiro - RJ, 22723-424, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Lave e pegue",
+      "telefone": "+55 21 2205 9977",
+      "endereco": "Lave e pegue, Rua das Laranjeiras 280A, Laranjeiras, Rio de Janeiro - RJ, 22240-001, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Lavanderia Fatima",
+      "telefone": "021-2232-6565",
+      "endereco": "Lavanderia Fatima, Avenida Nossa Senhora de Fátima 50, Centro, Rio de Janeiro - RJ, 20240-051, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "lava isso é a kilo",
+      "telefone": "",
+      "endereco": "lava isso é a kilo, Rua São Clemente 164 - Loja A, Botafogo, Rio de Janeiro - RJ, 22260-000, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Lave e Pague",
+      "telefone": "",
+      "endereco": "Lave e Pague, Avenida Nossa Senhora de Copacabana, Copacabana, Rio de Janeiro - RJ, 22070-011, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Ambiental Wash",
+      "telefone": "",
+      "endereco": "Ambiental Wash, Avenida Nossa Senhora de Copacabana, Copacabana, Rio de Janeiro - RJ, 22060-040, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "The Wash",
+      "telefone": "",
+      "endereco": "The Wash, Rua Aires Saldanha, Copacabana, Rio de Janeiro - RJ, 22070-001, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Lav Fácil",
+      "telefone": "",
+      "endereco": "Lav Fácil, Rua General Pereira da Silva 188, Icaraí, Niterói - RJ, 24220-031, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Lavanderia Cantuária",
+      "telefone": "",
+      "endereco": "Lavanderia Cantuária, Rua Bartolomeu Portela 25D, Botafogo, Rio de Janeiro - RJ, 22290-190, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Jandaia",
+      "telefone": "",
+      "endereco": "Jandaia, Rua Voluntários da Pátria 97, Botafogo, Rio de Janeiro - RJ, 22280-030, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Tinturaria Brasileira",
+      "telefone": "",
+      "endereco": "Tinturaria Brasileira, Rua Lopes Trovão 402, Icaraí, Niterói - RJ, 24220-071, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Laundromat",
+      "telefone": "",
+      "endereco": "Laundromat, Estrada dos Bandeirantes, Jacarepaguá, Rio de Janeiro - RJ, 22783-110, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Lavanderia do HCAP",
+      "telefone": "",
+      "endereco": "Lavanderia do HCAP, Avenida Paulo de Frontin, Rio Comprido, Rio de Janeiro - RJ, 20261-243, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Laundromat",
+      "telefone": "",
+      "endereco": "Laundromat, Rua General Glicério 324A, Laranjeiras, Rio de Janeiro - RJ, 22245-100, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "5àsec",
+      "telefone": "",
+      "endereco": "5àsec, Rua Marquês de Abrantes 56, Flamengo, Rio de Janeiro - RJ, 22230-061, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Lavanderia Uruguay",
+      "telefone": "",
+      "endereco": "Lavanderia Uruguay, Rua Uruguai, Tijuca, Rio de Janeiro - RJ, 20510-260, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Arte de Lavar",
+      "telefone": "",
+      "endereco": "Arte de Lavar, Rua Pedro Américo 166, Catete, Rio de Janeiro - RJ, 22211-200, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Lavanderia Angélica",
+      "telefone": "",
+      "endereco": "Lavanderia Angélica, Rua Doutor Olinto de Magalhães, Vidigal, Rio de Janeiro - RJ, 22450-250, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Buenos Aires",
+      "telefone": "",
+      "endereco": "Buenos Aires, Avenida Prado Júnior 318A, Copacabana, Rio de Janeiro - RJ, 22011-970, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Lavando com Arte",
+      "telefone": "",
+      "endereco": "Lavando com Arte, Rua Barata Ribeiro, Copacabana, Rio de Janeiro - RJ, 22051-020, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Lav & Cia",
+      "telefone": "",
+      "endereco": "Lav & Cia, Praça Varnhagen, Tijuca, Rio de Janeiro - RJ, 20550-150, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Laundromat - MapBarra",
+      "telefone": "",
+      "endereco": "Laundromat - MapBarra, Avenida das Américas 10200 Loja 7, Barra da Tijuca, Rio de Janeiro - RJ, 22793-082, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Dry Wash",
+      "telefone": "",
+      "endereco": "Dry Wash, Avenida das Américas 6700 Bloco 1 Loja 111, Barra da Tijuca, Rio de Janeiro - RJ, 22793-911, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "5àsec",
+      "telefone": "",
+      "endereco": "5àsec, Rua Voluntários da Pátria 410, Botafogo, Rio de Janeiro - RJ, 21050-250, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Lava Kilo",
+      "telefone": "",
+      "endereco": "Lava Kilo, Rua Garcia d'Ávila 173, Ipanema, Rio de Janeiro - RJ, 22421-010, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Lavanderia Atlântica",
+      "telefone": "",
+      "endereco": "Lavanderia Atlântica, Rua Álvaro Ramos 112A, Botafogo, Rio de Janeiro - RJ, 22280-110, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Lavi Vila",
+      "telefone": "",
+      "endereco": "Lavi Vila, Boulevard 28 de Setembro, Vila Isabel, Rio de Janeiro - RJ, 20551-031, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Laundroex",
+      "telefone": "",
+      "endereco": "Laundroex, Estrada dos Bandeirantes 7993, Jacarepaguá, Rio de Janeiro - RJ, 22780-085, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Tinturaria e lavanderia Vilarinho",
+      "telefone": "",
+      "endereco": "Tinturaria e lavanderia Vilarinho, Rua Washington Luis 99 - Loja A, Centro, Rio de Janeiro - RJ, 20231-084, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Tinturaria e lavanderia Relâmpago",
+      "telefone": "",
+      "endereco": "Tinturaria e lavanderia Relâmpago, Rua André Cavalcanti 13 - Loja D, Lapa, Rio de Janeiro - RJ, 20231-050, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Lava Roupas Tododia",
+      "telefone": "",
+      "endereco": "Lava Roupas Tododia, Ala Aruba, Barra da Tijuca, Rio de Janeiro - RJ, 22793-074, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "sauber laundry",
+      "telefone": "",
+      "endereco": "laundry sauber, Rua Machado de Assis, Flamengo, Rio de Janeiro - RJ, 22220-060, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Imperatriz",
+      "telefone": "",
+      "endereco": "Imperatriz, Rua Marquês de Abrantes 110, Flamengo, Rio de Janeiro - RJ, 22230-061, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Laundromat",
+      "telefone": "",
+      "endereco": "Laundromat, Rua Marquês de Abrantes 82, Flamengo, Rio de Janeiro - RJ, 22230-061, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Marques",
+      "telefone": "",
+      "endereco": "Marques, Rua Marquês de Abrantes 213, Flamengo, Rio de Janeiro - RJ, 22230-061, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Tinturaria Marcia",
+      "telefone": "",
+      "endereco": "Tinturaria Marcia, Rua das Laranjeiras 371C, Laranjeiras, Rio de Janeiro - RJ, 22240-004, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Top Lav",
+      "telefone": "",
+      "endereco": "Top Lav, Rua Voluntários da Pátria 236 Loja D, Botafogo, Rio de Janeiro - RJ, 22270-014, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Lavô!",
+      "telefone": "",
+      "endereco": "Lavô!, Rua Carvalho de Mendonça, Copacabana, Rio de Janeiro - RJ, 22020-050, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Juçara",
+      "telefone": "",
+      "endereco": "Juçara, Avenida Engenheiro Richard 20, Grajaú, Rio de Janeiro - RJ, 20540-341, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Vienense",
+      "telefone": "",
+      "endereco": "Vienense, Rua Humaitá, Humaitá, Rio de Janeiro - RJ, 22261-000, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Maria Express",
+      "telefone": "",
+      "endereco": "Maria Express, Rua Ator Paulo Gustavo 126, Icaraí, Niterói - RJ, 24230-063, Brazil",
+      "site": "",
+      "status": "novo"
+    },
+    {
+      "nome": "Laundromat Integral",
+      "telefone": "",
+      "endereco": "Laundromat Integral, Rua Farme de Amoedo 55, Ipanema, Rio de Janeiro - RJ, 22410-001, Brazil",
+      "site": "",
+      "status": "novo"
+    }
+  ],
+  "coach": [],
+  "turismo_excursao": [
+    {
+      "nome": "Copa Apartments",
+      "telefone": "",
+      "endereco": "Copa Apartments, Rua General Barbosa Lima, Copacabana, Rio de Janeiro - RJ, 22020-001, Brazil",
+      "site": "https://copaapartments.com/",
+      "status": "novo"
+    },
+    {
+      "nome": "Agencia de turismo Carioca Travel",
+      "telefone": "",
+      "endereco": "Agencia de turismo Carioca Travel, Avenida Nossa Senhora de Copacabana, Copacabana, Rio de Janeiro - RJ, 22020-050, Brazil",
+      "site": "http://brazil.guide.com.ru",
+      "status": "novo"
+    }
+  ]
+}
