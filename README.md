@@ -1,57 +1,50 @@
-# Lumyf - SaaS (Financas Pessoais)
+# CRM GRAPYX - Prospecção
 
-App de financas pessoais multi-tenant com Next.js 14 e Supabase.
-
-## Stack
-
-- Next.js 14 (App Router), TypeScript, Tailwind CSS
-- Supabase: Auth (GoTrue), Postgres com RLS, Realtime
+CRM multi-nicho com Next.js e Supabase.
 
 ## Setup
 
 ### 1. Banco de dados (Supabase)
 
-1. Crie um projeto no Supabase.
-2. No SQL Editor, rode `supabase/setup-database.sql`.
-3. Aplique as migrations em `supabase/migrations` (incluindo `20260220010000_auth_bootstrap_and_backfill.sql`).
+1. Crie um projeto no [Supabase](https://supabase.com)
+2. Abra **SQL Editor** e execute o conteúdo de `supabase/setup_database.sql`
+3. **Criar usuário admin** (uma das opções):
 
-### 2. Variaveis de ambiente
+   **Opção A – Script automático:**
+   - Adicione no `.env`: `SUPABASE_SERVICE_ROLE_KEY=sua-service-role-key` (em Settings > API)
+   - Execute: `npm run setup:admin`
 
-Copie `.env.example` para `.env.local` e preencha:
+   **Opção B – Manual:**
+   - Em **Authentication** > **Users** > **Add user** crie:
+   - Email: `graphyx.ai@gmail.com`
+   - Password: `@101222Tlc`
+   - Marque "Auto Confirm User"
 
-```bash
-cp .env.example .env.local
+### 2. Variáveis de ambiente
+
+Copie `.env.example` para `.env` e preencha:
+
+```
+NEXT_PUBLIC_SUPABASE_URL=https://seu-projeto.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=sua-anon-key
+SUPABASE_SERVICE_ROLE_KEY=sua-service-role-key
 ```
 
-- `NEXT_PUBLIC_SUPABASE_URL`
-- `NEXT_PUBLIC_SUPABASE_ANON_KEY`
-- `SUPABASE_SERVICE_ROLE_KEY`
-- `NEXT_PUBLIC_APP_URL`
-- `CRON_SECRET` (opcional) — protege o endpoint `/api/cron/recurring` para gerar transações recorrentes. Configure em Vercel Cron.
-
-Importante:
-- `NEXT_PUBLIC_SUPABASE_ANON_KEY` deve ser a chave publica `anon`.
-- Nunca use `service_role` em variaveis `NEXT_PUBLIC_*`.
-
-### 3. Instalacao e execucao
+### 3. Executar
 
 ```bash
 npm install
 npm run dev
 ```
 
-## Testes
+O app estará em http://localhost:3000 (Next.js)
 
-```bash
-npm run test
-npm run build
-```
+## Funcionalidades
 
-## Seguranca
-
-- Nunca versione segredos reais em `.env.example`.
-- Rode scanner local:
-
-```bash
-npm run security:scan
-```
+- **Login:** Credenciais fixas (graphyx.ai@gmail.com)
+- **Dashboard:** KPIs e gráficos por status e nicho
+- **Prospecção:** CRUD completo de clientes por nicho
+- **MVP:** Nicho para sites custom-built
+- **Sidebar:** Toggle para recolher/expandir
+- **Tema:** Light/Dark mode (sessionStorage)
+# CRM-Grapyhx
