@@ -57,3 +57,20 @@ O app estará em http://localhost:3000.
 - Dashboard com dados do Supabase
 - Prospecção por nicho com CRUD de clientes
 - Delete remove do UI e do Supabase
+
+## Resolver conflito de merge em `lib/clientes.js`
+
+Se aparecer conflito entre as versões `main` (somente `clients`) e `codex/...` (suporte híbrido), mantenha a versão híbrida enquanto existir dado em `public.clientes`.
+
+```bash
+git checkout --theirs lib/clientes.js  # se "theirs" for a branch codex com suporte híbrido
+# ou abra o arquivo e remova todos os marcadores <<<<<<< ======= >>>>>>>
+git add lib/clientes.js
+git commit -m "Resolve merge conflict in clientes data access"
+```
+
+A versão correta para ambiente híbrido deve:
+- ler de `clients` e `clientes`
+- normalizar campos (`name` -> `nome`, `phone` -> `telefone`, etc.)
+- deduplicar por `id`
+- deletar em ambas tabelas
