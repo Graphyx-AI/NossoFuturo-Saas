@@ -42,8 +42,8 @@ Se aparecer o erro de ambiente no login:
 
 ### 3. Importar CSV processado para Supabase
 
-> Importante: os CSVs da pasta `dados/` **não importam automaticamente para o banco** durante `npm run dev`; eles só aparecem como fallback local na UI.
-> Para persistir no Supabase, execute o script abaixo.
+> Importante: ao abrir as páginas de prospecção, o app tenta sincronizar automaticamente os CSVs da pasta `dados/` para `public.clients` (upsert por `niche,name,raw_csv_path`).
+> Se quiser forçar/reprocessar a carga completa, execute o script abaixo.
 
 O script lê os CSVs da pasta `dados/` e insere/atualiza em `public.clients` (com fallback automático para `public.clientes`):
 
