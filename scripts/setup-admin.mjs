@@ -18,7 +18,7 @@ const ADMIN_PASSWORD = '@101222Tlc';
 function loadEnv() {
   const envPath = resolve(__dirname, '..', '.env');
   if (!existsSync(envPath)) {
-    console.error('❌ Arquivo .env não encontrado. Crie a partir de .env.example');
+    console.error('❌ Arquivo .env não encontrado. Crie o arquivo .env na raiz do projeto');
     process.exit(1);
   }
   const content = readFileSync(envPath, 'utf-8');
