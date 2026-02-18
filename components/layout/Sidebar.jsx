@@ -40,7 +40,7 @@ export default function Sidebar({ clientCounts = {} }) {
 
   const handleLogout = async () => {
     await signOut();
-    router.replace('/login');
+    router.replace('/');
   };
 
   return (
