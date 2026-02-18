@@ -36,8 +36,9 @@ SUPABASE_SERVICE_ROLE_KEY=sua-service-role-key
 
 Se aparecer o erro de ambiente no login:
 
-- Garanta que as chaves estejam em `.env.local` (ou `.env`) com os nomes `NEXT_PUBLIC_SUPABASE_URL` e `NEXT_PUBLIC_SUPABASE_ANON_KEY`.
+- Garanta que as chaves estejam em `.env.local` (ou `.env`) com os nomes `NEXT_PUBLIC_SUPABASE_URL` e `NEXT_PUBLIC_SUPABASE_ANON_KEY` (ou `NEXT_PUBLIC_SUPABASE_KEY`).
 - Reinicie o `npm run dev` após alterar variáveis de ambiente.
+- No Windows/PowerShell, confirme que o arquivo está exatamente como `.env.local` na raiz do projeto e sem extensão oculta (`.txt`).
 - Este projeto também aceita aliases legados: `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY`, `SUPABASE_URL`, `SUPABASE_ANON_KEY`.
 
 ### 3. Importar CSV processado para Supabase
