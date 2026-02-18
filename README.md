@@ -81,5 +81,8 @@ git commit -m "Resolve merge conflict in clientes data access"
 A versão correta para ambiente híbrido deve:
 - ler de `clients` e `clientes`
 - normalizar campos (`name` -> `nome`, `phone` -> `telefone`, etc.)
-- deduplicar por `id`
+- deduplicar por chave de negócio (nicho+nome+telefone+endereço)
 - deletar em ambas tabelas
+
+
+> Observação: o app agora tenta **inserir/atualizar primeiro em `public.clients`** e, se a tabela canônica não existir no projeto, faz fallback automático para `public.clientes`.
