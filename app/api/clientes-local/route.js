@@ -15,48 +15,6 @@ const CSV_TO_NICHE = {
   'turismo_excursao.csv': 'turismo_excursao'
 };
 
-
-const JSON_TO_NICHE = {
-  psicologo: 'psicologo',
-  imobiliaria: 'imobiliaria',
-  curso_online: 'curso_online',
-  dentista: 'dentista',
-  clinica_estetica: 'clinica_estetica',
-  barbearia: 'barbearia',
-  empresa_limpeza: 'empresa_limpeza',
-  coach: 'coach',
-  turismo_excursao: 'turismo_excursao',
-  mvp: 'mvp'
-};
-
-async function readJsonFallback(nicheFilter) {
-  const jsonPath = path.join(process.cwd(), 'dados_atualizados.json');
-  const content = await fs.readFile(jsonPath, 'utf8').catch(() => '');
-  if (!content) return [];
-
-  const payload = JSON.parse(content);
-  if (!payload || typeof payload !== 'object') return [];
-
-  const clients = [];
-
-  Object.entries(payload).forEach(([key, rows]) => {
-    const mappedNiche = JSON_TO_NICHE[key] || key;
-    if (nicheFilter && mappedNiche !== nicheFilter) return;
-    if (!Array.isArray(rows)) return;
-
-    rows.forEach((row, index) => {
-      const mapped = mapRowToUi(row || {}, mappedNiche, `dados_atualizados.json:${key}`, index);
-      if (mapped) {
-        mapped.status = safeTrim(row?.status) || 'novo';
-        mapped.observacoes = safeTrim(row?.observacoes);
-        clients.push(mapped);
-      }
-    });
-  });
-
-  return clients;
-}
-
 function parseCsv(content) {
   const rows = [];
   let current = '';
@@ -114,10 +72,6 @@ function parseCsv(content) {
   });
 }
 
-function safeTrim(value) {
-  return typeof value === 'string' ? value.trim() : '';
-}
-
 function mapRowToUi(row, niche, sourceFile, index) {
   const nome = (row.nome || '').trim();
   if (!nome) return null;
@@ -167,12 +121,7 @@ export async function GET(request) {
       });
     }
 
-    if (clients.length > 0) {
-      return NextResponse.json({ data: clients });
-    }
-
-    const fallbackClients = await readJsonFallback(nicheFilter);
-    return NextResponse.json({ data: fallbackClients });
+    return NextResponse.json({ data: clients });
   } catch (error) {
     return NextResponse.json({ error: error.message || 'Erro ao ler CSV local.' }, { status: 500 });
   }
