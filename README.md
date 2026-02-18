@@ -23,7 +23,7 @@ CRM multi-nicho com Next.js e Supabase.
 
 ### 2. Variáveis de ambiente
 
-Copie `.env.example` para `.env` e preencha:
+Crie o arquivo `.env` na raiz do projeto e preencha:
 
 ```bash
 NEXT_PUBLIC_SUPABASE_URL=https://seu-projeto.supabase.co
@@ -53,7 +53,6 @@ O app estará em http://localhost:3000.
 
 ## Funcionalidades
 
-- Login
 - Dashboard com dados do Supabase
 - Prospecção por nicho com CRUD de clientes
 - Delete remove do UI e do Supabase
