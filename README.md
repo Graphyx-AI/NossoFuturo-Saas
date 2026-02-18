@@ -23,7 +23,7 @@ CRM multi-nicho com Next.js e Supabase.
 
 ### 2. Variáveis de ambiente
 
-Crie o arquivo `.env` na raiz do projeto e preencha:
+Copie `.env.example` para `.env` e preencha:
 
 ```bash
 NEXT_PUBLIC_SUPABASE_URL=https://seu-projeto.supabase.co
@@ -31,9 +31,21 @@ NEXT_PUBLIC_SUPABASE_ANON_KEY=sua-anon-key
 SUPABASE_SERVICE_ROLE_KEY=sua-service-role-key
 ```
 
+
+### 2.1 Troubleshooting de login (Supabase não configurado)
+
+Se aparecer o erro de ambiente no login:
+
+- Garanta que as chaves estejam em `.env.local` (ou `.env`) com os nomes `NEXT_PUBLIC_SUPABASE_URL` e `NEXT_PUBLIC_SUPABASE_ANON_KEY`.
+- Reinicie o `npm run dev` após alterar variáveis de ambiente.
+- Este projeto também aceita aliases legados: `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY`, `SUPABASE_URL`, `SUPABASE_ANON_KEY`.
+
 ### 3. Importar CSV processado para Supabase
 
-O script abaixo lê os CSVs da pasta `dados/` e insere/atualiza na tabela `public.clients`:
+> Importante: os CSVs da pasta `dados/` **não importam automaticamente para o banco** durante `npm run dev`; eles só aparecem como fallback local na UI.
+> Para persistir no Supabase, execute o script abaixo.
+
+O script lê os CSVs da pasta `dados/` e insere/atualiza em `public.clients` (com fallback automático para `public.clientes`):
 
 ```bash
 pip install supabase
@@ -53,6 +65,27 @@ O app estará em http://localhost:3000.
 
 ## Funcionalidades
 
+- Login
 - Dashboard com dados do Supabase
 - Prospecção por nicho com CRUD de clientes
 - Delete remove do UI e do Supabase
+
+## Resolver conflito de merge em `lib/clientes.js`
+
+Se aparecer conflito entre as versões `main` (somente `clients`) e `codex/...` (suporte híbrido), mantenha a versão híbrida enquanto existir dado em `public.clientes`.
+
+```bash
+git checkout --theirs lib/clientes.js  # se "theirs" for a branch codex com suporte híbrido
+# ou abra o arquivo e remova todos os marcadores <<<<<<< ======= >>>>>>>
+git add lib/clientes.js
+git commit -m "Resolve merge conflict in clientes data access"
+```
+
+A versão correta para ambiente híbrido deve:
+- ler de `clients` e `clientes`
+- normalizar campos (`name` -> `nome`, `phone` -> `telefone`, etc.)
+- deduplicar por chave de negócio (nicho+nome+telefone+endereço)
+- deletar em ambas tabelas
+
+
+> Observação: o app agora tenta **inserir/atualizar primeiro em `public.clients`** e, se a tabela canônica não existir no projeto, faz fallback automático para `public.clientes`.
