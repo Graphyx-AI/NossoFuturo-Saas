@@ -6,6 +6,7 @@ import { z } from "zod";
 import { cookies } from "next/headers";
 
 const intentSchema = z.enum(["personal", "family", "business", "other"]);
+const intentDetailSchema = z.string().trim().max(220).nullable().optional();
 const workspaceNameSchema = z
   .string()
   .min(1, "Nome é obrigatório")
@@ -22,7 +23,10 @@ function slugify(name: string): string {
     .replace(/^-|-$/g, "") || "workspace";
 }
 
-export async function saveOnboardingIntent(intent: z.infer<typeof intentSchema>) {
+export async function saveOnboardingIntent(
+  intent: z.infer<typeof intentSchema>,
+  intentDetail?: string | null
+) {
   const supabase = await createClient();
   const {
     data: { user },
@@ -30,11 +34,13 @@ export async function saveOnboardingIntent(intent: z.infer<typeof intentSchema>)
   if (!user) throw new Error("Não autorizado");
 
   const parsed = intentSchema.parse(intent);
+  const parsedDetail = intentDetailSchema.parse(intentDetail);
 
   const { error } = await supabase
     .from("profiles")
     .update({
       onboarding_intent: parsed,
+      onboarding_intent_detail: parsed === "other" ? parsedDetail ?? null : null,
       updated_at: new Date().toISOString(),
     })
     .eq("id", user.id);
@@ -103,7 +109,7 @@ export async function getProfileOnboardingStatus() {
 
   const { data } = await supabase
     .from("profiles")
-    .select("onboarding_completed_at, onboarding_intent")
+    .select("onboarding_completed_at, onboarding_intent, onboarding_intent_detail")
     .eq("id", user.id)
     .single();
 

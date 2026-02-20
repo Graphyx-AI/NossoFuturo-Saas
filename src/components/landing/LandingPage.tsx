@@ -18,7 +18,10 @@ import {
   X,
   ChevronDown,
   HelpCircle,
+  Moon,
+  Sun,
 } from "lucide-react";
+import { useTheme } from "@/components/theme-provider";
 
 const NAV_LINKS = ["Funcionalidades", "Preços", "FAQ", "Sobre"];
 
@@ -111,6 +114,7 @@ const FAQ_ITEMS = [
 export function LandingPage() {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [openFaq, setOpenFaq] = useState<number | null>(0);
+  const { theme, toggleTheme } = useTheme();
 
   return (
     <div className="min-h-screen bg-background text-foreground overflow-x-hidden">
@@ -135,6 +139,15 @@ export function LandingPage() {
           </nav>
 
           <div className="hidden md:flex items-center gap-3">
+            <button
+              type="button"
+              onClick={toggleTheme}
+              className="min-h-[40px] min-w-[40px] flex items-center justify-center rounded-xl border border-border bg-card text-muted-foreground hover:text-foreground hover:bg-secondary transition-colors"
+              aria-label={theme === "dark" ? "Ativar modo claro" : "Ativar modo escuro"}
+              title={theme === "dark" ? "Modo claro" : "Modo escuro"}
+            >
+              {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+            </button>
             <Link
               href="/login"
               className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
@@ -177,6 +190,16 @@ export function LandingPage() {
             >
               Criar conta
             </Link>
+            <button
+              type="button"
+              onClick={() => {
+                toggleTheme();
+                setMobileOpen(false);
+              }}
+              className="block w-full rounded-lg border border-border px-5 py-2.5 text-center text-sm font-semibold text-foreground"
+            >
+              {theme === "dark" ? "Modo claro" : "Modo escuro"}
+            </button>
           </div>
         )}
       </header>

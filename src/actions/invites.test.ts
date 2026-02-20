@@ -9,6 +9,7 @@ import {
 } from "./invites";
 
 vi.mock("@/lib/supabase/server", () => ({ createClient: vi.fn() }));
+vi.mock("next/cache", () => ({ revalidatePath: vi.fn() }));
 vi.mock("@supabase/supabase-js", () => ({
   createClient: vi.fn().mockReturnValue({
     from: () => ({
@@ -31,6 +32,7 @@ vi.mock("@/lib/email/resend", () => ({
 }));
 
 const mockCreateClient = vi.mocked((await import("@/lib/supabase/server")).createClient);
+const mockCreateAdminClient = vi.mocked((await import("@supabase/supabase-js")).createClient);
 
 function baseFrom(table: string) {
   if (table === "workspaces") {
@@ -101,6 +103,21 @@ function baseFrom(table: string) {
 describe("invites actions", () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    mockCreateAdminClient.mockReturnValue({
+      from: () => ({
+        insert: () => Promise.resolve({ error: null }),
+        delete: () => ({ eq: () => Promise.resolve({ error: null }) }),
+      }),
+      auth: {
+        admin: {
+          getUserById: () =>
+            Promise.resolve({
+              data: { user: { email: "member@test.com" } },
+              error: null,
+            }),
+        },
+      },
+    } as never);
   });
 
   it("createWorkspaceInvite retorna erro sem usuario", async () => {
@@ -131,6 +148,178 @@ describe("invites actions", () => {
 
     const result = await acceptWorkspaceInvite("bad-token");
     expect(result.ok).toBe(false);
+  });
+
+  it("acceptWorkspaceInvite nao consome link quando usuario ja e membro", async () => {
+    process.env.SUPABASE_SERVICE_ROLE_KEY = "service-key";
+    process.env.NEXT_PUBLIC_SUPABASE_URL = "https://example.supabase.co";
+
+    let inviteDeleted = false;
+
+    mockCreateClient.mockResolvedValue({
+      auth: { getUser: () => Promise.resolve({ data: { user: { id: "u2", email: "member@test.com" } } }) },
+      rpc: () =>
+        Promise.resolve({
+          data: [
+            {
+              id: "inv-1",
+              workspace_id: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+              email: "link::guest::abc123",
+              role: "editor",
+              invited_by: "u1",
+            },
+          ],
+          error: null,
+        }),
+      from: (table: string) => {
+        if (table === "profiles") {
+          return {
+            select: () => ({
+              eq: () => ({
+                single: () => Promise.resolve({ data: { onboarding_completed_at: null }, error: null }),
+              }),
+            }),
+          };
+        }
+        return baseFrom(table);
+      },
+    } as never);
+
+    mockCreateAdminClient.mockReturnValue({
+      from: (table: string) => {
+        if (table === "workspace_members") {
+          return {
+            select: () => ({
+              eq: () => ({
+                eq: () => ({
+                  not: () => ({
+                    maybeSingle: () => Promise.resolve({ data: { id: "wm-1" }, error: null }),
+                  }),
+                }),
+              }),
+            }),
+            insert: () => Promise.resolve({ error: null }),
+          };
+        }
+        if (table === "workspace_invites") {
+          return {
+            delete: () => ({
+              eq: () => {
+                inviteDeleted = true;
+                return Promise.resolve({ error: null });
+              },
+            }),
+          };
+        }
+        return {
+          insert: () => Promise.resolve({ error: null }),
+          delete: () => ({ eq: () => Promise.resolve({ error: null }) }),
+        };
+      },
+      auth: {
+        admin: {
+          getUserById: () =>
+            Promise.resolve({
+              data: { user: { email: "member@test.com" } },
+              error: null,
+            }),
+        },
+      },
+    } as never);
+
+    const result = await acceptWorkspaceInvite("valid-token");
+    expect(result.ok).toBe(false);
+    if (!result.ok) {
+      expect(result.error).toContain("ja e membro");
+    }
+    expect(inviteDeleted).toBe(false);
+  });
+
+  it("acceptWorkspaceInvite mantem link compartilhavel ativo apos aceite", async () => {
+    process.env.SUPABASE_SERVICE_ROLE_KEY = "service-key";
+    process.env.NEXT_PUBLIC_SUPABASE_URL = "https://example.supabase.co";
+
+    let inviteDeleted = false;
+    let insertCalled = false;
+
+    mockCreateClient.mockResolvedValue({
+      auth: { getUser: () => Promise.resolve({ data: { user: { id: "u3", email: "new@test.com" } } }) },
+      rpc: () =>
+        Promise.resolve({
+          data: [
+            {
+              id: "inv-2",
+              workspace_id: "a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11",
+              email: "link::guest::abc123",
+              role: "editor",
+              invited_by: "u1",
+            },
+          ],
+          error: null,
+        }),
+      from: (table: string) => {
+        if (table === "profiles") {
+          return {
+            select: () => ({
+              eq: () => ({
+                single: () => Promise.resolve({ data: { onboarding_completed_at: "2026-01-01T00:00:00Z" }, error: null }),
+              }),
+            }),
+          };
+        }
+        return baseFrom(table);
+      },
+    } as never);
+
+    mockCreateAdminClient.mockReturnValue({
+      from: (table: string) => {
+        if (table === "workspace_members") {
+          return {
+            select: () => ({
+              eq: () => ({
+                eq: () => ({
+                  not: () => ({
+                    maybeSingle: () => Promise.resolve({ data: null, error: null }),
+                  }),
+                }),
+              }),
+            }),
+            insert: () => {
+              insertCalled = true;
+              return Promise.resolve({ error: null });
+            },
+          };
+        }
+        if (table === "workspace_invites") {
+          return {
+            delete: () => ({
+              eq: () => {
+                inviteDeleted = true;
+                return Promise.resolve({ error: null });
+              },
+            }),
+          };
+        }
+        return {
+          insert: () => Promise.resolve({ error: null }),
+          delete: () => ({ eq: () => Promise.resolve({ error: null }) }),
+        };
+      },
+      auth: {
+        admin: {
+          getUserById: () =>
+            Promise.resolve({
+              data: { user: { email: "member@test.com" } },
+              error: null,
+            }),
+        },
+      },
+    } as never);
+
+    const result = await acceptWorkspaceInvite("valid-token");
+    expect(result.ok).toBe(true);
+    expect(insertCalled).toBe(true);
+    expect(inviteDeleted).toBe(false);
   });
 
   it("cancelWorkspaceInvite retorna erro sem usuario", async () => {

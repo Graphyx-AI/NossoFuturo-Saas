@@ -12,6 +12,7 @@ export function WelcomeBanner() {
   const [show, setShow] = useState(false);
   const t = useTranslations("welcome");
   const tCommon = useTranslations("common");
+  const tTour = useTranslations("tour");
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -59,7 +60,27 @@ export function WelcomeBanner() {
           type="button"
           onClick={() => {
             handleDismiss();
-            startGuidedTour();
+            startGuidedTour({
+              sidebarTitle: tTour("sidebarTitle"),
+              sidebarDesc: tTour("sidebarDesc"),
+              transactionsTitle: tTour("transactionsTitle"),
+              transactionsDesc: tTour("transactionsDesc"),
+              investmentsTitle: tTour("investmentsTitle"),
+              investmentsDesc: tTour("investmentsDesc"),
+              goalsTitle: tTour("goalsTitle"),
+              goalsDesc: tTour("goalsDesc"),
+              yearViewTitle: tTour("yearViewTitle"),
+              yearViewDesc: tTour("yearViewDesc"),
+              workspaceTitle: tTour("workspaceTitle"),
+              workspaceDesc: tTour("workspaceDesc"),
+              settingsTitle: tTour("settingsTitle"),
+              settingsDesc: tTour("settingsDesc"),
+              next: tTour("next"),
+              prev: tTour("prev"),
+              done: tTour("done"),
+              gotIt: tTour("gotIt"),
+              progress: tTour("progress"),
+            });
           }}
           className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold border border-border bg-secondary hover:bg-primary/10 text-foreground transition-colors"
         >

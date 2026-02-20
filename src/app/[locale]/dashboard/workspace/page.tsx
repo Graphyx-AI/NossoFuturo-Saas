@@ -29,14 +29,26 @@ export default async function WorkspacePage() {
     data: { user },
   } = await supabase.auth.getUser();
 
-  const [workspaceMembers, workspaceInvites] = await Promise.all([
+  const [workspaceMembers, workspaceInvites, membershipLookup] = await Promise.all([
     getWorkspaceMembersWithProfiles(currentWorkspaceId),
     getWorkspaceInvites(currentWorkspaceId),
+    currentWorkspaceId && user?.id
+      ? supabase
+          .from("workspace_members")
+          .select("role")
+          .eq("workspace_id", currentWorkspaceId)
+          .eq("user_id", user.id)
+          .not("accepted_at", "is", null)
+          .maybeSingle()
+      : Promise.resolve({ data: null, error: null }),
   ]);
 
-  const currentMember = workspaceMembers.find((member) => member.user_id === user?.id);
+  const currentWorkspace = workspaces.find((workspace) => workspace.id === currentWorkspaceId);
+  const membershipRole = (membershipLookup.data as { role?: string } | null)?.role;
   const canManageMembers =
-    currentMember?.role === "owner" || currentMember?.role === "admin";
+    currentWorkspace?.owner_id === user?.id ||
+    membershipRole === "owner" ||
+    membershipRole === "admin";
 
   return (
     <WorkspaceManagerClient

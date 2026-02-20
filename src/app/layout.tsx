@@ -20,12 +20,11 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  metadataBase:
-    process.env.NEXT_PUBLIC_APP_URL ?
-      new URL(process.env.NEXT_PUBLIC_APP_URL)
+  metadataBase: process.env.NEXT_PUBLIC_APP_URL
+    ? new URL(process.env.NEXT_PUBLIC_APP_URL)
     : new URL("https://nosso-futuro.com"),
   title: {
-    default: "Nosso Futuro — Finanças para Casal e Família",
+    default: "Nosso Futuro - Finanças para Casal e Família",
     template: "%s | Nosso Futuro",
   },
   description:
@@ -52,8 +51,8 @@ export default function RootLayout({
           }}
         />
         <ThemeProvider>
-        <AccessibilityProvider>{children}</AccessibilityProvider>
-      </ThemeProvider>
+          <AccessibilityProvider>{children}</AccessibilityProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

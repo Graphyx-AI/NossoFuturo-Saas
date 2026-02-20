@@ -21,6 +21,13 @@ export default function InviteAcceptPage() {
   const [status, setStatus] = useState<"loading" | "success" | "error" | "redirect">("loading");
   const [errorMessage, setErrorMessage] = useState<string>("");
 
+  function resolveLocalePrefix() {
+    if (typeof window === "undefined") return "/pt-BR";
+    const first = window.location.pathname.split("/").filter(Boolean)[0];
+    const locales = new Set(["pt-BR", "pt-PT", "en", "es"]);
+    return locales.has(first) ? `/${first}` : "/pt-BR";
+  }
+
   useEffect(() => {
     if (!token) {
       setStatus("error");
@@ -60,7 +67,8 @@ export default function InviteAcceptPage() {
         setTimeout(() => {
           if (!cancelled) {
             setStatus("redirect");
-            window.location.href = "/dashboard";
+            const prefix = resolveLocalePrefix();
+            window.location.href = `${prefix}${result.onboardingRequired ? "/onboarding" : "/dashboard"}`;
           }
         }, 1500);
       } else {

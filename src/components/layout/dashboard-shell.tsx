@@ -16,19 +16,24 @@ export function DashboardShell({
   children: React.ReactNode;
 }) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   useGuidedTour();
 
   return (
     <div className="flex min-h-screen bg-background text-foreground">
       <Sidebar
+        collapsed={sidebarCollapsed}
+        onToggleCollapse={() => setSidebarCollapsed((v) => !v)}
         mobileOpen={mobileMenuOpen}
         onClose={() => setMobileMenuOpen(false)}
       />
-      <div className="flex-1 flex flex-col min-w-0 lg:pl-4 bg-background">
+      <div className="flex-1 flex flex-col min-w-0 bg-background">
         <Header
           workspace={workspace}
           workspaces={workspaces}
           onMenuClick={() => setMobileMenuOpen(true)}
+          sidebarCollapsed={sidebarCollapsed}
+          onSidebarToggle={() => setSidebarCollapsed((v) => !v)}
         />
         <main className="flex-1 p-4 sm:p-6 lg:px-6 lg:py-6 relative min-w-0">
           {children}

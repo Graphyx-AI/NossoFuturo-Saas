@@ -4,6 +4,11 @@ import { createClient } from "@/lib/supabase/server";
 import { createClient as createSupabaseClient } from "@supabase/supabase-js";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
+import type { Workspace } from "@/types/database";
+
+const PLAN_WORKSPACE_LIMITS: Record<Workspace["plan"], number> = {
+  pro: 2,
+};
 
 const DEFAULT_CATEGORIES = [
   { name: "Salário", icon: "💰", type: "income" as const, color: "#10b981" },
@@ -27,6 +32,29 @@ function getAdminClient() {
   return createSupabaseClient(url, serviceRoleKey, {
     auth: { persistSession: false, autoRefreshToken: false },
   });
+}
+
+async function getUserWorkspaceCount(userId: string): Promise<number | null> {
+  const supabase = await createClient();
+  const { count, error } = await supabase
+    .from("workspace_members")
+    .select("id", { count: "exact", head: true })
+    .eq("user_id", userId)
+    .not("accepted_at", "is", null);
+
+  if (!error && typeof count === "number") return count;
+
+  const admin = getAdminClient();
+  if (!admin) return null;
+
+  const { count: adminCount, error: adminError } = await admin
+    .from("workspace_members")
+    .select("id", { count: "exact", head: true })
+    .eq("user_id", userId)
+    .not("accepted_at", "is", null);
+
+  if (adminError || typeof adminCount !== "number") return null;
+  return adminCount;
 }
 
 async function ensureWorkspaceWithAdmin(user: { id: string; user_metadata?: Record<string, unknown> }) {
@@ -230,6 +258,26 @@ export async function getWorkspaceById(workspaceId: string | null) {
   return adminWorkspace ?? null;
 }
 
+export async function getResolvedWorkspaceContext(workspaceCookieId: string | null) {
+  let workspaces = await getWorkspacesForUser();
+  if (workspaces.length === 0) {
+    await ensureDefaultWorkspace();
+    workspaces = await getWorkspacesForUser();
+  }
+
+  const firstWorkspaceId = workspaces[0]?.id ?? null;
+  const preferredWorkspaceId = workspaceCookieId ?? firstWorkspaceId;
+
+  const workspaceFromPreferred = await getWorkspaceById(preferredWorkspaceId);
+  const workspace =
+    workspaceFromPreferred ??
+    (firstWorkspaceId && firstWorkspaceId !== preferredWorkspaceId
+      ? await getWorkspaceById(firstWorkspaceId)
+      : null);
+
+  return { workspaces, workspace };
+}
+
 const createWorkspaceSchema = z
   .string()
   .trim()
@@ -269,7 +317,7 @@ async function createWorkspaceWithClient(
   const slug = `${slugBase}-${Date.now().toString(36).slice(-6)}-${user.id.replace(/-/g, "").slice(0, 6)}`;
   const { data: ws, error: wsError } = await client
     .from("workspaces")
-    .insert({ name: workspaceName, slug, owner_id: user.id })
+    .insert({ name: workspaceName, slug, plan: "pro", owner_id: user.id })
     .select("id")
     .single();
 
@@ -313,6 +361,17 @@ export async function createWorkspace(name: string): Promise<CreateWorkspaceResu
     data: { user },
   } = await supabase.auth.getUser();
   if (!user) return { ok: false, error: "Nao autorizado." };
+
+  const targetPlan: Workspace["plan"] = "pro";
+  const maxWorkspacesForPlan = PLAN_WORKSPACE_LIMITS[targetPlan];
+  const userWorkspaceCount = await getUserWorkspaceCount(user.id);
+  if (userWorkspaceCount === null) {
+    return { ok: false, error: "Nao foi possivel validar o limite do plano." };
+  }
+
+  if (userWorkspaceCount >= maxWorkspacesForPlan) {
+    return { ok: false, error: "Limite do plano pro atingido: ate 2 workspaces." };
+  }
 
   let result = await createWorkspaceWithClient(supabase, user, parsed.data);
   if (!result.ok) {

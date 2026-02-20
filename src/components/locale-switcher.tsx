@@ -1,10 +1,9 @@
 "use client";
 
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { usePathname, useRouter } from "@/i18n/navigation";
-import { useTranslations } from "next-intl";
 import { Globe } from "lucide-react";
-import { routing } from "@/i18n/routing";
+import { routing, uiLocales } from "@/i18n/routing";
 
 export function LocaleSwitcher() {
   const locale = useLocale();
@@ -24,7 +23,7 @@ export function LocaleSwitcher() {
         className="appearance-none min-h-[44px] min-w-[44px] sm:min-w-[140px] pl-10 sm:pl-10 pr-8 py-2 rounded-xl bg-secondary text-muted-foreground hover:text-foreground text-sm font-bold cursor-pointer border-0 focus:ring-2 focus:ring-primary focus:outline-none transition-colors"
         aria-label={t("label")}
       >
-        {routing.locales.map((loc) => (
+        {uiLocales.map((loc) => (
           <option key={loc} value={loc}>
             {t(loc)}
           </option>
@@ -38,7 +37,7 @@ export function LocaleSwitcher() {
         className="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-muted-foreground"
         aria-hidden
       >
-        ▼
+        v
       </span>
     </div>
   );

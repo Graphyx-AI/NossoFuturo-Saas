@@ -1,7 +1,8 @@
-"use client";
+﻿"use client";
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { createTransaction, updateTransaction } from "@/actions/transactions";
 import { parseBRL } from "@/lib/utils/currency";
 import type { Category } from "@/types/database";
@@ -37,6 +38,8 @@ export function TransactionForm({
   const [loading, setLoading] = useState(false);
   const [toast, setToast] = useState<string | null>(null);
   const router = useRouter();
+  const t = useTranslations("forms.transaction");
+  const tCommon = useTranslations("common");
   const isEdit = !!transaction;
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -58,13 +61,14 @@ export function TransactionForm({
       description,
       date,
     };
+
     try {
       if (isEdit) {
         await updateTransaction(transaction!.id, workspaceId, {
           ...payload,
           type: type as "income" | "expense" | "transfer",
         });
-        setToast("Atualizado!");
+        setToast(t("updated"));
         if (onEditSuccess) {
           onEditSuccess();
         } else {
@@ -73,13 +77,13 @@ export function TransactionForm({
         router.refresh();
       } else {
         await createTransaction(payload);
-        setToast("Salvo!");
+        setToast(t("saved"));
         form.reset();
         (form.querySelector("#date") as HTMLInputElement).value = defaultDate;
         router.refresh();
       }
     } catch (err) {
-      setToast(err instanceof Error ? err.message : "Erro ao salvar");
+      setToast(err instanceof Error ? err.message : t("errorSave"));
     } finally {
       setLoading(false);
     }
@@ -96,12 +100,12 @@ export function TransactionForm({
   return (
     <div className="bg-card border border-border rounded-2xl shadow-card p-4 sm:p-8 w-full max-w-full lg:max-w-none">
       <h4 className="font-bold text-foreground mb-4 sm:mb-6 text-sm sm:text-base">
-        {isEdit ? "Editar transação" : "Nova transação"}
+        {isEdit ? t("edit") : t("new")}
       </h4>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
           <label className="text-[10px] font-bold text-muted-foreground uppercase ml-1 block mb-1">
-            Data
+            {t("date")}
           </label>
           <input
             id="date"
@@ -114,34 +118,34 @@ export function TransactionForm({
         </div>
         <div>
           <label className="text-[10px] font-bold text-muted-foreground uppercase ml-1 block mb-1">
-            Descrição
+            {t("description")}
           </label>
           <input
             type="text"
             name="description"
             required
-            placeholder="Ex: Supermercado"
+            placeholder={t("placeholderDesc")}
             defaultValue={defaultDesc}
             className="w-full px-4 py-3 bg-background border border-border rounded-xl outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary text-foreground placeholder:text-muted-foreground"
           />
         </div>
         <div>
           <label className="text-[10px] font-bold text-muted-foreground uppercase ml-1 block mb-1">
-            Categoria
+            {t("category")}
           </label>
           <select
             name="category_id"
             defaultValue={defaultCategoryId}
             className="w-full px-4 py-3 bg-background border border-border rounded-xl outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary font-medium text-foreground"
           >
-            <optgroup label="Despesas">
+            <optgroup label={t("expenses")}>
               {expenseCategories.map((c) => (
                 <option key={c.id} value={c.id}>
                   {c.icon} {c.name}
                 </option>
               ))}
             </optgroup>
-            <optgroup label="Receitas">
+            <optgroup label={t("income")}>
               {incomeCategories.map((c) => (
                 <option key={c.id} value={c.id}>
                   {c.icon} {c.name}
@@ -156,7 +160,7 @@ export function TransactionForm({
             inputMode="decimal"
             name="amount"
             required
-            placeholder="Valor (Ex: 5.000 ou 50,99)"
+            placeholder={t("placeholderAmount")}
             defaultValue={defaultAmount}
             className="w-full px-4 py-3 bg-background border border-border rounded-xl outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary text-foreground placeholder:text-muted-foreground"
           />
@@ -165,14 +169,14 @@ export function TransactionForm({
             defaultValue={defaultType}
             className="w-full px-4 py-3 bg-background border border-border rounded-xl outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary font-bold text-foreground"
           >
-            <option value="expense">Saída</option>
-            <option value="income">Entrada</option>
+            <option value="expense">{t("outflow")}</option>
+            <option value="income">{t("inflow")}</option>
           </select>
         </div>
         {toast && (
           <p
             className={`text-sm font-medium ${
-              toast === "Salvo!" || toast === "Atualizado!" ? "text-emerald-600" : "text-rose-600"
+              toast === t("saved") || toast === t("updated") ? "text-emerald-600" : "text-rose-600"
             }`}
           >
             {toast}
@@ -183,7 +187,11 @@ export function TransactionForm({
           disabled={loading}
           className="w-full min-h-[44px] bg-hero-gradient text-primary-foreground font-semibold py-4 rounded-xl hover:opacity-90 transition-opacity disabled:opacity-70"
         >
-          {loading ? (isEdit ? "Atualizando..." : "Salvando...") : isEdit ? "Atualizar" : "Salvar"}
+          {loading
+            ? (isEdit ? t("updating") : t("saving"))
+            : isEdit
+              ? tCommon("update")
+              : tCommon("save")}
         </button>
       </form>
     </div>

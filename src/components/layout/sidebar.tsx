@@ -42,9 +42,12 @@ const menuStructure = [
 ] as const;
 
 export function Sidebar({
+  collapsed = false,
   mobileOpen = false,
   onClose,
 }: {
+  collapsed?: boolean;
+  onToggleCollapse?: () => void;
   mobileOpen?: boolean;
   onClose?: () => void;
 }) {
@@ -67,15 +70,15 @@ export function Sidebar({
   const navContent = (
     <>
       {/* Logo / Branding */}
-      <div className="p-8 flex items-center justify-between gap-2 shrink-0">
+      <div className={`flex items-center justify-between gap-2 shrink-0 ${collapsed ? "p-4" : "p-8"}`}>
         <Link
           href="/dashboard"
-          className="flex items-center gap-3 text-primary font-bold text-2xl tracking-tight"
+          className={`flex items-center text-primary font-bold tracking-tight ${collapsed ? "justify-center w-full" : "gap-3 text-2xl"}`}
         >
-          <div className="w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center shadow-sm">
+          <div className="w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center shadow-sm shrink-0">
             <Heart size={24} fill="currentColor" className="text-primary" />
           </div>
-          <span className="text-gradient-hero whitespace-nowrap">{tCommon("brand")}</span>
+          {!collapsed && <span className="text-gradient-hero whitespace-nowrap">{tCommon("brand")}</span>}
         </Link>
         {onClose && (
           <button
@@ -91,14 +94,16 @@ export function Sidebar({
 
       {/* Navegação Principal (grupos) */}
       <nav
-        className="flex-1 px-4 overflow-y-auto custom-scrollbar"
+        className={`flex-1 overflow-y-auto custom-scrollbar ${collapsed ? "px-2" : "px-4"}`}
         data-tour="sidebar"
       >
         {menuStructure.map((group, idx) => (
           <div key={idx} className="mb-8">
-            <h3 className="px-4 text-[11px] font-bold text-muted-foreground uppercase tracking-[0.2em] mb-3">
-              {t(group.groupKey)}
-            </h3>
+            {!collapsed && (
+              <h3 className="px-4 text-[11px] font-bold text-muted-foreground uppercase tracking-[0.2em] mb-3">
+                {t(group.groupKey)}
+              </h3>
+            )}
             <div className="space-y-1">
               {group.items.map((item) => {
                 const isActive = pathname === item.href;
@@ -108,10 +113,11 @@ export function Sidebar({
                     key={item.href}
                     href={item.href}
                     data-tour={item.dataTour}
-                    className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl transition-all group relative ${isActive
+                    className={`w-full flex items-center ${collapsed ? "justify-center" : "gap-3"} px-4 py-3 rounded-xl transition-all group relative ${isActive
                       ? "bg-primary/10 text-primary font-bold"
                       : "text-muted-foreground hover:bg-secondary hover:text-foreground"
                       }`}
+                    title={t(item.labelKey)}
                   >
                     <Icon
                       size={20}
@@ -121,7 +127,7 @@ export function Sidebar({
                           : "text-muted-foreground group-hover:text-foreground transition-colors"
                       }
                     />
-                    <span className="text-sm">{t(item.labelKey)}</span>
+                    {!collapsed && <span className="text-sm">{t(item.labelKey)}</span>}
                     {isActive && (
                       <div className="ml-auto">
                         <div className="w-1.5 h-1.5 rounded-full bg-primary shadow-[0_0_6px_hsl(var(--primary)/0.5)]" />
@@ -136,11 +142,12 @@ export function Sidebar({
       </nav>
 
       {/* Rodapé da Sidebar (tema + sair) */}
-      <div className="p-4 mt-auto border-t border-border space-y-1 shrink-0">
+      <div className={`mt-auto border-t border-border space-y-1 shrink-0 ${collapsed ? "p-2" : "p-4"}`}>
         <button
           type="button"
           onClick={toggleTheme}
-          className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-muted-foreground hover:bg-secondary transition-all group"
+          className={`w-full flex items-center px-4 py-3 rounded-xl text-muted-foreground hover:bg-secondary transition-all group ${collapsed ? "justify-center" : "gap-3"}`}
+          title={theme === "dark" ? t("lightMode") : t("darkMode")}
         >
           <div className="p-1.5 rounded-lg bg-secondary group-hover:bg-card transition-colors">
             {theme === "dark" ? (
@@ -149,17 +156,18 @@ export function Sidebar({
               <Moon size={18} className="text-muted-foreground" />
             )}
           </div>
-          <span className="text-sm font-medium">
+          {!collapsed && <span className="text-sm font-medium">
             {theme === "dark" ? t("lightMode") : t("darkMode")}
-          </span>
+          </span>}
         </button>
         <button
           type="button"
           onClick={handleSignOut}
-          className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-muted-foreground hover:text-red-500 hover:bg-red-500/10 transition-all group"
+          className={`w-full flex items-center px-4 py-3 rounded-xl text-muted-foreground hover:text-red-500 hover:bg-red-500/10 transition-all group ${collapsed ? "justify-center" : "gap-3"}`}
+          title={t("signOut")}
         >
           <LogOut size={20} className="group-hover:translate-x-0.5 transition-transform shrink-0" />
-          <span className="text-sm font-medium">{t("signOut")}</span>
+          {!collapsed && <span className="text-sm font-medium">{t("signOut")}</span>}
         </button>
       </div>
     </>
@@ -169,7 +177,7 @@ export function Sidebar({
     <>
       {/* Desktop: sidebar fixa (lg+) */}
       <aside
-        className="hidden lg:flex print:hidden w-64 min-h-screen bg-card border-r border-border flex-col fixed left-0 top-0 z-30 h-screen sticky top-0 transition-colors"
+        className={`hidden lg:flex print:hidden min-h-screen bg-card border-r border-border flex-col h-screen sticky top-0 transition-all duration-200 shrink-0 ${collapsed ? "w-20" : "w-64"}`}
         data-tour="sidebar"
       >
         {navContent}

@@ -18,6 +18,7 @@ export interface Database {
           updated_at: string;
           onboarding_completed_at: string | null;
           onboarding_intent: "personal" | "family" | "business" | "other" | null;
+          onboarding_intent_detail: string | null;
         };
         Insert: {
           id: string;
@@ -27,6 +28,7 @@ export interface Database {
           updated_at?: string;
           onboarding_completed_at?: string | null;
           onboarding_intent?: "personal" | "family" | "business" | "other" | null;
+          onboarding_intent_detail?: string | null;
         };
         Update: {
           id?: string;
@@ -35,7 +37,33 @@ export interface Database {
           updated_at?: string;
           onboarding_completed_at?: string | null;
           onboarding_intent?: "personal" | "family" | "business" | "other" | null;
+          onboarding_intent_detail?: string | null;
         };
+      };
+      profile_preferences: {
+        Row: {
+          user_id: string;
+          location_consent: boolean;
+          location_permission_state: "unknown" | "granted" | "denied";
+          timezone: string | null;
+          locale_hint: string | null;
+          country_hint: string | null;
+          region_hint: string | null;
+          city_hint: string | null;
+          updated_at: string;
+        };
+        Insert: {
+          user_id: string;
+          location_consent?: boolean;
+          location_permission_state?: "unknown" | "granted" | "denied";
+          timezone?: string | null;
+          locale_hint?: string | null;
+          country_hint?: string | null;
+          region_hint?: string | null;
+          city_hint?: string | null;
+          updated_at?: string;
+        };
+        Update: Partial<Database["public"]["Tables"]["profile_preferences"]["Insert"]>;
       };
       workspaces: {
         Row: {
@@ -264,6 +292,37 @@ export interface Database {
         };
         Update: Partial<Database["public"]["Tables"]["receivables"]["Insert"]>;
       };
+      support_requests: {
+        Row: {
+          id: string;
+          user_id: string;
+          workspace_id: string | null;
+          email: string;
+          subject: string;
+          category: string;
+          message: string;
+          priority: "low" | "medium" | "high" | "urgent";
+          status: "pending" | "sent" | "failed";
+          sent_at: string | null;
+          send_error: string | null;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          user_id: string;
+          workspace_id?: string | null;
+          email: string;
+          subject: string;
+          category: string;
+          message: string;
+          priority?: "low" | "medium" | "high" | "urgent";
+          status?: "pending" | "sent" | "failed";
+          sent_at?: string | null;
+          send_error?: string | null;
+          created_at?: string;
+        };
+        Update: Partial<Database["public"]["Tables"]["support_requests"]["Insert"]>;
+      };
     };
   };
 }
@@ -277,4 +336,6 @@ export type Investment = Database["public"]["Tables"]["investments"]["Row"];
 export type Goal = Database["public"]["Tables"]["goals"]["Row"];
 export type GoalContribution = Database["public"]["Tables"]["goal_contributions"]["Row"];
 export type Receivable = Database["public"]["Tables"]["receivables"]["Row"];
+export type ProfilePreferences = Database["public"]["Tables"]["profile_preferences"]["Row"];
+export type SupportRequest = Database["public"]["Tables"]["support_requests"]["Row"];
 

@@ -1,39 +1,28 @@
 "use client";
 
 import { useState } from "react";
-import {
-  User,
-  Briefcase,
-  Users,
-  LogOut,
-  Trash2,
-  Moon,
-  Palette,
-  Type,
-  Eye,
-  Sun,
-} from "lucide-react";
+import { User, LogOut, Trash2, Moon, Palette, Type, Eye, Sun, LifeBuoy } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
+import { Link } from "@/i18n/navigation";
 import { useTheme } from "@/components/theme-provider";
 import {
   useAccessibility,
   type ColorTheme,
   type FontSize,
 } from "@/components/accessibility-provider";
-import type { Workspace, WorkspaceInvite } from "@/types/database";
-import type { WorkspaceMemberWithProfile } from "@/actions/invites";
-import { SettingsClient } from "./settings-client";
-import { WorkspaceMembersClient } from "@/components/settings/workspace-members-client";
+import type { Workspace } from "@/types/database";
 import { deleteAccount } from "@/actions/auth";
+import { SupportRequestForm } from "@/components/settings/support-request-form";
+import { LocationConsentCard } from "@/components/settings/location-consent-card";
 
 const FONT_SIZE_OPTIONS: { value: FontSize; label: string; helper: string }[] = [
-  { value: "normal", label: "Normal", helper: "Padrao do app" },
+  { value: "normal", label: "Normal", helper: "Padrão do app" },
   { value: "grande", label: "Grande", helper: "Leitura facilitada" },
-  { value: "muito-grande", label: "Muito grande", helper: "Maxima legibilidade" },
+  { value: "muito-grande", label: "Muito grande", helper: "Máxima legibilidade" },
 ];
 
 const COLOR_THEME_OPTIONS: { value: ColorTheme; label: string; swatch: string }[] = [
-  { value: "padrao", label: "Padrao", swatch: "hsl(160 45% 45%)" },
+  { value: "padrao", label: "Padrão", swatch: "hsl(160 45% 45%)" },
   { value: "rosa", label: "Rosa", swatch: "hsl(330 65% 50%)" },
   { value: "azul", label: "Azul", swatch: "hsl(217 70% 52%)" },
   { value: "amarelo", label: "Amarelo", swatch: "hsl(38 92% 52%)" },
@@ -41,20 +30,12 @@ const COLOR_THEME_OPTIONS: { value: ColorTheme; label: string; swatch: string }[
 
 export function SettingsContent({
   userEmail,
-  userId,
   workspaces,
   currentWorkspaceId,
-  workspaceMembers,
-  workspaceInvites,
-  canManageMembers,
 }: {
   userEmail: string | undefined;
-  userId: string | null;
   workspaces: Workspace[];
   currentWorkspaceId: string | null;
-  workspaceMembers: WorkspaceMemberWithProfile[];
-  workspaceInvites: WorkspaceInvite[];
-  canManageMembers: boolean;
 }) {
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [deleteLoading, setDeleteLoading] = useState(false);
@@ -96,17 +77,17 @@ export function SettingsContent({
       : displayEmail;
 
   return (
-    <div className="max-w-4xl mx-auto space-y-6 pb-12">
+    <div className="mx-auto max-w-4xl space-y-6 pb-12">
       <header className="mb-8">
-        <h1 className="text-3xl font-bold tracking-tight text-foreground">Configuracoes</h1>
-        <p className="text-muted-foreground mt-1">
-          Gerencie sua conta, workspaces e preferencias.
+        <h1 className="text-3xl font-bold tracking-tight text-foreground">Configurações</h1>
+        <p className="mt-1 text-muted-foreground">
+          Gerencie conta, acessibilidade, suporte e preferências.
         </p>
       </header>
 
-      <section className="bg-card rounded-2xl shadow-card border border-border p-6 sm:p-8 transition-colors">
-        <div className="flex items-center gap-3 mb-4">
-          <div className="h-10 w-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center">
+      <section className="rounded-2xl border border-border bg-card p-6 shadow-card sm:p-8">
+        <div className="mb-4 flex items-center gap-3">
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary">
             <User size={18} />
           </div>
           <div>
@@ -115,61 +96,29 @@ export function SettingsContent({
           </div>
         </div>
         <div className="rounded-xl border border-border bg-secondary/20 p-4">
-          <p className="text-xs text-muted-foreground uppercase tracking-wide">Email</p>
+          <p className="text-xs uppercase tracking-wide text-muted-foreground">Email</p>
           <p className="text-sm font-semibold text-foreground">{displayEmail}</p>
         </div>
       </section>
 
-      <section className="bg-card rounded-2xl shadow-card border border-border p-6 sm:p-8 transition-colors">
-        <div className="flex items-center gap-3 mb-4">
-          <div className="h-10 w-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center">
-            <Briefcase size={18} />
-          </div>
-          <div>
-            <h2 className="text-xl font-bold text-foreground">Workspace</h2>
-            <p className="text-sm text-muted-foreground">Selecione o workspace ativo.</p>
-          </div>
-        </div>
-        <SettingsClient workspaces={workspaces} currentWorkspaceId={currentWorkspaceId} />
-      </section>
-
-      <section className="bg-card rounded-2xl shadow-card border border-border p-6 sm:p-8 transition-colors">
-        <div className="flex items-center gap-3 mb-4">
-          <div className="h-10 w-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center">
-            <Users size={18} />
-          </div>
-          <div>
-            <h2 className="text-xl font-bold text-foreground">Membros e convites</h2>
-            <p className="text-sm text-muted-foreground">Gerencie acesso ao workspace.</p>
-          </div>
-        </div>
-        <WorkspaceMembersClient
-          workspaceId={currentWorkspaceId}
-          members={workspaceMembers}
-          invites={workspaceInvites}
-          canManage={canManageMembers}
-          currentUserId={userId}
-        />
-      </section>
-
-      <section className="bg-card rounded-2xl shadow-card border border-border p-6 sm:p-8 transition-colors space-y-4">
+      <section className="rounded-2xl border border-border bg-card p-6 shadow-card sm:p-8">
         <h2 className="text-xl font-bold text-foreground">Visual e acessibilidade</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
           <button
             type="button"
             onClick={toggleTheme}
-            className="rounded-xl border border-border px-4 py-3 text-left hover:bg-secondary/30 transition-colors"
+            className="rounded-xl border border-border px-4 py-3 text-left transition-colors hover:bg-secondary/30"
           >
             <span className="inline-flex items-center gap-2 text-sm font-semibold text-foreground">
               {theme === "dark" ? <Moon size={16} /> : <Sun size={16} />}
               Tema
             </span>
-            <p className="text-xs text-muted-foreground mt-1">
+            <p className="mt-1 text-xs text-muted-foreground">
               Atual: {theme === "dark" ? "Escuro" : "Claro"}
             </p>
           </button>
 
-          <label className="rounded-xl border border-border px-4 py-3 flex items-center justify-between">
+          <label className="flex items-center justify-between rounded-xl border border-border px-4 py-3">
             <span className="inline-flex items-center gap-2 text-sm font-semibold text-foreground">
               <Eye size={16} />
               Alto contraste
@@ -181,10 +130,10 @@ export function SettingsContent({
             />
           </label>
 
-          <label className="rounded-xl border border-border px-4 py-3 flex items-center justify-between">
+          <label className="flex items-center justify-between rounded-xl border border-border px-4 py-3">
             <span className="inline-flex items-center gap-2 text-sm font-semibold text-foreground">
               <Palette size={16} />
-              Menos animacao
+              Menos animação
             </span>
             <input
               type="checkbox"
@@ -204,7 +153,7 @@ export function SettingsContent({
                   key={size.value}
                   type="button"
                   onClick={() => setFontSize(size.value)}
-                  className={`px-3 py-1 rounded-lg text-xs border ${
+                  className={`rounded-lg border px-3 py-1 text-xs ${
                     a11y.fontSize === size.value
                       ? "border-primary text-primary"
                       : "border-border text-muted-foreground"
@@ -229,7 +178,7 @@ export function SettingsContent({
                   key={c.value}
                   type="button"
                   onClick={() => setColorTheme(c.value)}
-                  className={`px-3 py-1 rounded-lg text-xs border ${
+                  className={`rounded-lg border px-3 py-1 text-xs ${
                     a11y.colorTheme === c.value
                       ? "border-primary text-primary"
                       : "border-border text-muted-foreground"
@@ -237,7 +186,7 @@ export function SettingsContent({
                   aria-pressed={a11y.colorTheme === c.value}
                 >
                   <span
-                    className="inline-block h-2.5 w-2.5 rounded-full mr-1.5 align-middle"
+                    className="mr-1.5 inline-block h-2.5 w-2.5 rounded-full align-middle"
                     style={{ backgroundColor: c.swatch }}
                   />
                   {c.label}
@@ -246,7 +195,7 @@ export function SettingsContent({
               <button
                 type="button"
                 onClick={resetToDefaults}
-                className="px-3 py-1 rounded-lg text-xs border border-border text-muted-foreground"
+                className="rounded-lg border border-border px-3 py-1 text-xs text-muted-foreground"
               >
                 Resetar
               </button>
@@ -255,18 +204,47 @@ export function SettingsContent({
         </div>
       </section>
 
-      <section className="bg-card rounded-2xl shadow-card border border-border p-6 sm:p-8 transition-colors">
-        <h2 className="text-xl font-bold text-foreground mb-2">Plano</h2>
-        <p className="text-sm text-muted-foreground">
-          O app esta sem integracao de pagamentos no momento.
-        </p>
+      <LocationConsentCard />
+
+      <section className="rounded-2xl border border-border bg-card p-6 shadow-card sm:p-8">
+        <div className="mb-4 flex items-center gap-3">
+          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary/10 text-primary">
+            <LifeBuoy size={18} />
+          </div>
+          <div>
+            <h2 className="text-xl font-bold text-foreground">Suporte</h2>
+            <p className="text-sm text-muted-foreground">
+              Envie seu problema e ele chega direto em <strong>graphyx.ai@gmail.com</strong>.
+            </p>
+          </div>
+        </div>
+        <SupportRequestForm
+          workspaces={workspaces}
+          currentWorkspaceId={currentWorkspaceId}
+          defaultEmail={displayEmail === "-" ? "" : displayEmail}
+        />
       </section>
 
-      <div className="pt-8 flex flex-col items-center gap-4">
+      <section className="rounded-2xl border border-border bg-card p-6 shadow-card sm:p-8">
+        <h2 className="text-xl font-bold text-foreground">Plano</h2>
+        <p className="mt-1 text-sm text-muted-foreground">2 dias de teste grátis e até 2 workspaces.</p>
+        <div className="mt-4 rounded-xl border border-primary/20 bg-primary/5 p-4">
+          <p className="text-sm font-semibold text-primary">Em breve</p>
+          <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-muted-foreground">
+            <li>Mais membros por workspace</li>
+            <li>Mais workspaces</li>
+            <li>Automações inteligentes</li>
+            <li>Exportações avançadas</li>
+            <li>Mais funcionalidades premium</li>
+          </ul>
+        </div>
+      </section>
+
+      <div className="flex flex-col items-center gap-4 pt-8">
         <button
           type="button"
           onClick={handleSignOut}
-          className="text-sm font-semibold text-muted-foreground hover:text-red-500 dark:hover:text-red-400 transition-colors flex items-center gap-2"
+          className="flex items-center gap-2 text-sm font-semibold text-muted-foreground transition-colors hover:text-red-500 dark:hover:text-red-400"
         >
           <LogOut size={14} />
           Sair da conta {shortEmail}
@@ -277,44 +255,48 @@ export function SettingsContent({
             setDeleteError(null);
             setDeleteModalOpen(true);
           }}
-          className="text-sm font-semibold text-muted-foreground hover:text-red-600 dark:hover:text-red-400 transition-colors flex items-center gap-2"
+          className="flex items-center gap-2 text-sm font-semibold text-muted-foreground transition-colors hover:text-red-600 dark:hover:text-red-400"
         >
           <Trash2 size={14} />
           Excluir minha conta
         </button>
-        <a
-          href="/termos"
-          className="text-[11px] font-bold text-muted-foreground uppercase tracking-[0.2em] hover:text-foreground transition-colors"
-        >
-          Termos de uso & Privacidade
-        </a>
+        <div className="flex items-center gap-3 text-[11px] font-bold uppercase tracking-[0.2em] text-muted-foreground">
+          <Link href="/terms" className="transition-colors hover:text-foreground">
+            Termos
+          </Link>
+          <span>/</span>
+          <Link href="/privacy" className="transition-colors hover:text-foreground">
+            Privacidade
+          </Link>
+        </div>
       </div>
 
       {deleteModalOpen && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
           role="dialog"
           aria-modal="true"
           aria-labelledby="modal-delete-account-title"
           onClick={() => !deleteLoading && setDeleteModalOpen(false)}
         >
           <div
-            className="bg-card border border-border rounded-2xl shadow-card w-full max-w-md p-6"
+            className="w-full max-w-md rounded-2xl border border-border bg-card p-6 shadow-card"
             onClick={(e) => e.stopPropagation()}
           >
-            <h2 id="modal-delete-account-title" className="font-bold text-foreground text-lg mb-2">
+            <h2 id="modal-delete-account-title" className="mb-2 text-lg font-bold text-foreground">
               Excluir conta
             </h2>
-            <p className="text-muted-foreground text-sm mb-6">
-              Tem certeza que deseja excluir sua conta? Todos os dados serao removidos e essa acao nao pode ser desfeita.
+            <p className="mb-6 text-sm text-muted-foreground">
+              Tem certeza que deseja excluir sua conta? Todos os dados serão removidos e essa ação não
+              pode ser desfeita.
             </p>
-            {deleteError && <p className="text-red-600 dark:text-red-400 text-sm mb-4">{deleteError}</p>}
-            <div className="flex gap-3 justify-end">
+            {deleteError && <p className="mb-4 text-sm text-red-600 dark:text-red-400">{deleteError}</p>}
+            <div className="flex justify-end gap-3">
               <button
                 type="button"
                 onClick={() => !deleteLoading && setDeleteModalOpen(false)}
                 disabled={deleteLoading}
-                className="px-4 py-2 rounded-xl font-medium text-muted-foreground hover:text-foreground border border-border hover:bg-secondary/50 transition-colors disabled:opacity-50"
+                className="rounded-xl border border-border px-4 py-2 font-medium text-muted-foreground transition-colors hover:bg-secondary/50 hover:text-foreground disabled:opacity-50"
               >
                 Cancelar
               </button>
@@ -322,7 +304,7 @@ export function SettingsContent({
                 type="button"
                 onClick={handleConfirmDelete}
                 disabled={deleteLoading}
-                className="px-4 py-2 rounded-xl font-medium bg-red-600 hover:bg-red-700 text-white transition-colors disabled:opacity-50"
+                className="rounded-xl bg-red-600 px-4 py-2 font-medium text-white transition-colors hover:bg-red-700 disabled:opacity-50"
               >
                 {deleteLoading ? "Excluindo..." : "Sim, excluir conta"}
               </button>

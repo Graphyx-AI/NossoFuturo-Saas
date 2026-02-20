@@ -2,15 +2,13 @@ import { getTranslations, getLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { createClient } from "@/lib/supabase/server";
 import {
-  getWorkspaceById,
-  getWorkspacesForUser,
-  ensureDefaultWorkspace,
+  getResolvedWorkspaceContext,
 } from "@/actions/workspaces";
 import { cookies } from "next/headers";
 import { formatCurrency } from "@/lib/utils/currency";
 import { WelcomeBanner } from "@/components/onboarding/welcome-banner";
 import { RealtimeRefresher } from "@/components/realtime/realtime-refresher";
-import { MONTH_ICONS, getStartOfMonth, getEndOfMonth } from "@/lib/utils/dates";
+import { MONTH_ICONS } from "@/lib/utils/dates";
 
 const WORKSPACE_COOKIE = "workspace_id";
 
@@ -21,18 +19,8 @@ export default async function DashboardPage() {
   const tMonths = await getTranslations("common.months");
   const locale = await getLocale();
   const cookieStore = await cookies();
-  let workspaces = await getWorkspacesForUser();
-  if (workspaces.length === 0) {
-    await ensureDefaultWorkspace();
-    workspaces = await getWorkspacesForUser();
-  }
   const workspaceId = cookieStore.get(WORKSPACE_COOKIE)?.value ?? null;
-  const firstId = workspaces[0]?.id ?? null;
-  const preferredWorkspaceId = workspaceId ?? firstId;
-  const workspaceFromPreferred = await getWorkspaceById(preferredWorkspaceId);
-  const workspace =
-    workspaceFromPreferred ??
-    (firstId && firstId !== preferredWorkspaceId ? await getWorkspaceById(firstId) : null);
+  const { workspace } = await getResolvedWorkspaceContext(workspaceId);
 
   if (!workspace) {
     return (
@@ -48,45 +36,77 @@ export default async function DashboardPage() {
   const supabase = await createClient();
   const currentYear = new Date().getFullYear();
 
-  const grid = await Promise.all(
-    MONTH_KEYS.map(async (_, monthIndex) => {
-      const start = getStartOfMonth(currentYear, monthIndex);
-      const end = getEndOfMonth(currentYear, monthIndex);
+  const { data: summary, error: summaryError } = await supabase.rpc("get_dashboard_year_summary", {
+    p_workspace_id: workspace.id,
+    p_year: currentYear,
+  });
 
-      const [transRes, investRes, goalsRes] = await Promise.all([
-        supabase
-          .from("transactions")
-          .select("type, amount")
-          .eq("workspace_id", workspace.id)
-          .gte("date", start)
-          .lte("date", end),
-        supabase
-          .from("investments")
-          .select("amount")
-          .eq("workspace_id", workspace.id)
-          .gte("date", start)
-          .lte("date", end),
-        supabase
-          .from("goal_contributions")
-          .select("amount")
-          .eq("workspace_id", workspace.id)
-          .gte("date", start)
-          .lte("date", end),
-      ]);
+  const summaryByMonth = new Map<number, { income: number; expense: number; investment: number; goal: number }>();
 
-      let inc = 0,
-        exp = 0;
-      (transRes.data ?? []).forEach((t) => {
-        if (t.type === "income") inc += t.amount;
-        else exp += t.amount;
+  if (!summaryError && Array.isArray(summary) && summary.length > 0) {
+    summary.forEach((row: any) => {
+      const monthIndex = Number(row.month_index) - 1;
+      summaryByMonth.set(monthIndex, {
+        income: Number(row.income_cents ?? 0),
+        expense: Number(row.expense_cents ?? 0),
+        investment: Number(row.investment_cents ?? 0),
+        goal: Number(row.goal_cents ?? 0),
       });
-      const inv = (investRes.data ?? []).reduce((a, b) => a + b.amount, 0);
-      const goa = (goalsRes.data ?? []).reduce((a, b) => a + b.amount, 0);
-      const balance = inc - exp - inv - goa;
+    });
+  } else {
+    // Fallback para ambientes onde a RPC ainda nao foi aplicada.
+    const yearStart = `${currentYear}-01-01`;
+    const yearEnd = `${currentYear}-12-31`;
 
-      return { monthIndex, name: tMonths(MONTH_KEYS[monthIndex]), icon: MONTH_ICONS[monthIndex], balance };
-    })
-  );
+    const [transactionsRes, investmentsRes, goalsRes] = await Promise.all([
+      supabase
+        .from("transactions")
+        .select("type, amount, date")
+        .eq("workspace_id", workspace.id)
+        .gte("date", yearStart)
+        .lte("date", yearEnd),
+      supabase
+        .from("investments")
+        .select("amount, date")
+        .eq("workspace_id", workspace.id)
+        .gte("date", yearStart)
+        .lte("date", yearEnd),
+      supabase
+        .from("goal_contributions")
+        .select("amount, date")
+        .eq("workspace_id", workspace.id)
+        .gte("date", yearStart)
+        .lte("date", yearEnd),
+    ]);
+
+    (transactionsRes.data ?? []).forEach((tr: { type: string; amount: number; date: string }) => {
+      const monthIndex = new Date(tr.date).getMonth();
+      const current = summaryByMonth.get(monthIndex) ?? { income: 0, expense: 0, investment: 0, goal: 0 };
+      if (tr.type === "income") current.income += tr.amount;
+      if (tr.type === "expense") current.expense += tr.amount;
+      summaryByMonth.set(monthIndex, current);
+    });
+
+    (investmentsRes.data ?? []).forEach((inv: { amount: number; date: string }) => {
+      const monthIndex = new Date(inv.date).getMonth();
+      const current = summaryByMonth.get(monthIndex) ?? { income: 0, expense: 0, investment: 0, goal: 0 };
+      current.investment += inv.amount;
+      summaryByMonth.set(monthIndex, current);
+    });
+
+    (goalsRes.data ?? []).forEach((goal: { amount: number; date: string }) => {
+      const monthIndex = new Date(goal.date).getMonth();
+      const current = summaryByMonth.get(monthIndex) ?? { income: 0, expense: 0, investment: 0, goal: 0 };
+      current.goal += goal.amount;
+      summaryByMonth.set(monthIndex, current);
+    });
+  }
+
+  const grid = MONTH_KEYS.map((_, monthIndex) => {
+    const s = summaryByMonth.get(monthIndex) ?? { income: 0, expense: 0, investment: 0, goal: 0 };
+    const balance = s.income - s.expense - s.investment - s.goal;
+    return { monthIndex, name: tMonths(MONTH_KEYS[monthIndex]), icon: MONTH_ICONS[monthIndex], balance };
+  });
 
   return (
     <div data-tour="dashboard-content">

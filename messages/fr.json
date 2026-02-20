@@ -1,0 +1,538 @@
+{
+  "common": {
+    "brand": "Nosso Futuro",
+    "locales": {
+      "label": "Language",
+      "pt-BR": "Portuguese (Brazil)",
+      "pt-PT": "Portuguese (Portugal)",
+      "en": "English",
+      "es": "Spanish"
+    },
+    "save": "Save",
+    "cancel": "Cancel",
+    "close": "Close",
+    "loading": "Loading...",
+    "back": "â† Back to home",
+    "update": "Update",
+    "delete": "Delete",
+    "edit": "Edit",
+    "add": "Add",
+    "months": {
+      "january": "January",
+      "february": "February",
+      "march": "March",
+      "april": "April",
+      "may": "May",
+      "june": "June",
+      "july": "July",
+      "august": "August",
+      "september": "September",
+      "october": "October",
+      "november": "November",
+      "december": "December"
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Sign in to your account",
+      "subtitle": "Access your family workspace and pick up where you left off.",
+      "email": "Email",
+      "password": "Password",
+      "submit": "Sign in",
+      "submitting": "Signing in...",
+      "errorInvalidCredentials": "We could not find an account with this email and password.",
+      "noAccount": "Don't have an account?",
+      "signUpHere": "Sign up here",
+      "createAccount": "Create account",
+      "forgotPassword": "Forgot my password",
+      "backHome": "â† Back to home"
+    },
+    "register": {
+      "title": "Create account",
+      "subtitle": "Start for free and organize your family's finances in one place.",
+      "fullName": "Full name",
+      "email": "Email",
+      "password": "Password (min. 6 characters)",
+      "submit": "Sign up",
+      "submitting": "Signing up...",
+      "verifyEmail": "Verify your email",
+      "emailSent": "We sent a confirmation link to {email}. Click the link to activate your account.",
+      "goToLogin": "Go to login",
+      "hasAccount": "Already have an account?",
+      "login": "Sign in",
+      "backHome": "â† Back to home"
+    },
+    "forgot": {
+      "title": "Forgot my password",
+      "subtitle": "Enter your email and we will send you a link to reset your password.",
+      "email": "Email",
+      "submit": "Send link",
+      "submitting": "Sending...",
+      "successTitle": "Email sent",
+      "successMessage": "We sent a link to reset your password to {email}. Check your inbox.",
+      "backToLogin": "Back to login",
+      "remembered": "Remember your password?",
+      "backHome": "â† Back to home"
+    }
+  },
+  "landing": {
+    "nav": {
+      "features": "Features",
+      "pricing": "Pricing",
+      "faq": "FAQ",
+      "about": "About",
+      "login": "Sign in",
+      "createAccount": "Create account"
+    },
+    "hero": {
+      "badge": "Finances in harmony for you and your family",
+      "title": "Build your family's {highlight} â€” together",
+      "titleHighlight": "financial future",
+      "subtitle": "Track income, expenses, investments and goals in a shared workspace. Everyone on the same page, all decisions aligned.",
+      "cta": "Start free",
+      "howItWorks": "See how it works",
+      "stats": {
+        "families": "Families",
+        "saved": "Saved",
+        "rating": "Rating"
+      }
+    },
+    "features": {
+      "title": "Everything you need",
+      "subtitle": "Features designed for those who share financial life with loved ones.",
+      "incomeExpenses": {
+        "title": "Income and Expenses",
+        "desc": "Record income and expenses by category and track your family cash flow in real time."
+      },
+      "goals": {
+        "title": "Financial Goals",
+        "desc": "Set goals like travel, home or emergency fund and track progress together."
+      },
+      "investments": {
+        "title": "Investments",
+        "desc": "Register accounts and applications and visualize your family's wealth evolution."
+      },
+      "reports": {
+        "title": "Smart Reports",
+        "desc": "Clear charts and overview for data-driven decisions."
+      },
+      "workspace": {
+        "title": "Shared Workspace",
+        "desc": "The whole family on the same page â€” everyone sees, records and tracks together."
+      },
+      "security": {
+        "title": "Total Security",
+        "desc": "Your data protected with encryption and secure authentication."
+      }
+    },
+    "steps": {
+      "title": "Simple to get started",
+      "subtitle": "Four steps to transform your finances.",
+      "step1": {
+        "title": "Create your account",
+        "desc": "In seconds, no bureaucracy."
+      },
+      "step2": {
+        "title": "Invite the family",
+        "desc": "Share the workspace."
+      },
+      "step3": {
+        "title": "Record everything",
+        "desc": "Income, expenses and goals."
+      },
+      "step4": {
+        "title": "Grow together",
+        "desc": "Track progress."
+      }
+    },
+    "plans": {
+      "title": "Plans for every family",
+      "subtitle": "Start free. Upgrade when you need.",
+      "free": {
+        "name": "Free",
+        "desc": "Perfect to get started",
+        "cta": "Start free"
+      },
+      "pro": {
+        "name": "Pro",
+        "desc": "For organized couples",
+        "cta": "Subscribe Pro",
+        "badge": "Most popular"
+      },
+      "business": {
+        "name": "Business",
+        "desc": "For large families",
+        "cta": "Subscribe Business"
+      },
+      "features": {
+        "workspace1": "1 workspace",
+        "workspaces3": "3 workspaces",
+        "workspacesUnlimited": "Unlimited workspaces",
+        "members2": "2 members",
+        "members5": "5 members",
+        "members20": "Up to 20 members",
+        "transactions100": "100 transactions/month",
+        "transactionsUnlimited": "Unlimited transactions",
+        "goals3": "3 financial goals",
+        "goalsUnlimited": "Unlimited goals",
+        "reportsBasic": "Basic reports",
+        "reportsAdvanced": "Advanced reports",
+        "supportPriority": "Priority support",
+        "allPro": "Everything in Pro",
+        "managementAdvanced": "Advanced management",
+        "apiIntegration": "API integration",
+        "supportDedicated": "Dedicated support"
+      }
+    },
+    "faq": {
+      "title": "Frequently asked questions",
+      "subtitle": "Get answers about Nosso Futuro.",
+      "q1": "Is Nosso Futuro free?",
+      "a1": "Yes! The Free plan is 100% free and includes 1 workspace, up to 2 members, 100 transactions per month and 3 financial goals. Ideal to start organizing your family finances at no cost.",
+      "q2": "How does family sharing work?",
+      "a2": "Each family creates a workspace and invites members by email. Everyone can record transactions, view reports and track goals. Information is synced in real time for all members.",
+      "q3": "Does Nosso Futuro connect to my bank?",
+      "a3": "No. Nosso Futuro has no connection, integration or link to your bank account. All transactions are entered manually by you and your family. We do not access, connect or import data from financial institutions.",
+      "q4": "Is my data secure?",
+      "a4": "Yes. We use encryption and secure authentication. Your financial data is protected and only people you invite will have access to the workspace.",
+      "q5": "Can I cancel my paid plan anytime?",
+      "a5": "Yes. You can cancel your Pro or Business subscription whenever you want. After cancellation, you keep access until the end of the paid period and then your workspace reverts to the Free plan.",
+      "q6": "How many people can use a workspace?",
+      "a6": "The Free plan allows up to 2 members. Pro up to 5. Business up to 20 members. All so the whole family can participate in financial management."
+    },
+    "cta": {
+      "title": "Ready to build the future together?",
+      "subtitle": "Join thousands of families who already organize their finances with Nosso Futuro.",
+      "button": "Create free account"
+    },
+    "footer": {
+      "copyright": "Â© {year} Nosso Futuro. All rights reserved.",
+      "terms": "Terms",
+      "privacy": "Privacy"
+    }
+  },
+  "nav": {
+    "main": "Main",
+    "system": "System",
+    "overview": "Overview",
+    "transactions": "Transactions",
+    "investments": "Investments",
+    "cobrancas": "Receivables",
+    "goals": "Goals",
+    "reports": "Annual report",
+    "settings": "Settings",
+    "billing": "Subscription",
+    "lightMode": "Light mode",
+    "darkMode": "Dark mode",
+    "signOut": "Sign out",
+    "closeMenu": "Close menu",
+    "workspace": "Workspace"
+  },
+  "dashboard": {
+    "yearView": "Year overview",
+    "smartManagement": "Smart management â€” {year}",
+    "noWorkspace": "No workspace found.",
+    "settings": "Settings",
+    "seeReports": "View annual report",
+    "transactions": "Transactions",
+    "backToYear": "â† Back to year",
+    "monthTransactions": "Monthly transactions",
+    "income": "Income",
+    "expenses": "Expenses",
+    "invested": "Invested",
+    "goals": "Goals",
+    "freeBalance": "Free balance",
+    "selectWorkspace": "Select a workspace in settings."
+  },
+  "forms": {
+    "transaction": {
+      "edit": "Edit transaction",
+      "new": "New transaction",
+      "date": "Date",
+      "description": "Description",
+      "category": "Category",
+      "expenses": "Expenses",
+      "income": "Income",
+      "placeholderDesc": "E.g. Groceries",
+      "placeholderAmount": "Amount (e.g. 5,000 or 50.99)",
+      "outflow": "Outflow",
+      "inflow": "Inflow",
+      "saved": "Saved!",
+      "updated": "Updated!",
+      "errorSave": "Error saving",
+      "saving": "Saving...",
+      "updating": "Updating..."
+    },
+    "goal": {
+      "new": "New goal",
+      "edit": "Edit goal",
+      "name": "Name",
+      "targetAmount": "Target amount",
+      "deadline": "Deadline",
+      "placeholderTitle": "E.g. Vacation",
+      "create": "Create goal",
+      "creating": "Creating...",
+      "goalUpdated": "Goal updated!",
+      "goalCreated": "Goal created!",
+      "hint": "The system calculates the monthly amount needed based on the chosen date."
+    },
+    "investment": {
+      "new": "New Contribution",
+      "edit": "Edit investment",
+      "date": "Date",
+      "assetName": "Asset name",
+      "category": "Category",
+      "value": "Amount",
+      "placeholderName": "E.g. CDB Daily Liquidity",
+      "placeholderAmount": "0.00",
+      "confirm": "Confirm Contribution",
+      "updated": "Updated!",
+      "registered": "Investment registered!",
+      "types": {
+        "outro": "Other",
+        "cdb": "CDB",
+        "lci": "LCI",
+        "lca": "LCA",
+        "tesouro": "Treasury",
+        "acao": "Stock",
+        "fii": "REIT",
+        "crypto": "Crypto"
+      }
+    },
+    "receivable": {
+      "new": "New receivable",
+      "edit": "Edit receivable",
+      "debtor": "Who owes *",
+      "amount": "Amount *",
+      "dueDate": "Due date",
+      "status": "Status",
+      "phone": "Phone (WhatsApp)",
+      "notes": "Notes",
+      "placeholderName": "Person's name",
+      "placeholderNotes": "Optional details",
+      "pending": "Pending",
+      "overdue": "Overdue",
+      "paid": "Paid",
+      "updated": "Receivable updated!",
+      "added": "Receivable added!",
+      "addCobranca": "Add receivable",
+      "confirmDelete": "Delete this receivable?",
+      "emptyList": "No receivables found. Add who owes you.",
+      "markAsPaid": "Mark as paid"
+    },
+    "goalContribution": {
+      "title": "Save for goal",
+      "selectGoal": "Select the goal",
+      "date": "Date",
+      "placeholderAmount": "Amount (e.g. 500 or 1,500.50)",
+      "save": "Save for goal",
+      "saving": "Saving...",
+      "progressSaved": "Progress saved!",
+      "selectGoalError": "Select a goal."
+    }
+  },
+  "cobrancas": {
+    "pageTitle": "Receivables",
+    "pageSubtitle": "Who owes you, amounts and WhatsApp sharing.",
+    "totalToReceive": "Total to receive",
+    "debtorsFilter": "Debtors (filter)",
+    "alreadyReceived": "Already received (paid)",
+    "item": "item",
+    "items": "items",
+    "filter": {
+      "client": "Client (name)",
+      "status": "Status",
+      "all": "All",
+      "pending": "Pending",
+      "overdue": "Overdue",
+      "paid": "Paid",
+      "dueFrom": "Due from",
+      "dueTo": "to",
+      "searchPlaceholder": "Search by name..."
+    }
+  },
+  "settings": {
+    "title": "Settings",
+    "subtitle": "Manage your account, workspaces and plan.",
+    "profile": "Profile",
+    "emailAccess": "Access email",
+    "verified": "Verified",
+    "workspace": "Workspace",
+    "workspaceDesc": "Select the active workspace to filter your financial data.",
+    "guidedTour": "Guided tour",
+    "guidedTourDesc": "Review the step-by-step of the main areas of the app.",
+    "seeTour": "See guided tour",
+    "darkMode": "Dark Mode",
+    "darkModeOn": "On",
+    "darkModeOff": "Off",
+    "advancedSettings": "Advanced settings",
+    "advancedDesc": "Adjust colors, fonts and accessibility modes to make the site more comfortable (including for those with visual impairments).",
+    "colorTheme": "Color theme",
+    "default": "Default",
+    "pink": "Pink",
+    "blue": "Blue",
+    "yellow": "Yellow",
+    "fontSize": "Font size",
+    "normal": "Normal",
+    "large": "Large",
+    "xlarge": "Extra large",
+    "highContrast": "High contrast mode",
+    "highContrastDesc": "Increases text and border contrast for easier reading.",
+    "reducedMotion": "Reduce animations",
+    "reducedMotionDesc": "Disables or reduces animations and transitions on the site.",
+    "restoreDefaults": "Restore defaults",
+    "subscription": "Subscription",
+    "subscriptionDesc": "Manage your payment methods and current plan.",
+    "planStatus": "Plan Status",
+    "freePlan": "Free Plan",
+    "lifetimeAccess": "Lifetime access to essential tools.",
+    "seePlansBilling": "View plans and billing",
+    "signOut": "Sign out",
+    "deleteAccount": "Delete my account",
+    "termsPrivacy": "Terms of use & Privacy",
+    "deleteModalTitle": "Delete account",
+    "deleteModalMessage": "Are you sure you want to delete your account? All your data will be removed and this action cannot be undone.",
+    "cancel": "Cancel",
+    "confirmDelete": "Yes, delete account",
+    "deleting": "Deletingâ€¦",
+    "activateDark": "Enable dark mode",
+    "deactivateDark": "Disable dark mode",
+    "activateHighContrast": "Enable high contrast",
+    "deactivateHighContrast": "Disable high contrast",
+    "enableAnimations": "Enable animations",
+    "reduceAnimations": "Reduce animations"
+  },
+  "billing": {
+    "plansTitle": "Plans for every family",
+    "plansSubtitle": "Start free. Upgrade when you need.",
+    "free": "Free",
+    "pro": "Pro",
+    "business": "Business",
+    "currentPlan": "Current plan",
+    "startFree": "Start free",
+    "redirecting": "Redirecting...",
+    "activePlan": "Active plan",
+    "managePlan": "Gerenciar plano",
+    "opening": "Opening...",
+    "selectWorkspace": "Select a workspace."
+  },
+  "onboarding": {
+    "skip": "Skip",
+    "stepOf": "Step {current} of 3",
+    "whoUse": "Who will you use Nosso Futuro for?",
+    "chooseOption": "Choose the option that best describes your use.",
+    "intents": {
+      "personal": "Just for me",
+      "personalDesc": "Organize my personal finances",
+      "family": "For me and my family",
+      "familyDesc": "Home, couple or family",
+      "business": "For my business",
+      "businessDesc": "Business financial management",
+      "other": "Other",
+      "otherDesc": "Couple, team or group"
+    },
+    "workspaceName": "What do you want to call your finance space?",
+    "workspaceNameDesc": "Give it a name that makes sense to you.",
+    "placeholderName": "E.g. My Finances",
+    "continue": "Continue",
+    "readyTitle": "Ready to get started!",
+    "readyDesc": "You'll see a guided tour in the app â€” we'll walk through together so you can learn to record transactions, goals and more.",
+    "tourHint": "The tour will highlight each menu area and show where to click. On mobile, open the menu (â˜° icon) at the top to see navigation.",
+    "seeTourInApp": "See guided tour in app",
+    "entering": "Entering app..."
+  },
+  "tour": {
+    "sidebarTitle": "Sidebar menu",
+    "sidebarDesc": "Use the menu on the left to navigate. Here you access all areas of the app: transactions, investments, goals and more.",
+    "transactionsTitle": "Transactions",
+    "transactionsDesc": "Click here to record income and expenses. This is where you start controlling your cash flow.",
+    "investmentsTitle": "Investments",
+    "investmentsDesc": "Register your applications and track wealth evolution.",
+    "goalsTitle": "Financial goals",
+    "goalsDesc": "Set goals like travel or emergency fund and track progress.",
+    "yearViewTitle": "Year overview",
+    "yearViewDesc": "Here you see the balance for each month. Click a month to see transactions and add income or expenses.",
+    "workspaceTitle": "Your workspace",
+    "workspaceDesc": "The name of your finance space. When you have more than one (e.g. personal and business), switch here.",
+    "settingsTitle": "Settings",
+    "settingsDesc": "Invite family, change plan and manage your workspace. Start with Transactions to record your first movement!",
+    "next": "Next",
+    "prev": "Back",
+    "done": "Start",
+    "gotIt": "Got it, let's go!",
+    "progress": "{{current}} of {{total}}"
+  },
+  "welcome": {
+    "title": "Ready! You can now record your first transaction",
+    "subtitle": "Start by adding income or expenses to track your cash flow.",
+    "goToTransactions": "Go to Transactions",
+    "seeTour": "See guided tour"
+  },
+  "reports": {
+    "annualReport": "Annual report",
+    "year": "Year {year}",
+    "annualIncome": "Annual income",
+    "annualExpenses": "Annual expenses",
+    "invested": "Invested",
+    "goalsSaved": "Goals saved",
+    "cashFlowMonthly": "Monthly cash flow",
+    "goals": "Goals",
+    "noGoals": "No goals."
+  },
+  "transactions": {
+    "historyTitle": "Monthly history",
+    "noTransactions": "No transactions this month.",
+    "noCategory": "No category",
+    "date": "Date",
+    "categoryDescription": "Category / Description",
+    "value": "Amount"
+  },
+  "goals": {
+    "pageTitle": "Goals and Objectives",
+    "pageSubtitle": "Plan and track the evolution of your savings.",
+    "totalAccumulated": "Total accumulated",
+    "totalTarget": "Total target",
+    "targetSum": "Sum of all objectives",
+    "averageProgress": "Average progress",
+    "achieved": "achieved",
+    "keepFocused": "Keep focused on your dreams!",
+    "myGoals": "My goals",
+    "active": "ACTIVE",
+    "actives": "ACTIVE",
+    "noGoals": "No goals defined yet.",
+    "monthlySuggested": "Suggested monthly amount"
+  },
+  "investments": {
+    "pageTitle": "My Investments",
+    "pageSubtitle": "Manage your contributions and track your wealth.",
+    "totalInvested": "Total invested ({period})",
+    "assetsInPeriod": "Assets in period",
+    "asset": "Asset",
+    "assets": "Assets",
+    "lastContribution": "Last contribution",
+    "none": "None",
+    "evolutionTitle": "Wealth Evolution",
+    "evolutionDesc": "Track your contributions and goals in the annual report.",
+    "seeCharts": "View Charts",
+    "historyTitle": "Contribution history",
+    "totalLabel": "Total",
+    "noneInPeriod": "No investments in this period.",
+    "totalMonthly": "Monthly total:"
+  },
+  "errors": {
+    "auth": {
+      "invalidSession": "Invalid session. Please sign in again.",
+      "serverConfig": "Server configuration unavailable.",
+      "deleteFailed": "Could not delete account."
+    },
+    "unauthorized": "Unauthorized",
+    "workspaceNotFound": "Workspace not found",
+    "connectError": "Connection error. Check .env.local.",
+    "generic": "Error"
+  },
+  "header": {
+    "openMenu": "Open menu",
+    "currentWorkspace": "Current workspace",
+    "toggleTheme": "Toggle theme"
+  }
+}

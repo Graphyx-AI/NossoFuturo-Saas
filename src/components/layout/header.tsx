@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect, useMemo, useTransition } from "react";
 import type { Workspace } from "@/types/database";
-import { Menu, Moon, Sun, ChevronDown } from "lucide-react";
+import { Menu, Moon, Sun, ChevronDown, PanelLeftClose, PanelLeftOpen } from "lucide-react";
 import { useTheme } from "@/components/theme-provider";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
@@ -12,10 +12,14 @@ export function Header({
   workspace,
   workspaces,
   onMenuClick,
+  sidebarCollapsed = false,
+  onSidebarToggle,
 }: {
   workspace: Workspace | null;
   workspaces: Workspace[];
   onMenuClick?: () => void;
+  sidebarCollapsed?: boolean;
+  onSidebarToggle?: () => void;
 }) {
   const { theme, toggleTheme } = useTheme();
   const router = useRouter();
@@ -68,6 +72,17 @@ export function Header({
             aria-label={t("openMenu")}
           >
             <Menu className="h-5 w-5" />
+          </button>
+        )}
+        {onSidebarToggle && (
+          <button
+            type="button"
+            onClick={onSidebarToggle}
+            className="hidden lg:flex min-h-[44px] min-w-[44px] items-center justify-center rounded-xl text-foreground hover:bg-secondary transition-colors shrink-0"
+            aria-label={sidebarCollapsed ? "Expandir menu lateral" : "Recolher menu lateral"}
+            aria-expanded={!sidebarCollapsed}
+          >
+            {sidebarCollapsed ? <PanelLeftOpen className="h-5 w-5" /> : <PanelLeftClose className="h-5 w-5" />}
           </button>
         )}
         <div className="relative min-w-0" ref={ref} data-tour="header-workspace">

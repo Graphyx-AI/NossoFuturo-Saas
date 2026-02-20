@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState, useTransition } from "react";
+import { useCallback, useMemo, useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import {
   Briefcase,
@@ -36,6 +36,12 @@ export function WorkspaceManagerClient({
   workspaceInvites: WorkspaceInvite[];
   canManageMembers: boolean;
 }) {
+  type Toast = {
+    id: number;
+    message: string;
+    kind: "success" | "error";
+  };
+
   const router = useRouter();
   const [optimisticWorkspaceId, setOptimisticWorkspaceId] = useState<string | null>(null);
   const [creating, setCreating] = useState(false);
@@ -45,6 +51,8 @@ export function WorkspaceManagerClient({
   const [editName, setEditName] = useState("");
   const [actionError, setActionError] = useState<string | null>(null);
   const [deletingWorkspaceId, setDeletingWorkspaceId] = useState<string | null>(null);
+  const [workspaceToDelete, setWorkspaceToDelete] = useState<Workspace | null>(null);
+  const [toasts, setToasts] = useState<Toast[]>([]);
   const [isPending, startTransition] = useTransition();
 
   const activeWorkspaceId = optimisticWorkspaceId ?? currentWorkspaceId;
@@ -52,6 +60,14 @@ export function WorkspaceManagerClient({
     () => workspaces.find((workspace) => workspace.id === activeWorkspaceId) ?? null,
     [workspaces, activeWorkspaceId]
   );
+
+  const addToast = useCallback((message: string, kind: Toast["kind"]) => {
+    const id = Date.now() + Math.floor(Math.random() * 1000);
+    setToasts((current) => [...current, { id, message, kind }]);
+    setTimeout(() => {
+      setToasts((current) => current.filter((toast) => toast.id !== id));
+    }, 3500);
+  }, []);
 
   async function setWorkspace(workspaceId: string) {
     const previousWorkspaceId = optimisticWorkspaceId ?? currentWorkspaceId;
@@ -79,6 +95,7 @@ export function WorkspaceManagerClient({
     const result = await createWorkspace(newWorkspaceName);
     if (!result.ok) {
       setActionError(result.error);
+      addToast(result.error, "error");
       setLoadingCreate(false);
       return;
     }
@@ -86,7 +103,9 @@ export function WorkspaceManagerClient({
     try {
       await setWorkspace(result.workspaceId);
     } catch (error) {
-      setActionError(error instanceof Error ? error.message : "Erro ao trocar workspace.");
+      const message = error instanceof Error ? error.message : "Erro ao trocar workspace.";
+      setActionError(message);
+      addToast(message, "error");
       setLoadingCreate(false);
       return;
     }
@@ -94,6 +113,7 @@ export function WorkspaceManagerClient({
     setNewWorkspaceName("");
     setCreating(false);
     setLoadingCreate(false);
+    addToast("Workspace criado com sucesso.", "success");
   }
 
   async function handleSaveName(workspaceId: string) {
@@ -101,25 +121,23 @@ export function WorkspaceManagerClient({
     const result = await updateWorkspaceName(workspaceId, editName);
     if (!result.ok) {
       setActionError(result.error);
+      addToast(result.error, "error");
       return;
     }
     setEditingWorkspaceId(null);
     setEditName("");
+    addToast("Nome do workspace atualizado.", "success");
     startTransition(() => router.refresh());
   }
 
   async function handleDeleteWorkspace(workspace: Workspace) {
-    const confirmed = window.confirm(
-      `Excluir o workspace "${workspace.name}"? Essa acao nao pode ser desfeita.`
-    );
-    if (!confirmed) return;
-
     setActionError(null);
     setDeletingWorkspaceId(workspace.id);
 
     const result = await deleteWorkspace(workspace.id);
     if (!result.ok) {
       setActionError(result.error);
+      addToast(result.error, "error");
       setDeletingWorkspaceId(null);
       return;
     }
@@ -128,13 +146,17 @@ export function WorkspaceManagerClient({
       try {
         await setWorkspace(result.nextWorkspaceId);
       } catch (error) {
-        setActionError(error instanceof Error ? error.message : "Erro ao trocar workspace.");
+        const message = error instanceof Error ? error.message : "Erro ao trocar workspace.";
+        setActionError(message);
+        addToast(message, "error");
       }
     } else {
       startTransition(() => router.refresh());
     }
 
     setDeletingWorkspaceId(null);
+    setWorkspaceToDelete(null);
+    addToast(`Workspace "${workspace.name}" excluido.`, "success");
   }
 
   return (
@@ -293,7 +315,7 @@ export function WorkspaceManagerClient({
                           </button>
                           <button
                             type="button"
-                            onClick={() => handleDeleteWorkspace(workspace)}
+                            onClick={() => setWorkspaceToDelete(workspace)}
                             disabled={isDeleting}
                             className="p-2 rounded-lg text-rose-600 hover:bg-rose-500/10 transition-colors disabled:opacity-70"
                             title="Excluir workspace"
@@ -336,6 +358,60 @@ export function WorkspaceManagerClient({
           currentUserId={userId}
         />
       </section>
+
+      {workspaceToDelete && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50">
+          <div className="w-full max-w-md rounded-2xl border border-border bg-card p-5 shadow-xl">
+            <h3 className="text-lg font-bold text-foreground">Confirmar exclusao</h3>
+            <p className="mt-2 text-sm text-muted-foreground">
+              Excluir o workspace "{workspaceToDelete.name}"? Essa acao nao pode ser desfeita.
+            </p>
+            <div className="mt-5 flex items-center justify-end gap-2">
+              <button
+                type="button"
+                onClick={() => setWorkspaceToDelete(null)}
+                className="px-4 py-2 rounded-xl border border-border text-sm font-medium text-foreground hover:bg-secondary/40 transition-colors"
+              >
+                Cancelar
+              </button>
+              <button
+                type="button"
+                onClick={() => handleDeleteWorkspace(workspaceToDelete)}
+                disabled={deletingWorkspaceId === workspaceToDelete.id}
+                className="px-4 py-2 rounded-xl text-sm font-medium bg-rose-600 text-white hover:bg-rose-700 disabled:opacity-70 inline-flex items-center gap-2"
+              >
+                {deletingWorkspaceId === workspaceToDelete.id ? (
+                  <>
+                    <Loader2 size={14} className="animate-spin" />
+                    Excluindo...
+                  </>
+                ) : (
+                  "Excluir"
+                )}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {toasts.length > 0 && (
+        <div className="fixed top-4 right-4 z-[60] space-y-2 w-[min(92vw,360px)]">
+          {toasts.map((toast) => (
+            <div
+              key={toast.id}
+              className={`rounded-xl border px-4 py-3 text-sm shadow-lg ${
+                toast.kind === "success"
+                  ? "border-emerald-200 bg-emerald-50 text-emerald-800"
+                  : "border-rose-200 bg-rose-50 text-rose-800"
+              }`}
+              role="status"
+              aria-live="polite"
+            >
+              {toast.message}
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

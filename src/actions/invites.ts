@@ -8,6 +8,8 @@ import { z } from "zod";
 import { sendWorkspaceInviteEmail } from "@/lib/email/resend";
 import { randomBytes } from "crypto";
 
+const LOCALES = ["pt-BR", "pt-PT", "en", "es"] as const;
+
 const createInviteSchema = z.object({
   workspaceId: z.string().uuid(),
   email: z.string().email("E-mail invalido"),
@@ -72,6 +74,21 @@ async function getAppUrl() {
   }
 
   return (process.env.NEXT_PUBLIC_APP_URL ?? "http://localhost:3000").replace(/\/$/, "");
+}
+
+async function getLocaleFromRequest(): Promise<(typeof LOCALES)[number]> {
+  try {
+    const h = await headers();
+    const ref = h.get("referer") ?? "";
+    const pathname = new URL(ref).pathname;
+    const maybeLocale = pathname.split("/").filter(Boolean)[0];
+    if (LOCALES.includes(maybeLocale as (typeof LOCALES)[number])) {
+      return maybeLocale as (typeof LOCALES)[number];
+    }
+  } catch {
+    // ignore and use fallback
+  }
+  return "pt-BR";
 }
 
 export async function createWorkspaceInvite(
@@ -168,7 +185,8 @@ export async function createWorkspaceInvite(
   }
 
   const appUrl = await getAppUrl();
-  const acceptUrl = `${appUrl}/pt-BR/i/${token}`;
+  const locale = await getLocaleFromRequest();
+  const acceptUrl = `${appUrl}/${locale}/i/${token}`;
   const emailResult = await sendWorkspaceInviteEmail({
     to: parsed.data.email,
     inviterName: profile?.full_name ?? "Alguem",
@@ -236,7 +254,8 @@ export async function createWorkspaceInviteLink(
   if (insertError) return { ok: false, error: insertError.message };
 
   const appUrl = await getAppUrl();
-  const inviteUrl = `${appUrl}/pt-BR/i/${token}`;
+  const locale = await getLocaleFromRequest();
+  const inviteUrl = `${appUrl}/${locale}/i/${token}`;
 
   revalidatePath("/dashboard/settings");
   revalidatePath("/pt/dashboard/settings");
@@ -246,7 +265,7 @@ export async function createWorkspaceInviteLink(
 }
 
 export type AcceptInviteResult =
-  | { ok: true; workspaceId: string }
+  | { ok: true; workspaceId: string; onboardingRequired: boolean }
   | { ok: false; error: string };
 
 export async function acceptWorkspaceInvite(token: string): Promise<AcceptInviteResult> {
@@ -323,6 +342,7 @@ export async function acceptWorkspaceInvite(token: string): Promise<AcceptInvite
   const inviteWorkspaceId = (invite as { workspace_id?: string }).workspace_id;
   const inviteRole = (invite as { role?: string }).role ?? "editor";
   const inviteId = (invite as { id?: string }).id;
+  const isLinkInvite = inviteEmail?.startsWith("link::") ?? false;
 
   if (inviteEmail && !inviteEmail.startsWith("link::") && inviteEmail !== user.email.toLowerCase()) {
     return {
@@ -335,6 +355,41 @@ export async function acceptWorkspaceInvite(token: string): Promise<AcceptInvite
     return { ok: false, error: "Convite invalido." };
   }
 
+  const { data: existingMembership, error: membershipLookupError } = await admin
+    .from("workspace_members")
+    .select("id")
+    .eq("workspace_id", inviteWorkspaceId)
+    .eq("user_id", user.id)
+    .not("accepted_at", "is", null)
+    .maybeSingle();
+
+  if (membershipLookupError) {
+    return { ok: false, error: "Erro ao validar acesso ao workspace." };
+  }
+
+  if (existingMembership) {
+    if (isLinkInvite) {
+      return {
+        ok: false,
+        error: "Voce ja e membro deste workspace. Compartilhe este link com outra pessoa.",
+      };
+    }
+
+    if (inviteId) {
+      await admin.from("workspace_invites").delete().eq("id", inviteId);
+    }
+    const { data: profile } = await supabase
+      .from("profiles")
+      .select("onboarding_completed_at")
+      .eq("id", user.id)
+      .single();
+    return {
+      ok: true,
+      workspaceId: inviteWorkspaceId,
+      onboardingRequired: !profile?.onboarding_completed_at,
+    };
+  }
+
   const { error: insertError } = await admin.from("workspace_members").insert({
     workspace_id: inviteWorkspaceId,
     user_id: user.id,
@@ -344,17 +399,47 @@ export async function acceptWorkspaceInvite(token: string): Promise<AcceptInvite
   });
   if (insertError) {
     if (insertError.code === "23505") {
-      await admin.from("workspace_invites").delete().eq("id", inviteId);
-      return { ok: true, workspaceId: inviteWorkspaceId };
+      if (isLinkInvite) {
+        return {
+          ok: false,
+          error: "Voce ja e membro deste workspace. Compartilhe este link com outra pessoa.",
+        };
+      }
+      if (inviteId) {
+        await admin.from("workspace_invites").delete().eq("id", inviteId);
+      }
+      const { data: profile } = await supabase
+        .from("profiles")
+        .select("onboarding_completed_at")
+        .eq("id", user.id)
+        .single();
+      return {
+        ok: true,
+        workspaceId: inviteWorkspaceId,
+        onboardingRequired: !profile?.onboarding_completed_at,
+      };
     }
     return { ok: false, error: insertError.message };
   }
 
-  await admin.from("workspace_invites").delete().eq("id", inviteId);
+  if (!isLinkInvite && inviteId) {
+    await admin.from("workspace_invites").delete().eq("id", inviteId);
+  }
   revalidatePath("/dashboard");
   revalidatePath("/pt/dashboard");
   revalidatePath("/en/dashboard");
-  return { ok: true, workspaceId: inviteWorkspaceId };
+
+  const { data: profile } = await supabase
+    .from("profiles")
+    .select("onboarding_completed_at")
+    .eq("id", user.id)
+    .single();
+
+  return {
+    ok: true,
+    workspaceId: inviteWorkspaceId,
+    onboardingRequired: !profile?.onboarding_completed_at,
+  };
 }
 
 export async function getWorkspaceInvites(workspaceId: string | null) {
@@ -517,12 +602,34 @@ export async function removeWorkspaceMember(
     return { ok: false, error: "Nao e possivel remover o dono do workspace." };
   }
 
+  let deleteError: string | null = null;
+
   const { error } = await supabase
     .from("workspace_members")
     .delete()
     .eq("workspace_id", workspaceId)
     .eq("user_id", userId);
-  if (error) return { ok: false, error: error.message };
+  deleteError = error?.message ?? null;
+
+  if (deleteError) {
+    const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+    if (!serviceKey) return { ok: false, error: deleteError };
+
+    const admin = createSupabaseClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!,
+      serviceKey,
+      { auth: { persistSession: false, autoRefreshToken: false } }
+    );
+
+    const { error: adminError } = await admin
+      .from("workspace_members")
+      .delete()
+      .eq("workspace_id", workspaceId)
+      .eq("user_id", userId);
+
+    if (adminError) return { ok: false, error: adminError.message };
+  }
+
   revalidatePath("/dashboard/settings");
   revalidatePath("/pt/dashboard/settings");
   revalidatePath("/en/dashboard/settings");

@@ -47,6 +47,9 @@ export function WorkspaceMembersClient({
   const [copied, setCopied] = useState(false);
   const [removingId, setRemovingId] = useState<string | null>(null);
   const [cancellingId, setCancellingId] = useState<string | null>(null);
+  const currentMembership = members.find((member) => member.user_id === currentUserId);
+  const canManageActions =
+    canManage || currentMembership?.role === "owner" || currentMembership?.role === "admin";
 
   if (!workspaceId) {
     return (
@@ -125,7 +128,7 @@ export function WorkspaceMembersClient({
                 <span className="text-xs font-medium px-2 py-1 rounded-lg bg-secondary text-muted-foreground">
                   {ROLE_LABELS[m.role] ?? m.role}
                 </span>
-                {canManage && m.user_id !== currentUserId && m.role !== "owner" && (
+                {m.role !== "owner" && m.user_id !== currentUserId && (
                   <button
                     type="button"
                     onClick={() => handleRemove(m.user_id)}
@@ -169,7 +172,7 @@ export function WorkspaceMembersClient({
                     </p>
                   </div>
                 </div>
-                {canManage && (
+                {canManageActions && (
                   <button
                     type="button"
                     onClick={() => handleCancelInvite(inv.id)}
@@ -190,71 +193,69 @@ export function WorkspaceMembersClient({
         </div>
       )}
 
-      {canManage && (
-        <form onSubmit={handleInvite} className="space-y-3">
-          <h3 className="text-sm font-semibold text-foreground">Convidar por link</h3>
-          <div className="flex flex-col sm:flex-row gap-2">
-            <input
-              type="text"
-              value={guestName}
-              onChange={(e) => setGuestName(e.target.value)}
-              placeholder="Nome da pessoa"
-              required
-              className="flex-1 px-4 py-2.5 rounded-xl border border-border bg-background text-foreground placeholder:text-muted-foreground focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none"
-            />
-            <select
-              value={role}
-              onChange={(e) => setRole(e.target.value as "editor" | "viewer")}
-              className="px-4 py-2.5 rounded-xl border border-border bg-background text-foreground focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none"
-            >
-              <option value="editor">Editor</option>
-              <option value="viewer">Visualizador</option>
-            </select>
-            <button
-              type="submit"
-              disabled={inviteLoading}
-              className="px-4 py-2.5 rounded-xl font-medium bg-primary text-primary-foreground hover:opacity-90 disabled:opacity-70 flex items-center justify-center gap-2"
-            >
-              {inviteLoading ? (
-                <>
-                  <Loader2 size={16} className="animate-spin" />
-                  Gerando...
-                </>
-              ) : (
-                "Gerar link"
-              )}
-            </button>
-          </div>
+      <form onSubmit={handleInvite} className="space-y-3">
+        <h3 className="text-sm font-semibold text-foreground">Convidar por link</h3>
+        <div className="flex flex-col sm:flex-row gap-2">
+          <input
+            type="text"
+            value={guestName}
+            onChange={(e) => setGuestName(e.target.value)}
+            placeholder="Nome da pessoa"
+            required
+            className="flex-1 px-4 py-2.5 rounded-xl border border-border bg-background text-foreground placeholder:text-muted-foreground focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none"
+          />
+          <select
+            value={role}
+            onChange={(e) => setRole(e.target.value as "editor" | "viewer")}
+            className="px-4 py-2.5 rounded-xl border border-border bg-background text-foreground focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none"
+          >
+            <option value="editor">Editor</option>
+            <option value="viewer">Visualizador</option>
+          </select>
+          <button
+            type="submit"
+            disabled={inviteLoading}
+            className="px-4 py-2.5 rounded-xl font-medium bg-primary text-primary-foreground hover:opacity-90 disabled:opacity-70 flex items-center justify-center gap-2"
+          >
+            {inviteLoading ? (
+              <>
+                <Loader2 size={16} className="animate-spin" />
+                Gerando...
+              </>
+            ) : (
+              "Gerar link"
+            )}
+          </button>
+        </div>
 
-          {inviteLink && (
-            <div className="rounded-xl border border-border p-3 bg-secondary/20 space-y-2">
-              <p className="text-xs text-muted-foreground">Link de convite</p>
-              <div className="flex flex-col sm:flex-row gap-2">
-                <input
-                  type="text"
-                  value={inviteLink}
-                  readOnly
-                  className="flex-1 px-3 py-2 rounded-lg border border-border bg-background text-foreground text-xs"
-                />
-                <button
-                  type="button"
-                  onClick={copyInviteLink}
-                  className="px-3 py-2 rounded-lg border border-border text-sm font-medium hover:bg-secondary transition-colors inline-flex items-center gap-2 justify-center"
-                >
-                  {copied ? <Check size={14} /> : <Copy size={14} />}
-                  {copied ? "Copiado" : "Copiar"}
-                </button>
-              </div>
+        {inviteLink && (
+          <div className="rounded-xl border border-border p-3 bg-secondary/20 space-y-2">
+            <p className="text-xs text-muted-foreground">Link de convite</p>
+            <div className="flex flex-col sm:flex-row gap-2">
+              <input
+                type="text"
+                value={inviteLink}
+                readOnly
+                className="flex-1 px-3 py-2 rounded-lg border border-border bg-background text-foreground text-xs"
+              />
+              <button
+                type="button"
+                onClick={copyInviteLink}
+                className="px-3 py-2 rounded-lg border border-border text-sm font-medium hover:bg-secondary transition-colors inline-flex items-center gap-2 justify-center"
+              >
+                {copied ? <Check size={14} /> : <Copy size={14} />}
+                {copied ? "Copiado" : "Copiar"}
+              </button>
             </div>
-          )}
+          </div>
+        )}
 
-          {inviteError && (
-            <p className="text-sm text-rose-600" role="alert">
-              {inviteError}
-            </p>
-          )}
-        </form>
-      )}
+        {inviteError && (
+          <p className="text-sm text-rose-600" role="alert">
+            {inviteError}
+          </p>
+        )}
+      </form>
     </div>
   );
 }
