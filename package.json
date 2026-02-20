@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "setup:admin": "node scripts/setup-admin.mjs"
+    "setup:admin": "node scripts/setup-admin.mjs",
+    "lint": "next lint",
+    "typecheck": "echo 'Projeto em JavaScript - sem typecheck TS configurado'"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.96.0",

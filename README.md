@@ -17,9 +17,8 @@ CRM multi-nicho com Next.js e Supabase.
 
    **Opção B – Manual:**
    - Em **Authentication** > **Users** > **Add user** crie:
-   - Email: `graphyx.ai@gmail.com`
-   - Password: `@101222Tlc`
-   - Marque "Auto Confirm User"
+   - Defina email e senha fortes específicos do ambiente
+   - Marque "Auto Confirm User" somente quando necessário
 
 ### 2. Variáveis de ambiente
 
@@ -94,3 +93,30 @@ A versão correta para ambiente híbrido deve:
 
 
 > Observação: o app agora tenta **inserir/atualizar primeiro em `public.clients`** e, se a tabela canônica não existir no projeto, faz fallback automático para `public.clientes`.
+
+
+## Segurança e SaaS readiness
+
+### Multi-tenant
+- Rode também a migration `migrations/20260220120000_multitenancy_billing.sql`.
+- Ela adiciona `tenants`, `tenant_memberships`, `user_profiles` e `tenant_id` em `public.clients`.
+- As políticas RLS passam a ser por membership (owner/admin/member), não por e-mail fixo.
+
+### Proteção de rotas
+- O projeto agora possui `middleware.js` para bloquear dashboard sem sessão e redirecionar para `/login`.
+
+### Billing (Stripe)
+- Endpoints prontos:
+  - `POST /api/billing/checkout`
+  - `POST /api/billing/portal`
+  - `POST /api/billing/webhook`
+- Variáveis necessárias:
+
+```bash
+NEXT_PUBLIC_APP_URL=https://seu-dominio.com
+STRIPE_SECRET_KEY=sk_...
+STRIPE_PRICE_ID=price_...
+STRIPE_WEBHOOK_SECRET=whsec_...
+```
+
+> O webhook já está engatilhado para receber eventos; falta somente implementar suas regras de negócio (ex.: ativar/desativar features por plano).

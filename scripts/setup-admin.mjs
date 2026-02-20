@@ -12,8 +12,6 @@ import { fileURLToPath } from 'url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
-const ADMIN_EMAIL = 'graphyx.ai@gmail.com';
-const ADMIN_PASSWORD = '@101222Tlc';
 
 function loadEnv() {
   const envPath = resolve(__dirname, '..', '.env');
@@ -38,6 +36,8 @@ async function main() {
   const env = loadEnv();
   const url = env.NEXT_PUBLIC_SUPABASE_URL || env.VITE_SUPABASE_URL || env.SUPABASE_URL;
   const serviceRoleKey = env.SUPABASE_SERVICE_ROLE_KEY;
+  const adminEmail = env.ADMIN_EMAIL || process.env.ADMIN_EMAIL || '';
+  const adminPassword = env.ADMIN_PASSWORD || process.env.ADMIN_PASSWORD || '';
 
   if (!url) {
     console.error('❌ NEXT_PUBLIC_SUPABASE_URL ou SUPABASE_URL não definido no .env');
@@ -54,20 +54,25 @@ async function main() {
     auth: { autoRefreshToken: false, persistSession: false }
   });
 
-  console.log('📧 Email:', ADMIN_EMAIL);
-  console.log('🔐 Senha:', '******** (definida no plano)\n');
+  if (!adminEmail || !adminPassword) {
+    console.error('❌ Defina ADMIN_EMAIL e ADMIN_PASSWORD como variáveis de ambiente para executar o setup.');
+    process.exit(1);
+  }
+
+  console.log('📧 Email:', adminEmail);
+  console.log('🔐 Senha:', '******** (via env)\n');
 
   try {
     const { data, error } = await supabase.auth.admin.createUser({
-      email: ADMIN_EMAIL,
-      password: ADMIN_PASSWORD,
+      email: adminEmail,
+      password: adminPassword,
       email_confirm: true
     });
 
     if (error) {
       if (error.message?.includes('already been registered') || error.code === 'user_already_exists') {
         console.log('ℹ️  Usuário já existe. Para resetar a senha, use:');
-        console.log('   Supabase Dashboard > Authentication > Users > graphyx.ai@gmail.com > ... > Reset password');
+        console.log('   Supabase Dashboard > Authentication > Users > <admin-email> > ... > Reset password');
         process.exit(0);
       }
       throw error;

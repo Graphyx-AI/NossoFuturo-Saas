@@ -15,6 +15,7 @@ const nextConfig = {
       process.env.SUPABASE_ANON_KEY ||
       process.env.SUPABASE_KEY ||
       '',
+    NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL || '',
   },
 };
 
