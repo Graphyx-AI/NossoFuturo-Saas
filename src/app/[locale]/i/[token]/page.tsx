@@ -7,6 +7,14 @@ export default async function ShortInvitePage({
 }) {
   const resolvedParams = await Promise.resolve(params);
   const locale = resolvedParams.locale || "pt-BR";
-  const token = resolvedParams.token;
-  redirect(`/${locale}/invite/accept?token=${encodeURIComponent(token)}`);
+  const token = resolvedParams.token?.trim();
+  
+  if (!token) {
+    redirect(`/${locale}/invite/accept?error=token_missing`);
+    return;
+  }
+  
+  // Garante que o token seja codificado corretamente na URL
+  const encodedToken = encodeURIComponent(token);
+  redirect(`/${locale}/invite/accept?token=${encodedToken}`);
 }

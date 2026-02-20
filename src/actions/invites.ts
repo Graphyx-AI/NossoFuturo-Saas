@@ -168,7 +168,7 @@ export async function createWorkspaceInvite(
   }
 
   const appUrl = await getAppUrl();
-  const acceptUrl = `${appUrl}/i/${token}`;
+  const acceptUrl = `${appUrl}/pt-BR/i/${token}`;
   const emailResult = await sendWorkspaceInviteEmail({
     to: parsed.data.email,
     inviterName: profile?.full_name ?? "Alguem",
@@ -236,7 +236,7 @@ export async function createWorkspaceInviteLink(
   if (insertError) return { ok: false, error: insertError.message };
 
   const appUrl = await getAppUrl();
-  const inviteUrl = `${appUrl}/i/${token}`;
+  const inviteUrl = `${appUrl}/pt-BR/i/${token}`;
 
   revalidatePath("/dashboard/settings");
   revalidatePath("/pt/dashboard/settings");
@@ -266,26 +266,54 @@ export async function acceptWorkspaceInvite(token: string): Promise<AcceptInvite
     { auth: { persistSession: false } }
   );
 
+  // Tenta buscar o convite usando a RPC primeiro
   const { data: inviteRows, error: rpcError } = await supabase.rpc(
     "get_workspace_invite_by_token",
     { invite_token: normalizedToken }
   );
 
+  if (process.env.NODE_ENV !== "production") {
+    console.log("Token recebido:", normalizedToken.substring(0, 20) + "...");
+    console.log("RPC result:", inviteRows ? "encontrado" : "não encontrado");
+    if (rpcError) console.log("RPC error:", rpcError.message);
+  }
+
   let invite: Record<string, unknown> | null =
     Array.isArray(inviteRows) ? ((inviteRows[0] as Record<string, unknown> | undefined) ?? null) : null;
 
+  // Se a RPC não retornou resultado, tenta buscar diretamente com admin client
   if (!invite) {
+    // Busca usando o admin client (bypass RLS)
     const { data: rawInvite, error: rawInviteError } = await admin
       .from("workspace_invites")
-      .select("id, workspace_id, email, role, invited_by")
+      .select("id, workspace_id, email, role, invited_by, token")
       .eq("token", normalizedToken)
       .maybeSingle();
 
-    if (rawInviteError || !rawInvite) {
-      if (rpcError && process.env.NODE_ENV !== "production") {
-        console.warn("acceptWorkspaceInvite rpc error:", rpcError.message);
+    if (rawInviteError) {
+      if (process.env.NODE_ENV !== "production") {
+        console.error("acceptWorkspaceInvite db error:", rawInviteError);
+        if (rpcError) {
+          console.warn("acceptWorkspaceInvite rpc error:", rpcError.message);
+        }
       }
-      return { ok: false, error: "Convite invalido." };
+      return { ok: false, error: "Erro ao buscar convite. Tente novamente." };
+    }
+
+    if (!rawInvite) {
+      // Tenta buscar todos os convites para debug (apenas em desenvolvimento)
+      if (process.env.NODE_ENV !== "production") {
+        const { data: allInvites } = await admin
+          .from("workspace_invites")
+          .select("token")
+          .limit(5);
+        console.warn("Token não encontrado:", normalizedToken.substring(0, 20) + "...");
+        console.warn("Tokens no banco (primeiros 5):", allInvites?.map(i => i.token?.substring(0, 20) + "..."));
+        if (rpcError) {
+          console.warn("acceptWorkspaceInvite rpc error:", rpcError.message);
+        }
+      }
+      return { ok: false, error: "Convite invalido ou expirado." };
     }
 
     invite = rawInvite as unknown as Record<string, unknown>;

@@ -15,7 +15,9 @@ function setWorkspaceCookie(workspaceId: string) {
 
 export default function InviteAcceptPage() {
   const searchParams = useSearchParams();
-  const token = searchParams.get("token");
+  const rawToken = searchParams.get("token");
+  // useSearchParams já decodifica automaticamente, mas garantimos que está limpo
+  const token = rawToken ? rawToken.trim() : null;
   const [status, setStatus] = useState<"loading" | "success" | "error" | "redirect">("loading");
   const [errorMessage, setErrorMessage] = useState<string>("");
 
@@ -24,6 +26,11 @@ export default function InviteAcceptPage() {
       setStatus("error");
       setErrorMessage("Link de convite inválido. Token não encontrado.");
       return;
+    }
+    
+    // Debug em desenvolvimento
+    if (process.env.NODE_ENV !== "production") {
+      console.log("Token recebido na página:", token.substring(0, 20) + "...");
     }
 
     let cancelled = false;
