@@ -28,10 +28,6 @@ yarn-error.log*
 
 # Python
 __pycache__/
-*.pyc
-*.pyo
-*.pyd
-venv/
 .venv/
 env/
 
@@ -40,5 +36,3 @@ env/
 .idea/
 
 # Generated Data
-dados/
-*.csv
