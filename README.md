@@ -23,7 +23,7 @@ CRM multi-nicho com Next.js e Supabase.
 
 ### 2. Variáveis de ambiente
 
-Crie o arquivo `.env` na raiz do projeto e preencha:
+Copie `.env.example` para `.env` na raiz do projeto (ou crie o `.env`) e preencha:
 
 ```bash
 NEXT_PUBLIC_SUPABASE_URL=https://seu-projeto.supabase.co
@@ -32,14 +32,19 @@ SUPABASE_SERVICE_ROLE_KEY=sua-service-role-key
 ```
 
 
-### 2.1 Troubleshooting de login (Supabase não configurado)
+### 2.1 Troubleshooting (Supabase não configurado)
 
-Se aparecer o erro de ambiente no login:
+Se aparecer o erro **"Supabase não configurado"** (ao salvar, no login, etc.):
 
-- Garanta que as chaves estejam em `.env.local` (ou `.env`) com os nomes `NEXT_PUBLIC_SUPABASE_URL` e `NEXT_PUBLIC_SUPABASE_ANON_KEY` (ou `NEXT_PUBLIC_SUPABASE_KEY`).
-- Reinicie o `npm run dev` após alterar variáveis de ambiente.
-- No Windows/PowerShell, confirme que o arquivo está exatamente como `.env.local` na raiz do projeto e sem extensão oculta (`.txt`).
-- Este projeto também aceita aliases legados: `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY`, `SUPABASE_URL`, `SUPABASE_ANON_KEY`.
+- **Local (localhost):** garanta que o `.env` (ou `.env.local`) está na **raiz do projeto** (mesma pasta do `package.json`), com `NEXT_PUBLIC_SUPABASE_URL` e `NEXT_PUBLIC_SUPABASE_ANON_KEY` definidos. Depois de criar ou editar o arquivo, **reinicie** o servidor (`Ctrl+C` e `npm run dev` de novo). Se usar `next build` + `next start`, rode `next build` novamente após ajustar o `.env`.
+- **Vercel (deploy):** o `.env` do seu PC não é usado na Vercel. Configure as variáveis em **Vercel** → projeto → **Settings** → **Environment Variables** (`NEXT_PUBLIC_SUPABASE_URL` e `NEXT_PUBLIC_SUPABASE_ANON_KEY`) e faça um **Redeploy**.
+
+Dicas adicionais para desenvolvimento local:
+
+- Use como modelo o arquivo `.env.example` (copie para `.env` e preencha os valores).
+- Garanta que as chaves estejam em `.env.local` (ou `.env`) com os nomes exatos `NEXT_PUBLIC_SUPABASE_URL` e `NEXT_PUBLIC_SUPABASE_ANON_KEY` (ou `NEXT_PUBLIC_SUPABASE_KEY`).
+- No Windows/PowerShell, confirme que o arquivo está na raiz e sem extensão oculta (`.txt`).
+- Este projeto também aceita aliases: `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY`, `SUPABASE_URL`, `SUPABASE_ANON_KEY`.
 
 ### 3. Importar CSV processado para Supabase
 
