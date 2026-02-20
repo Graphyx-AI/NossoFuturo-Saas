@@ -1,0 +1,199 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: 0 0% 98%;
+  --foreground: 222 47% 11%;
+  --card: 0 0% 100%;
+  --border: 220 13% 91%;
+  --primary: 160 45% 35%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 220 14% 96%;
+  --muted: 220 14% 96%;
+  --muted-foreground: 220 9% 46%;
+  --accent: 160 45% 45%;
+}
+
+.dark {
+  --background: 222 47% 6%;
+  --foreground: 210 40% 98%;
+  --card: 222 47% 9%;
+  --border: 217 33% 17%;
+  --primary: 160 45% 45%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 217 33% 14%;
+  --muted: 217 33% 14%;
+  --muted-foreground: 215 20% 55%;
+  --accent: 160 45% 50%;
+}
+
+/* ---- Temas de cor (configurações avançadas) ---- */
+[data-color-theme="rosa"] {
+  --primary: 330 65% 45%;
+  --primary-foreground: 0 0% 100%;
+  --accent: 330 70% 55%;
+}
+.dark[data-color-theme="rosa"] {
+  --primary: 330 65% 50%;
+  --accent: 330 70% 60%;
+}
+
+[data-color-theme="azul"] {
+  --primary: 217 70% 45%;
+  --primary-foreground: 0 0% 100%;
+  --accent: 217 75% 55%;
+}
+.dark[data-color-theme="azul"] {
+  --primary: 217 70% 52%;
+  --accent: 217 75% 60%;
+}
+
+[data-color-theme="amarelo"] {
+  --primary: 38 92% 50%;
+  --primary-foreground: 0 0% 100%;
+  --accent: 38 92% 55%;
+}
+.dark[data-color-theme="amarelo"] {
+  --primary: 38 92% 52%;
+  --accent: 38 92% 58%;
+}
+
+/* padrao usa as variáveis já definidas em :root e .dark */
+
+/* ---- Tamanho da fonte (acessibilidade) ---- */
+[data-font-size="grande"] body {
+  font-size: 18px;
+}
+[data-font-size="grande"] .text-sm { font-size: 0.9375rem; }
+[data-font-size="grande"] .text-xs { font-size: 0.8125rem; }
+[data-font-size="grande"] .text-lg { font-size: 1.125rem; }
+[data-font-size="grande"] .text-xl { font-size: 1.25rem; }
+[data-font-size="grande"] .text-2xl { font-size: 1.5rem; }
+[data-font-size="grande"] .text-3xl { font-size: 1.875rem; }
+
+[data-font-size="muito-grande"] body {
+  font-size: 20px;
+}
+[data-font-size="muito-grande"] .text-sm { font-size: 1rem; }
+[data-font-size="muito-grande"] .text-xs { font-size: 0.875rem; }
+[data-font-size="muito-grande"] .text-lg { font-size: 1.25rem; }
+[data-font-size="muito-grande"] .text-xl { font-size: 1.375rem; }
+[data-font-size="muito-grande"] .text-2xl { font-size: 1.75rem; }
+[data-font-size="muito-grande"] .text-3xl { font-size: 2.125rem; }
+
+/* ---- Alto contraste (acessibilidade) ---- */
+[data-high-contrast="true"] {
+  --border: 220 13% 70%;
+  --muted-foreground: 220 9% 25%;
+}
+[data-high-contrast="true"] .dark {
+  --border: 217 33% 35%;
+  --muted-foreground: 215 20% 85%;
+}
+[data-high-contrast="true"] *:focus-visible {
+  outline: 3px solid hsl(var(--primary));
+  outline-offset: 2px;
+}
+
+/* ---- Reduzir animações (acessibilidade) ---- */
+[data-reduced-motion="true"] *,
+[data-reduced-motion="true"] *::before,
+[data-reduced-motion="true"] *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+}
+
+body {
+  font-family: var(--font-plus-jakarta), system-ui, sans-serif;
+  font-size: 16px;
+  background: hsl(var(--background));
+  color: hsl(var(--foreground));
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+@layer utilities {
+  .text-gradient-hero {
+    @apply bg-clip-text text-transparent bg-hero-gradient;
+  }
+
+  .glass-card {
+    @apply bg-white/80 backdrop-blur-xl border border-white/50 rounded-2xl shadow-sm;
+  }
+
+  .btn-primary {
+    @apply bg-gradient-to-r from-violet-600 to-pink-500 text-white font-bold rounded-xl shadow-lg transition-all hover:brightness-110 hover:-translate-y-0.5;
+  }
+
+  .animate-fade {
+    animation: fade 0.4s ease-out;
+  }
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Driver.js - tema alinhado ao app */
+.driver-overlay {
+  z-index: 2147483646 !important;
+}
+
+.driver-popover {
+  font-family: var(--font-plus-jakarta), system-ui, sans-serif !important;
+  z-index: 2147483647 !important;
+  pointer-events: auto !important;
+}
+
+.driver-popover * {
+  pointer-events: auto !important;
+}
+
+.driver-popover-title {
+  font-weight: 700 !important;
+}
+
+.driver-popover-prev-btn,
+.driver-popover-next-btn,
+.driver-popover-close-btn {
+  border-radius: 0.75rem !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+  pointer-events: auto !important;
+}
+
+.driver-popover-next-btn,
+.driver-popover-close-btn {
+  background: hsl(var(--primary)) !important;
+  color: white !important;
+  border: none !important;
+}
+
+.driver-popover-next-btn:hover,
+.driver-popover-close-btn:hover {
+  opacity: 0.9 !important;
+}
+
+.dark .driver-popover {
+  background: hsl(var(--card)) !important;
+  color: hsl(var(--foreground)) !important;
+  border-color: hsl(var(--border)) !important;
+}
+
+.dark .driver-popover-title {
+  color: hsl(var(--foreground)) !important;
+}
+
+.dark .driver-popover-description {
+  color: hsl(var(--muted-foreground)) !important;
+}

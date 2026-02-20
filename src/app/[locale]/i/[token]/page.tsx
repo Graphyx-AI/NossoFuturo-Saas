@@ -1,0 +1,12 @@
+import { redirect } from "next/navigation";
+
+export default async function ShortInvitePage({
+  params,
+}: {
+  params: { locale: string; token: string } | Promise<{ locale: string; token: string }>;
+}) {
+  const resolvedParams = await Promise.resolve(params);
+  const locale = resolvedParams.locale || "pt-BR";
+  const token = resolvedParams.token;
+  redirect(`/${locale}/invite/accept?token=${encodeURIComponent(token)}`);
+}
