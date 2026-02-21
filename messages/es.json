@@ -1,6 +1,6 @@
 {
   "common": {
-    "brand": "Nosso Futuro",
+    "brand": "Lumyf",
     "locales": {
       "label": "Idioma",
       "pt-BR": "Portugués (Brasil)",
@@ -186,13 +186,13 @@
     },
     "faq": {
       "title": "Frequently asked questions",
-      "subtitle": "Get answers about Nosso Futuro.",
-      "q1": "Is Nosso Futuro free?",
+      "subtitle": "Get answers about Lumyf.",
+      "q1": "Is Lumyf free?",
       "a1": "Yes! The Free plan is 100% free and includes 1 workspace, up to 2 members, 100 transactions per month and 3 financial goals. Ideal to start organizing your family finances at no cost.",
       "q2": "How does family sharing work?",
       "a2": "Each family creates a workspace and invites members by email. Everyone can record transactions, view reports and track goals. Information is synced in real time for all members.",
-      "q3": "Does Nosso Futuro connect to my bank?",
-      "a3": "No. Nosso Futuro has no connection, integration or link to your bank account. All transactions are entered manually by you and your family. We do not access, connect or import data from financial institutions.",
+      "q3": "Does Lumyf connect to my bank?",
+      "a3": "No. Lumyf has no connection, integration or link to your bank account. All transactions are entered manually by you and your family. We do not access, connect or import data from financial institutions.",
       "q4": "Is my data secure?",
       "a4": "Yes. We use encryption and secure authentication. Your financial data is protected and only people you invite will have access to the workspace.",
       "q5": "Can I cancel my paid plan anytime?",
@@ -202,11 +202,11 @@
     },
     "cta": {
       "title": "Ready to build the future together?",
-      "subtitle": "Join thousands of families who already organize their finances with Nosso Futuro.",
+      "subtitle": "Join thousands of families who already organize their finances with Lumyf.",
       "button": "Create free account"
     },
     "footer": {
-      "copyright": "© {year} Nosso Futuro. All rights reserved.",
+      "copyright": "© {year} Lumyf. All rights reserved.",
       "terms": "Terms",
       "privacy": "Privacy"
     }
@@ -219,6 +219,8 @@
     "investments": "Investments",
     "cobrancas": "Receivables",
     "goals": "Goals",
+    "budgets": "Presupuestos",
+    "recurring": "Recurrentes",
     "reports": "Annual report",
     "settings": "Settings",
     "billing": "Subscription",
@@ -275,6 +277,40 @@
       "goalUpdated": "Goal updated!",
       "goalCreated": "Goal created!",
       "hint": "The system calculates the monthly amount needed based on the chosen date."
+    },
+    "budget": {
+      "category": "Categoría",
+      "selectCategory": "Seleccione una categoría",
+      "limitAmount": "Límite",
+      "add": "Añadir presupuesto",
+      "saving": "Guardando...",
+      "invalidData": "Complete categoría y valor válido.",
+      "error": "Error al guardar.",
+      "save": "Guardar",
+      "cancel": "Cancelar",
+      "edit": "Editar",
+      "delete": "Eliminar"
+    },
+    "recurring": {
+      "type": "Tipo",
+      "expense": "Gasto",
+      "income": "Ingreso",
+      "category": "Categoría",
+      "optional": "Opcional",
+      "description": "Descripción",
+      "placeholderDesc": "Ej: Alquiler",
+      "amount": "Valor",
+      "frequency": "Frecuencia",
+      "weekly": "Semanal",
+      "biweekly": "Quincenal",
+      "monthly": "Mensual",
+      "yearly": "Anual",
+      "startDate": "Fecha inicio",
+      "endDate": "Fecha fin",
+      "add": "Añadir",
+      "saving": "Guardando...",
+      "invalidData": "Complete descripción y valor válido.",
+      "error": "Error al guardar."
     },
     "investment": {
       "new": "New Contribution",
@@ -351,6 +387,24 @@
       "searchPlaceholder": "Search by name..."
     }
   },
+  "budgets": {
+    "pageTitle": "Presupuestos",
+    "pageSubtitle": "Define límites por categoría y sigue tus gastos.",
+    "addBudget": "Nuevo presupuesto",
+    "budgetsFor": "Presupuestos de {month} {year}",
+    "active": "activo",
+    "actives": "activos",
+    "noBudgets": "Sin presupuestos definidos. Añade un límite para una categoría de gasto."
+  },
+  "recurring": {
+    "pageTitle": "Transacciones recurrentes",
+    "pageSubtitle": "Gastos e ingresos que se repiten automáticamente.",
+    "addRecurring": "Nueva recurrente",
+    "myRecurring": "Mis recurrentes",
+    "active": "activa",
+    "actives": "activas",
+    "noRecurring": "Sin transacciones recurrentes. Añade alquiler, salario, etc."
+  },
   "settings": {
     "title": "Settings",
     "subtitle": "Manage your account, workspaces and plan.",
@@ -409,6 +463,7 @@
     "pro": "Pro",
     "business": "Business",
     "currentPlan": "Current plan",
+    "noSubscription": "Sin suscripción activa",
     "startFree": "Start free",
     "redirecting": "Redirecting...",
     "activePlan": "Active plan",
@@ -419,7 +474,7 @@
   "onboarding": {
     "skip": "Skip",
     "stepOf": "Step {current} of 3",
-    "whoUse": "Who will you use Nosso Futuro for?",
+    "whoUse": "Who will you use Lumyf for?",
     "chooseOption": "Choose the option that best describes your use.",
     "intents": {
       "personal": "Just for me",

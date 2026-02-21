@@ -1,10 +1,6 @@
 import { getTranslations, getLocale } from "next-intl/server";
 import { cookies } from "next/headers";
-import {
-  getWorkspaceById,
-  getWorkspacesForUser,
-  ensureDefaultWorkspace,
-} from "@/actions/workspaces";
+import { getResolvedWorkspaceContext } from "@/actions/workspaces";
 import { getGoals } from "@/actions/goals";
 import { createClient } from "@/lib/supabase/server";
 import { formatCurrency } from "@/lib/utils/currency";
@@ -21,20 +17,8 @@ export default async function GoalsPage() {
   const tDashboard = await getTranslations("dashboard");
   const locale = await getLocale();
   const cookieStore = await cookies();
-  let workspaces = await getWorkspacesForUser();
-  if (workspaces.length === 0) {
-    await ensureDefaultWorkspace();
-    workspaces = await getWorkspacesForUser();
-  }
-  const workspaceId = cookieStore.get(WORKSPACE_COOKIE)?.value ?? null;
-  const firstWorkspaceId = workspaces[0]?.id ?? null;
-  const preferredWorkspaceId = workspaceId ?? firstWorkspaceId;
-  const workspaceFromPreferred = await getWorkspaceById(preferredWorkspaceId);
-  const workspace =
-    workspaceFromPreferred ??
-    (firstWorkspaceId && firstWorkspaceId !== preferredWorkspaceId
-      ? await getWorkspaceById(firstWorkspaceId)
-      : null);
+  const workspaceIdFromCookie = cookieStore.get(WORKSPACE_COOKIE)?.value ?? null;
+  const { workspace } = await getResolvedWorkspaceContext(workspaceIdFromCookie);
 
   if (!workspace) {
     return (
@@ -43,14 +27,15 @@ export default async function GoalsPage() {
   }
 
   const goals = await getGoals(workspace.id);
+  const goalIds = goals.map((g) => g.id);
   const supabase = await createClient();
+  const { data: allContrib } =
+    goalIds.length > 0
+      ? await supabase.from("goal_contributions").select("goal_id, amount").in("goal_id", goalIds)
+      : { data: [] };
   const contributionsByGoal: Record<string, number> = {};
-  for (const g of goals) {
-    const { data } = await supabase
-      .from("goal_contributions")
-      .select("amount")
-      .eq("goal_id", g.id);
-    contributionsByGoal[g.id] = (data ?? []).reduce((a, b) => a + b.amount, 0);
+  for (const c of allContrib ?? []) {
+    contributionsByGoal[c.goal_id] = (contributionsByGoal[c.goal_id] ?? 0) + c.amount;
   }
 
   const totalTarget = goals.reduce((acc, g) => acc + g.target_amount, 0);
@@ -104,7 +89,12 @@ export default async function GoalsPage() {
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
         <section className="lg:col-span-4 space-y-6">
           <CreateGoalButtonWithModal workspaceId={workspace.id} />
-          <GoalContributionForm workspaceId={workspace.id} goals={goals} />
+          <GoalContributionForm
+            workspaceId={workspace.id}
+            goals={goals}
+            contributionsByGoal={contributionsByGoal}
+            locale={locale}
+          />
         </section>
         <section className="lg:col-span-8">
           <div className="bg-card border border-border rounded-2xl shadow-card overflow-hidden">

@@ -9,15 +9,18 @@ import {
   X,
   LayoutDashboard,
   ArrowLeftRight,
+  Receipt,
+  FileText,
   TrendingUp,
   Target,
-  FileText,
   Briefcase,
   Settings,
   LogOut,
   Moon,
   Sun,
-  } from "lucide-react";
+  PiggyBank,
+  Repeat,
+} from "lucide-react";
 import { useEffect } from "react";
 
 const menuStructure = [
@@ -27,8 +30,10 @@ const menuStructure = [
       { href: "/dashboard", labelKey: "overview", icon: LayoutDashboard, dataTour: "nav-overview" },
       { href: "/dashboard/transactions", labelKey: "transactions", icon: ArrowLeftRight, dataTour: "nav-transactions" },
       { href: "/dashboard/investments", labelKey: "investments", icon: TrendingUp, dataTour: "nav-investments" },
-      { href: "/dashboard/cobrancas", labelKey: "cobrancas", icon: ArrowLeftRight, dataTour: "nav-cobrancas" },
+      { href: "/dashboard/cobrancas", labelKey: "cobrancas", icon: Receipt, dataTour: "nav-cobrancas" },
       { href: "/dashboard/goals", labelKey: "goals", icon: Target, dataTour: "nav-goals" },
+      { href: "/dashboard/budgets", labelKey: "budgets", icon: PiggyBank, dataTour: "nav-budgets" },
+      { href: "/dashboard/recurring", labelKey: "recurring", icon: Repeat, dataTour: "nav-recurring" },
       { href: "/dashboard/reports", labelKey: "reports", icon: FileText, dataTour: "nav-reports" },
     ],
   },
@@ -73,6 +78,7 @@ export function Sidebar({
       <div className={`flex items-center justify-between gap-2 shrink-0 ${collapsed ? "p-4" : "p-8"}`}>
         <Link
           href="/dashboard"
+          prefetch={true}
           className={`flex items-center text-primary font-bold tracking-tight ${collapsed ? "justify-center w-full" : "gap-3 text-2xl"}`}
         >
           <div className="w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center shadow-sm shrink-0">
@@ -112,6 +118,7 @@ export function Sidebar({
                   <Link
                     key={item.href}
                     href={item.href}
+                    prefetch={true}
                     data-tour={item.dataTour}
                     className={`w-full flex items-center ${collapsed ? "justify-center" : "gap-3"} px-4 py-3 rounded-xl transition-all group relative ${isActive
                       ? "bg-primary/10 text-primary font-bold"
@@ -128,11 +135,6 @@ export function Sidebar({
                       }
                     />
                     {!collapsed && <span className="text-sm">{t(item.labelKey)}</span>}
-                    {isActive && (
-                      <div className="ml-auto">
-                        <div className="w-1.5 h-1.5 rounded-full bg-primary shadow-[0_0_6px_hsl(var(--primary)/0.5)]" />
-                      </div>
-                    )}
                   </Link>
                 );
               })}

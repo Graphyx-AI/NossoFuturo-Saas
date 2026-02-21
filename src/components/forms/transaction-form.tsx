@@ -1,6 +1,6 @@
-﻿"use client";
+"use client";
 
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { createTransaction, updateTransaction } from "@/actions/transactions";
@@ -37,17 +37,40 @@ export function TransactionForm({
 }) {
   const [loading, setLoading] = useState(false);
   const [toast, setToast] = useState<string | null>(null);
-  const router = useRouter();
+  const [amountError, setAmountError] = useState<string | null>(null);
   const t = useTranslations("forms.transaction");
   const tCommon = useTranslations("common");
+
+  const validateAmount = useCallback(
+    (value: string) => {
+      const parsed = parseBRL(value);
+      if (!value || value.trim() === "") {
+        setAmountError(null);
+        return false;
+      }
+      if (isNaN(parsed) || parsed <= 0) {
+        setAmountError(t("invalidAmount"));
+        return false;
+      }
+      setAmountError(null);
+      return true;
+    },
+    [t]
+  );
+  const router = useRouter();
   const isEdit = !!transaction;
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    setLoading(true);
+    setAmountError(null);
     setToast(null);
     const form = e.currentTarget;
     const formData = new FormData(form);
+    const amountStr = formData.get("amount") as string;
+    if (!validateAmount(amountStr)) {
+      return;
+    }
+    setLoading(true);
     const date = formData.get("date") as string;
     const description = formData.get("description") as string;
     const categoryId = formData.get("category_id") as string;
@@ -155,15 +178,27 @@ export function TransactionForm({
           </select>
         </div>
         <div className="grid grid-cols-2 gap-3">
-          <input
-            type="text"
-            inputMode="decimal"
-            name="amount"
-            required
-            placeholder={t("placeholderAmount")}
-            defaultValue={defaultAmount}
-            className="w-full px-4 py-3 bg-background border border-border rounded-xl outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary text-foreground placeholder:text-muted-foreground"
-          />
+          <div>
+            <input
+              type="text"
+              inputMode="decimal"
+              name="amount"
+              required
+              placeholder={t("placeholderAmount")}
+              defaultValue={defaultAmount}
+              onBlur={(e) => validateAmount(e.target.value)}
+              aria-invalid={!!amountError}
+              aria-describedby={amountError ? "amount-error" : undefined}
+              className={`w-full px-4 py-3 bg-background border rounded-xl outline-none focus:ring-2 focus:ring-primary/20 text-foreground placeholder:text-muted-foreground ${
+                amountError ? "border-rose-500 focus:border-rose-500" : "border-border focus:border-primary"
+              }`}
+            />
+            {amountError && (
+              <p id="amount-error" className="mt-1 text-xs font-medium text-rose-600" role="alert">
+                {amountError}
+              </p>
+            )}
+          </div>
           <select
             name="type"
             defaultValue={defaultType}

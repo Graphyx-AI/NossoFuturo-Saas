@@ -22,6 +22,8 @@ export default async function SettingsPage() {
       userEmail={user?.email}
       workspaces={workspaces}
       currentWorkspaceId={currentWorkspaceId}
+      currentWorkspacePlan={workspace?.plan ?? "pro"}
+      hasStripeSubscription={!!workspace?.stripe_subscription_id}
     />
   );
 }

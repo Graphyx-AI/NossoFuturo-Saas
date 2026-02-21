@@ -1,8 +1,5 @@
 import { cookies } from "next/headers";
-import {
-  ensureDefaultWorkspace,
-  getWorkspacesForUser,
-} from "@/actions/workspaces";
+import { getResolvedWorkspaceContext } from "@/actions/workspaces";
 import {
   getWorkspaceInvites,
   getWorkspaceMembersWithProfiles,
@@ -14,15 +11,9 @@ const WORKSPACE_COOKIE = "workspace_id";
 
 export default async function WorkspacePage() {
   const cookieStore = await cookies();
-  let workspaces = await getWorkspacesForUser();
-
-  if (workspaces.length === 0) {
-    await ensureDefaultWorkspace();
-    workspaces = await getWorkspacesForUser();
-  }
-
-  const currentWorkspaceId =
-    cookieStore.get(WORKSPACE_COOKIE)?.value ?? workspaces[0]?.id ?? null;
+  const workspaceIdFromCookie = cookieStore.get(WORKSPACE_COOKIE)?.value ?? null;
+  const { workspaces, workspace } = await getResolvedWorkspaceContext(workspaceIdFromCookie);
+  const currentWorkspaceId = workspace?.id ?? workspaces[0]?.id ?? null;
 
   const supabase = await createClient();
   const {

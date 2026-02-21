@@ -44,11 +44,7 @@ export function SupportRequestForm({
         return;
       }
 
-      setFeedback(
-        result.warning
-          ? `${result.warning} Protocolo: ${result.protocol}`
-          : `Suporte enviado com sucesso. Protocolo: ${result.protocol}`
-      );
+      setFeedback(`Chamado registrado com sucesso. Protocolo: ${result.protocol}`);
       setSubject("");
       setMessage("");
       setPriority("medium");

@@ -73,6 +73,9 @@ export interface Database {
           plan: "pro";
           owner_id: string;
           created_at: string;
+          stripe_customer_id: string | null;
+          stripe_subscription_id: string | null;
+          plan_updated_at: string | null;
         };
         Insert: {
           id?: string;
@@ -81,6 +84,9 @@ export interface Database {
           plan?: "pro";
           owner_id: string;
           created_at?: string;
+          stripe_customer_id?: string | null;
+          stripe_subscription_id?: string | null;
+          plan_updated_at?: string | null;
         };
         Update: Partial<Database["public"]["Tables"]["workspaces"]["Insert"]>;
       };

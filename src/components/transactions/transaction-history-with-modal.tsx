@@ -6,7 +6,9 @@ import { useLocale } from "next-intl";
 import { useTranslations } from "next-intl";
 import { formatCurrency } from "@/lib/utils/currency";
 import { formatDate } from "@/lib/utils/dates";
+import { Wallet } from "lucide-react";
 import { TransactionForm } from "@/components/forms/transaction-form";
+import { EmptyState } from "@/components/ui/empty-state";
 import { deleteTransaction } from "@/actions/transactions";
 import type { Category } from "@/types/database";
 
@@ -58,9 +60,11 @@ export function TransactionHistoryWithModal({
         {/* Mobile: cards empilhados */}
         <div className="md:hidden divide-y divide-border">
           {transactions.length === 0 ? (
-            <div className="p-10 text-center text-muted-foreground italic text-sm">
-              {t("noTransactions")}
-            </div>
+            <EmptyState
+              icon={Wallet}
+              title={t("emptyStateTitle")}
+              description={t("emptyStateDesc")}
+            />
           ) : (
             transactions.map((tr) => (
               <div key={tr.id} className="p-4 flex flex-col gap-1">
@@ -212,8 +216,12 @@ export function TransactionHistoryWithModal({
             </tbody>
           </table>
           {transactions.length === 0 && (
-            <div className="p-20 text-center text-muted-foreground italic">
-              {t("noTransactions")}
+            <div className="p-6">
+              <EmptyState
+                icon={Wallet}
+                title={t("emptyStateTitle")}
+                description={t("emptyStateDesc")}
+              />
             </div>
           )}
         </div>

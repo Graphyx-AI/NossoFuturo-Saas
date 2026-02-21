@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { useState } from "react";
 import { Link } from "@/i18n/navigation";
@@ -118,7 +118,7 @@ export function OnboardingSteps({
             className="inline-flex shrink-0 items-center gap-2 text-xl font-bold tracking-tight text-foreground"
           >
             <Heart className="h-6 w-6 text-accent" fill="currentColor" />
-            <span className="text-gradient-hero">Nosso Futuro</span>
+            <span className="text-gradient-hero">Lumyf</span>
           </Link>
           <button
             type="button"

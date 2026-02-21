@@ -1,6 +1,8 @@
 "use client";
 
+import { useTransition } from "react";
 import { useRouter } from "next/navigation";
+import { Loader2 } from "lucide-react";
 import { MONTHS } from "@/lib/utils/dates";
 
 const CURRENT_YEAR = new Date().getFullYear();
@@ -22,6 +24,7 @@ export function InvestmentFilter({
   toMonth: number;
 }) {
   const router = useRouter();
+  const [isPending, startTransition] = useTransition();
 
   function buildUrl(newMode: FilterMode, newYear: number, newMonth: number, newFrom: number, newTo: number): string {
     const params = new URLSearchParams();
@@ -35,37 +38,50 @@ export function InvestmentFilter({
     return `/dashboard/investments?${params.toString()}`;
   }
 
+  const navigate = (url: string) => {
+    startTransition(() => {
+      router.push(url);
+    });
+  };
+
   const handleModeChange = (newMode: FilterMode) => {
     const m = newMode === "month" ? month : newMode === "range" ? fromMonth : 0;
     const to = newMode === "range" ? toMonth : 11;
-    router.push(buildUrl(newMode, year, m, m, to));
+    navigate(buildUrl(newMode, year, m, m, to));
   };
 
   const handleYearChange = (newYear: number) => {
-    router.push(buildUrl(mode, newYear, month, fromMonth, toMonth));
+    navigate(buildUrl(mode, newYear, month, fromMonth, toMonth));
   };
 
   const handleMonthChange = (newMonth: number) => {
-    router.push(buildUrl(mode, year, newMonth, fromMonth, toMonth));
+    navigate(buildUrl(mode, year, newMonth, fromMonth, toMonth));
   };
 
   const handleFromMonthChange = (newFrom: number) => {
     const to = newFrom <= toMonth ? toMonth : newFrom;
-    router.push(buildUrl(mode, year, month, newFrom, to));
+    navigate(buildUrl(mode, year, month, newFrom, to));
   };
 
   const handleToMonthChange = (newTo: number) => {
     const from = fromMonth <= newTo ? fromMonth : newTo;
-    router.push(buildUrl(mode, year, month, from, newTo));
+    navigate(buildUrl(mode, year, month, from, newTo));
   };
+
+  const selectClass =
+    "px-3 py-2 bg-card border border-border rounded-xl text-sm font-medium text-foreground outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary disabled:opacity-70 disabled:cursor-wait";
 
   return (
     <div className="flex flex-wrap items-center gap-2">
+      {isPending && (
+        <Loader2 className="h-4 w-4 animate-spin text-primary shrink-0" aria-hidden />
+      )}
       <span className="text-sm font-medium text-muted-foreground">Período:</span>
       <select
         value={mode}
         onChange={(e) => handleModeChange(e.target.value as FilterMode)}
-        className="px-3 py-2 bg-card border border-border rounded-xl text-sm font-medium text-foreground outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
+        disabled={isPending}
+        className={selectClass}
       >
         <option value="year">Por ano</option>
         <option value="month">Por mês</option>
@@ -75,7 +91,8 @@ export function InvestmentFilter({
       <select
         value={year}
         onChange={(e) => handleYearChange(Number(e.target.value))}
-        className="px-3 py-2 bg-card border border-border rounded-xl text-sm font-medium text-foreground outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
+        disabled={isPending}
+        className={selectClass}
         aria-label="Ano"
       >
         {YEARS.map((y) => (
@@ -89,7 +106,8 @@ export function InvestmentFilter({
         <select
           value={month}
           onChange={(e) => handleMonthChange(Number(e.target.value))}
-          className="px-3 py-2 bg-card border border-border rounded-xl text-sm font-medium text-foreground outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
+          disabled={isPending}
+          className={selectClass}
           aria-label="Mês"
         >
           {MONTHS.map((name, index) => (
@@ -105,7 +123,8 @@ export function InvestmentFilter({
           <select
             value={fromMonth}
             onChange={(e) => handleFromMonthChange(Number(e.target.value))}
-            className="px-3 py-2 bg-card border border-border rounded-xl text-sm font-medium text-foreground outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
+            disabled={isPending}
+            className={selectClass}
             aria-label="De"
           >
             {MONTHS.map((name, index) => (
@@ -118,7 +137,8 @@ export function InvestmentFilter({
           <select
             value={toMonth}
             onChange={(e) => handleToMonthChange(Number(e.target.value))}
-            className="px-3 py-2 bg-card border border-border rounded-xl text-sm font-medium text-foreground outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
+            disabled={isPending}
+            className={selectClass}
             aria-label="Até"
           >
             {MONTHS.map((name, index) => (

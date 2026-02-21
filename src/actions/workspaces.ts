@@ -1,14 +1,15 @@
 "use server";
 
+import { cache } from "react";
 import { createClient } from "@/lib/supabase/server";
 import { createClient as createSupabaseClient } from "@supabase/supabase-js";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import type { Workspace } from "@/types/database";
 
-const PLAN_WORKSPACE_LIMITS: Record<Workspace["plan"], number> = {
-  pro: 2,
-};
+/** Pro: 2 workspaces. Sem assinatura: 1 (apenas o do onboarding). */
+const MAX_WORKSPACES_WITH_SUBSCRIPTION = 2;
+const MAX_WORKSPACES_WITHOUT_SUBSCRIPTION = 1;
 
 const DEFAULT_CATEGORIES = [
   { name: "Salário", icon: "💰", type: "income" as const, color: "#10b981" },
@@ -258,7 +259,7 @@ export async function getWorkspaceById(workspaceId: string | null) {
   return adminWorkspace ?? null;
 }
 
-export async function getResolvedWorkspaceContext(workspaceCookieId: string | null) {
+export const getResolvedWorkspaceContext = cache(async (workspaceCookieId: string | null) => {
   let workspaces = await getWorkspacesForUser();
   if (workspaces.length === 0) {
     await ensureDefaultWorkspace();
@@ -276,7 +277,7 @@ export async function getResolvedWorkspaceContext(workspaceCookieId: string | nu
       : null);
 
   return { workspaces, workspace };
-}
+});
 
 const createWorkspaceSchema = z
   .string()
@@ -362,15 +363,24 @@ export async function createWorkspace(name: string): Promise<CreateWorkspaceResu
   } = await supabase.auth.getUser();
   if (!user) return { ok: false, error: "Nao autorizado." };
 
-  const targetPlan: Workspace["plan"] = "pro";
-  const maxWorkspacesForPlan = PLAN_WORKSPACE_LIMITS[targetPlan];
+  const workspaces = await getWorkspacesForUser();
+  const hasSubscription = workspaces.some((ws) => !!ws.stripe_subscription_id);
+  const maxWorkspaces = hasSubscription
+    ? MAX_WORKSPACES_WITH_SUBSCRIPTION
+    : MAX_WORKSPACES_WITHOUT_SUBSCRIPTION;
+
   const userWorkspaceCount = await getUserWorkspaceCount(user.id);
   if (userWorkspaceCount === null) {
     return { ok: false, error: "Nao foi possivel validar o limite do plano." };
   }
 
-  if (userWorkspaceCount >= maxWorkspacesForPlan) {
-    return { ok: false, error: "Limite do plano pro atingido: ate 2 workspaces." };
+  if (userWorkspaceCount >= maxWorkspaces) {
+    return {
+      ok: false,
+      error: hasSubscription
+        ? `O plano Pro permite ate ${MAX_WORKSPACES_WITH_SUBSCRIPTION} workspaces.`
+        : "Assine o Pro para criar mais workspaces.",
+    };
   }
 
   let result = await createWorkspaceWithClient(supabase, user, parsed.data);

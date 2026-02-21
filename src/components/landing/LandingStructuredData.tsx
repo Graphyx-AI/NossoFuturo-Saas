@@ -1,10 +1,10 @@
 const BASE_URL =
-  process.env.NEXT_PUBLIC_APP_URL ?? "https://nosso-futuro.com";
+  process.env.NEXT_PUBLIC_APP_URL ?? "https://lumyf.com";
 
 const softwareApplicationSchema = {
   "@context": "https://schema.org",
   "@type": "SoftwareApplication",
-  name: "Nosso Futuro",
+  name: "Lumyf",
   description:
     "App de gestao financeira pessoal com compartilhamento opcional. Controle receitas, despesas, investimentos e metas.",
   url: BASE_URL.replace(/\/$/, ""),
@@ -26,7 +26,7 @@ const softwareApplicationSchema = {
   },
   author: {
     "@type": "Organization",
-    name: "Nosso Futuro",
+    name: "Lumyf",
   },
 };
 
@@ -36,7 +36,7 @@ const faqSchema = {
   mainEntity: [
     {
       "@type": "Question",
-      name: "O Nosso Futuro e gratuito?",
+      name: "O Lumyf é gratuito?",
       acceptedAnswer: {
         "@type": "Answer",
         text: "Sim. A integracao de pagamentos esta desativada no momento.",

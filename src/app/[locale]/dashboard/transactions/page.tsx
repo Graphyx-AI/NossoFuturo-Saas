@@ -1,11 +1,7 @@
 import { getTranslations, getLocale } from "next-intl/server";
 import { Link } from "@/i18n/navigation";
 import { cookies } from "next/headers";
-import {
-  getWorkspaceById,
-  getWorkspacesForUser,
-  ensureDefaultWorkspace,
-} from "@/actions/workspaces";
+import { getResolvedWorkspaceContext } from "@/actions/workspaces";
 import { getMonthlyTransactions } from "@/actions/transactions";
 import { getCategoriesForWorkspace } from "@/actions/categories";
 import { createClient } from "@/lib/supabase/server";
@@ -14,6 +10,7 @@ import { getStartOfMonth, getEndOfMonth, getTodayISO } from "@/lib/utils/dates";
 
 const MONTH_KEYS = ["january", "february", "march", "april", "may", "june", "july", "august", "september", "october", "november", "december"] as const;
 import { TransactionForm } from "@/components/forms/transaction-form";
+import { ImportButtonWithModal } from "@/components/import/import-button-with-modal";
 import { TransactionHistoryWithModal } from "@/components/transactions/transaction-history-with-modal";
 import { RealtimeRefresher } from "@/components/realtime/realtime-refresher";
 
@@ -32,20 +29,8 @@ export default async function TransactionsPage({
   const year = params.year ? parseInt(params.year, 10) : new Date().getFullYear();
   const month = params.month ? parseInt(params.month, 10) : new Date().getMonth();
   const cookieStore = await cookies();
-  let workspaces = await getWorkspacesForUser();
-  if (workspaces.length === 0) {
-    await ensureDefaultWorkspace();
-    workspaces = await getWorkspacesForUser();
-  }
-  const workspaceId = cookieStore.get(WORKSPACE_COOKIE)?.value ?? null;
-  const firstWorkspaceId = workspaces[0]?.id ?? null;
-  const preferredWorkspaceId = workspaceId ?? firstWorkspaceId;
-  const workspaceFromPreferred = await getWorkspaceById(preferredWorkspaceId);
-  const workspace =
-    workspaceFromPreferred ??
-    (firstWorkspaceId && firstWorkspaceId !== preferredWorkspaceId
-      ? await getWorkspaceById(firstWorkspaceId)
-      : null);
+  const workspaceIdFromCookie = cookieStore.get(WORKSPACE_COOKIE)?.value ?? null;
+  const { workspace } = await getResolvedWorkspaceContext(workspaceIdFromCookie);
 
   if (!workspace) {
     return (
@@ -101,12 +86,19 @@ export default async function TransactionsPage({
           </h2>
           <p className="text-muted-foreground font-medium text-sm sm:text-base">{t("monthTransactions")}</p>
         </div>
-        <Link
-          href="/dashboard"
-          className="text-sm font-bold text-primary hover:underline self-start"
-        >
-          {t("backToYear")}
-        </Link>
+        <div className="flex items-center gap-2 flex-wrap">
+          <ImportButtonWithModal
+            workspaceId={workspace.id}
+            expenseCategories={expenseCategories}
+            incomeCategories={incomeCategories}
+          />
+          <Link
+            href="/dashboard"
+            className="text-sm font-bold text-primary hover:underline self-start"
+          >
+            {t("backToYear")}
+          </Link>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">

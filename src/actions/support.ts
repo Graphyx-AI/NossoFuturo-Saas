@@ -2,7 +2,6 @@
 
 import { createClient } from "@/lib/supabase/server";
 import { z } from "zod";
-import { sendSupportRequestEmail } from "@/lib/email/resend";
 
 const supportRequestSchema = z.object({
   workspaceId: z.string().uuid().nullable().optional(),
@@ -46,40 +45,8 @@ export async function createSupportRequest(input: CreateSupportRequestInput) {
     return { ok: false as const, error: insertError?.message ?? "Erro ao criar chamado." };
   }
 
-  const sendResult = await sendSupportRequestEmail({
-    supportRequestId: inserted.id,
-    fromEmail: parsed.contactEmail,
-    subject: parsed.subject,
-    category: parsed.category,
-    priority: parsed.priority,
-    message: parsed.message,
-    workspaceId: parsed.workspaceId ?? null,
-    userId: user.id,
-  });
-
-  if (sendResult.ok) {
-    await supabase
-      .from("support_requests")
-      .update({
-        status: "sent",
-        sent_at: new Date().toISOString(),
-        send_error: null,
-      })
-      .eq("id", inserted.id);
-  } else {
-    await supabase
-      .from("support_requests")
-      .update({
-        status: "failed",
-        send_error: sendResult.error ?? "Falha no envio.",
-      })
-      .eq("id", inserted.id);
-  }
-
   return {
     ok: true as const,
     protocol: inserted.id,
-    sent: sendResult.ok,
-    warning: sendResult.ok ? null : "Chamado registrado, mas houve falha no envio de e-mail.",
   };
 }

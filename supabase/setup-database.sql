@@ -1,5 +1,5 @@
 -- ============================================================
--- NOSSO FUTURO — Setup do banco (Supabase SQL Editor)
+-- LUMIFY — Setup do banco (Supabase SQL Editor)
 -- Cole este script inteiro e execute (Run).
 -- ============================================================
 

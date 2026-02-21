@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import {
   createContext,
@@ -10,7 +10,7 @@ import {
 
 type Theme = "light" | "dark";
 
-const STORAGE_KEY = "nosso-futuro-theme";
+const STORAGE_KEY = "lumyf-theme";
 
 const ThemeContext = createContext<{
   theme: Theme;

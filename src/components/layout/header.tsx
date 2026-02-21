@@ -2,7 +2,8 @@
 
 import { useState, useRef, useEffect, useMemo, useTransition } from "react";
 import type { Workspace } from "@/types/database";
-import { Menu, Moon, Sun, ChevronDown, PanelLeftClose, PanelLeftOpen } from "lucide-react";
+import { Menu, Moon, Sun, ChevronDown, PanelLeftClose, PanelLeftOpen, Loader2 } from "lucide-react";
+import { NotificationBell } from "@/components/notifications/notification-bell";
 import { useTheme } from "@/components/theme-provider";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
@@ -98,10 +99,13 @@ export function Header({
             aria-haspopup="listbox"
             aria-label={t("currentWorkspace")}
           >
+            {isPending && (
+              <Loader2 className="h-4 w-4 shrink-0 animate-spin text-primary" aria-hidden />
+            )}
             <span className="font-bold text-foreground truncate text-sm sm:text-base">
               {displayedWorkspace?.name ?? tCommon("loading")}
             </span>
-            {workspaces.length > 1 && (
+            {workspaces.length > 1 && !isPending && (
               <ChevronDown
                 className={`h-4 w-4 shrink-0 text-muted-foreground transition-transform ${
                   open ? "rotate-180" : ""
@@ -139,6 +143,7 @@ export function Header({
         </div>
       </div>
       <div className="flex items-center gap-2 sm:gap-3 text-xs font-bold shrink-0">
+        <NotificationBell />
         <LocaleSwitcher />
         <button
           type="button"

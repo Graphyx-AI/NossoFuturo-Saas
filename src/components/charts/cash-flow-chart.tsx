@@ -12,6 +12,9 @@ import {
 } from "recharts";
 import { formatCurrency } from "@/lib/utils/currency";
 
+const INCOME_COLOR = "hsl(160 45% 45%)";
+const EXPENSE_COLOR = "hsl(0 84% 60%)";
+
 export function CashFlowChart({
   labels,
   incomeData,
@@ -38,16 +41,21 @@ export function CashFlowChart({
   return (
     <ResponsiveContainer width="100%" height="100%">
       <BarChart data={data} margin={{ top: 20, right: 20, left: 0, bottom: 0 }}>
-        <CartesianGrid strokeDasharray="3 3" stroke="#f1f5f9" />
-        <XAxis dataKey="name" tick={{ fontSize: 10, fontWeight: "bold" }} />
-        <YAxis tick={{ fontSize: 10 }} tickFormatter={(v) => formatValue(v)} />
+        <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+        <XAxis dataKey="name" tick={{ fontSize: 10, fontWeight: "bold" }} stroke="hsl(var(--muted-foreground))" />
+        <YAxis tick={{ fontSize: 10 }} tickFormatter={(v) => formatValue(v)} stroke="hsl(var(--muted-foreground))" />
         <Tooltip
           formatter={(value: number) => [formatValue(Number(value))]}
           labelFormatter={(label) => label}
+          contentStyle={{
+            backgroundColor: "hsl(var(--card))",
+            border: "1px solid hsl(var(--border))",
+            borderRadius: "0.75rem",
+          }}
         />
         <Legend />
-        <Bar dataKey={incomeLabel} fill="#10b981" radius={[8, 8, 0, 0]} />
-        <Bar dataKey={expenseLabel} fill="#f43f5e" radius={[8, 8, 0, 0]} />
+        <Bar dataKey={incomeLabel} fill={INCOME_COLOR} radius={[8, 8, 0, 0]} />
+        <Bar dataKey={expenseLabel} fill={EXPENSE_COLOR} radius={[8, 8, 0, 0]} />
       </BarChart>
     </ResponsiveContainer>
   );

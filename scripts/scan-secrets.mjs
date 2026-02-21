@@ -6,7 +6,6 @@ import { execSync } from "node:child_process";
 const patterns = [
   /SUPABASE_SERVICE_ROLE_KEY\s*=\s*(?!your_service_role_key|.*xxx).+/i,
   /NEXT_PUBLIC_SUPABASE_ANON_KEY\s*=\s*(?!your_anon_key|.*xxx).+/i,
-  /RESEND_API_KEY\s*=\s*(?!re_xxx|.*xxx).+/i,
   /eyJhbGciOiJIUzI1Ni/i,
   /re_(?!xxx\b)[A-Za-z0-9]{10,}/,
 ];

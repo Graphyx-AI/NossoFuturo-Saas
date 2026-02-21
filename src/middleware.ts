@@ -1,9 +1,11 @@
-import { type NextRequest } from "next/server";
+import { type NextRequest, NextResponse } from "next/server";
 import createMiddleware from "next-intl/middleware";
 import { routing } from "@/i18n/routing";
 import { updateSession } from "@/lib/supabase/middleware";
 
 const handleI18nRouting = createMiddleware(routing);
+
+const LOCALE_COOKIE = "NEXT_LOCALE";
 
 function parseAcceptLanguage(headerValue: string | null): string[] {
   if (!headerValue) return [];
@@ -52,6 +54,11 @@ function pickLocaleFromAcceptLanguage(headerValue: string | null) {
   return routing.defaultLocale;
 }
 
+function pathHasLocale(pathname: string): boolean {
+  const segment = pathname.split("/").filter(Boolean)[0];
+  return !!segment && routing.locales.includes(segment as (typeof routing.locales)[number]);
+}
+
 export async function middleware(request: NextRequest) {
   const sessionResponse = await updateSession(request);
 
@@ -59,11 +66,33 @@ export async function middleware(request: NextRequest) {
     return sessionResponse;
   }
 
+  const pathname = request.nextUrl.pathname;
+  const hasLocaleInPath = pathHasLocale(pathname);
+  const localeCookie = request.cookies.get(LOCALE_COOKIE)?.value;
+
+  // Detecção de idioma pelo navegador: prioriza cookie, depois Accept-Language
+  if (!hasLocaleInPath && !localeCookie) {
+    const preferred = pickLocaleFromAcceptLanguage(request.headers.get("accept-language"));
+    const basePath = pathname === "/" ? "" : pathname;
+    const url = request.nextUrl.clone();
+    url.pathname = `/${preferred}${basePath}`;
+    const redirectResponse = NextResponse.redirect(url);
+    redirectResponse.cookies.set(LOCALE_COOKIE, preferred, {
+      path: "/",
+      maxAge: 60 * 60 * 24 * 365,
+      sameSite: "lax",
+    });
+    sessionResponse.cookies.getAll().forEach((c) => {
+      redirectResponse.cookies.set(c.name, c.value, c);
+    });
+    return redirectResponse;
+  }
+
   const intlResponse = handleI18nRouting(request);
 
-  if (!request.cookies.get("NEXT_LOCALE")) {
+  if (!localeCookie) {
     const preferred = pickLocaleFromAcceptLanguage(request.headers.get("accept-language"));
-    intlResponse.cookies.set("NEXT_LOCALE", preferred, {
+    intlResponse.cookies.set(LOCALE_COOKIE, preferred, {
       path: "/",
       maxAge: 60 * 60 * 24 * 365,
       sameSite: "lax",
@@ -79,6 +108,6 @@ export async function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
-    "/((?!_next/static|_next/image|favicon.ico|api).*)",
+    "/((?!_next/static|_next/image|favicon.ico|api|manifest.json|icon-).*)",
   ],
 };

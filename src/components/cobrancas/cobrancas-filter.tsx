@@ -1,6 +1,8 @@
 "use client";
 
+import { useTransition } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
+import { Loader2 } from "lucide-react";
 
 const STATUS_OPTIONS = [
   { value: "", label: "Todos" },
@@ -12,6 +14,7 @@ const STATUS_OPTIONS = [
 export function CobrancasFilter() {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const [isPending, startTransition] = useTransition();
   const debtorName = searchParams.get("name") ?? "";
   const status = searchParams.get("status") ?? "";
   const fromDate = searchParams.get("fromDate") ?? "";
@@ -23,11 +26,16 @@ export function CobrancasFilter() {
     const params = new URLSearchParams(searchParams.toString());
     if (value) params.set(name, value);
     else params.delete(name);
-    router.push(`/dashboard/cobrancas?${params.toString()}`);
+    startTransition(() => {
+      router.push(`/dashboard/cobrancas?${params.toString()}`);
+    });
   }
 
   return (
     <div className="flex flex-wrap items-end gap-4">
+      {isPending && (
+        <Loader2 className="h-4 w-4 animate-spin text-primary shrink-0 self-center" aria-hidden />
+      )}
       <div className="min-w-[180px] flex-1">
         <label htmlFor="filter-name" className="block text-xs font-medium text-muted-foreground mb-1">
           Cliente (nome)

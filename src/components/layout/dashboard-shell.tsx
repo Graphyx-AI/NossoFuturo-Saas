@@ -5,6 +5,7 @@ import type { Workspace } from "@/types/database";
 import { Sidebar } from "./sidebar";
 import { Header } from "./header";
 import { useGuidedTour } from "@/components/onboarding/guided-tour";
+import { CommandPalette } from "@/components/command-palette";
 
 export function DashboardShell({
   workspace,
@@ -21,6 +22,7 @@ export function DashboardShell({
 
   return (
     <div className="flex min-h-screen bg-background text-foreground">
+      <CommandPalette />
       <Sidebar
         collapsed={sidebarCollapsed}
         onToggleCollapse={() => setSidebarCollapsed((v) => !v)}

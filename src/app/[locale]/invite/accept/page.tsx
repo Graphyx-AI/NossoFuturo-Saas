@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
 import { Heart, Loader2, CheckCircle, AlertCircle } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
@@ -15,8 +16,9 @@ function setWorkspaceCookie(workspaceId: string) {
 
 export default function InviteAcceptPage() {
   const searchParams = useSearchParams();
+  const t = useTranslations("invite");
+  const tCommon = useTranslations("common");
   const rawToken = searchParams.get("token");
-  // useSearchParams já decodifica automaticamente, mas garantimos que está limpo
   const token = rawToken ? rawToken.trim() : null;
   const [status, setStatus] = useState<"loading" | "success" | "error" | "redirect">("loading");
   const [errorMessage, setErrorMessage] = useState<string>("");
@@ -31,7 +33,7 @@ export default function InviteAcceptPage() {
   useEffect(() => {
     if (!token) {
       setStatus("error");
-      setErrorMessage("Link de convite inválido. Token não encontrado.");
+      setErrorMessage(t("invalidToken"));
       return;
     }
     
@@ -43,8 +45,8 @@ export default function InviteAcceptPage() {
     let cancelled = false;
 
     async function run() {
-      const t = token;
-      if (!t) return;
+      const tok = token;
+      if (!tok) return;
       const supabase = createClient();
       const {
         data: { user },
@@ -58,7 +60,7 @@ export default function InviteAcceptPage() {
         return;
       }
 
-      const result = await acceptWorkspaceInvite(t);
+      const result = await acceptWorkspaceInvite(tok);
       if (cancelled) return;
 
       if (result.ok) {
@@ -73,7 +75,7 @@ export default function InviteAcceptPage() {
         }, 1500);
       } else {
         setStatus("error");
-        setErrorMessage(result.error ?? "Não foi possível aceitar o convite.");
+        setErrorMessage(result.error ?? t("acceptError"));
       }
     }
 
@@ -81,7 +83,7 @@ export default function InviteAcceptPage() {
     return () => {
       cancelled = true;
     };
-  }, [token]);
+  }, [token, t]);
 
   return (
     <div className="min-h-screen flex flex-col items-center justify-center p-5 bg-background">
@@ -92,7 +94,7 @@ export default function InviteAcceptPage() {
             className="inline-flex items-center gap-2 text-foreground font-bold tracking-tight mb-8"
           >
             <Heart className="h-6 w-6 text-accent" fill="currentColor" />
-            <span className="text-gradient-hero">Nosso Futuro</span>
+            <span className="text-gradient-hero">Lumyf</span>
           </Link>
 
           {status === "loading" && (
@@ -101,10 +103,10 @@ export default function InviteAcceptPage() {
                 <Loader2 className="h-6 w-6 animate-spin" />
               </div>
               <h1 className="text-xl font-semibold tracking-tight text-foreground mb-2 font-sans">
-                Aceitando convite...
+                {t("accepting")}
               </h1>
               <p className="text-sm text-muted-foreground">
-                Aguarde enquanto adicionamos você ao workspace.
+                {t("acceptingDesc")}
               </p>
             </>
           )}
@@ -115,10 +117,10 @@ export default function InviteAcceptPage() {
                 <CheckCircle className="h-6 w-6" />
               </div>
               <h1 className="text-xl font-semibold tracking-tight text-foreground mb-2 font-sans">
-                Convite aceito!
+                {t("success")}
               </h1>
               <p className="text-sm text-muted-foreground">
-                Você foi adicionado ao workspace. Redirecionando...
+                {t("successDesc")}
               </p>
             </>
           )}
@@ -129,7 +131,7 @@ export default function InviteAcceptPage() {
                 <Loader2 className="h-6 w-6 animate-spin" />
               </div>
               <h1 className="text-xl font-semibold tracking-tight text-foreground mb-2 font-sans">
-                Redirecionando para o dashboard...
+                {t("redirecting")}
               </h1>
             </>
           )}
@@ -140,7 +142,7 @@ export default function InviteAcceptPage() {
                 <AlertCircle className="h-6 w-6" />
               </div>
               <h1 className="text-xl font-semibold tracking-tight text-foreground mb-2 font-sans">
-                Convite inválido
+                {t("invalidTitle")}
               </h1>
               <p className="text-sm text-muted-foreground mb-6">
                 {errorMessage}
@@ -149,7 +151,7 @@ export default function InviteAcceptPage() {
                 href="/dashboard"
                 className="inline-flex justify-center w-full bg-hero-gradient text-primary-foreground font-semibold py-3.5 rounded-xl text-sm hover:opacity-90 transition-opacity"
               >
-                Ir para o dashboard
+                {t("goToDashboard")}
               </Link>
             </>
           )}
@@ -160,7 +162,7 @@ export default function InviteAcceptPage() {
             href="/"
             className="text-sm text-muted-foreground hover:text-foreground transition-colors"
           >
-            Voltar para a home
+            {tCommon("back")}
           </Link>
         </p>
       </div>

@@ -18,7 +18,7 @@ export type AccessibilitySettings = {
   reducedMotion: boolean;
 };
 
-const STORAGE_KEY = "nosso-futuro-accessibility";
+const STORAGE_KEY = "lumyf-accessibility";
 
 const defaultSettings: AccessibilitySettings = {
   colorTheme: "padrao",

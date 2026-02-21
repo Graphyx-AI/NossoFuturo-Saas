@@ -1,4 +1,4 @@
-# Nosso Futuro - SaaS (Financas Pessoais)
+# Lumyf - SaaS (Financas Pessoais)
 
 App de financas pessoais multi-tenant com Next.js 14 e Supabase.
 
@@ -27,7 +27,7 @@ cp .env.example .env.local
 - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
 - `SUPABASE_SERVICE_ROLE_KEY`
 - `NEXT_PUBLIC_APP_URL`
-- `RESEND_API_KEY`
+- `CRON_SECRET` (opcional) — protege o endpoint `/api/cron/recurring` para gerar transações recorrentes. Configure em Vercel Cron.
 
 Importante:
 - `NEXT_PUBLIC_SUPABASE_ANON_KEY` deve ser a chave publica `anon`.

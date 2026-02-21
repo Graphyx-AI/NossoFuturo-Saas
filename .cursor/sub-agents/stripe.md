@@ -15,13 +15,13 @@ Você é um sub-agente do Agente Backend.
 - Dunning (retentativa de cobrança)
 
 ## Planos do Produto
-| | Free | Pro (R$29) | Business (R$79) |
-|---|---|---|---|
-| Workspaces | 1 | 3 | Ilimitado |
-| Membros | 2 | 5 | 20 |
-| Transações/mês | 100 | ∞ | ∞ |
-| Metas | 3 | ∞ | ∞ |
-| Contas | 2 | 10 | ∞ |
+- Não existe uso gratuito nem plano Business. Para usar o app é obrigatório assinar o Pro.
+- Free: estado de workspace sem assinatura ativa — bloqueia acesso até assinar.
+| | Pro |
+|---|---|
+| Workspaces | 2 |
+| Membros | 5 |
+| Trial | 2 dias grátis, depois Stripe cobra |
 
 ## Regras de Billing
 - Checkout via Stripe Checkout (hosted) — nunca Elements inline
@@ -30,7 +30,7 @@ Você é um sub-agente do Agente Backend.
 - Webhook é a ÚNICA fonte de verdade para status do plano
 - Nunca confiar no redirect de success_url para ativar plano
 - Idempotência: processar o mesmo evento 2x não deve quebrar
-- Trial: 14 dias, sem cartão obrigatório? (decisão do Agente Mestre)
+- Trial: 2 dias para assinantes; após o trial, Stripe cobra automaticamente.
 
 ## Eventos que Você Deve Tratar
 1. `checkout.session.completed` → ativar plano

@@ -1,10 +1,6 @@
 import { getTranslations, getLocale } from "next-intl/server";
 import { cookies } from "next/headers";
-import {
-  getWorkspaceById,
-  getWorkspacesForUser,
-  ensureDefaultWorkspace,
-} from "@/actions/workspaces";
+import { getResolvedWorkspaceContext } from "@/actions/workspaces";
 import { getReceivables } from "@/actions/receivables";
 import { formatCurrency } from "@/lib/utils/currency";
 import { ReceivableForm } from "@/components/forms/receivable-form";
@@ -25,20 +21,8 @@ export default async function CobrancasPage({
   const locale = await getLocale();
   const params = await searchParams;
   const cookieStore = await cookies();
-  let workspaces = await getWorkspacesForUser();
-  if (workspaces.length === 0) {
-    await ensureDefaultWorkspace();
-    workspaces = await getWorkspacesForUser();
-  }
-  const workspaceId = cookieStore.get(WORKSPACE_COOKIE)?.value ?? null;
-  const firstWorkspaceId = workspaces[0]?.id ?? null;
-  const preferredWorkspaceId = workspaceId ?? firstWorkspaceId;
-  const workspaceFromPreferred = await getWorkspaceById(preferredWorkspaceId);
-  const workspace =
-    workspaceFromPreferred ??
-    (firstWorkspaceId && firstWorkspaceId !== preferredWorkspaceId
-      ? await getWorkspaceById(firstWorkspaceId)
-      : null);
+  const workspaceIdFromCookie = cookieStore.get(WORKSPACE_COOKIE)?.value ?? null;
+  const { workspace } = await getResolvedWorkspaceContext(workspaceIdFromCookie);
 
   if (!workspace) {
     return (

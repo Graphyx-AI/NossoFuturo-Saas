@@ -1,4 +1,4 @@
-﻿import { Link } from "@/i18n/navigation";
+import { Link } from "@/i18n/navigation";
 
 const plan = {
   name: "Pro",
@@ -8,7 +8,7 @@ const plan = {
     "2 dias gratis",
     "Ate 2 workspaces",
     "Ate 5 membros",
-    "Transacoes ilimitadas",
+    "Lançamentos Ilimitados",
     "Metas ilimitadas",
     "10 contas",
   ],

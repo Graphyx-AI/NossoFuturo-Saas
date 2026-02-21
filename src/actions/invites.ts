@@ -5,16 +5,10 @@ import { createClient as createSupabaseClient } from "@supabase/supabase-js";
 import { revalidatePath } from "next/cache";
 import { headers } from "next/headers";
 import { z } from "zod";
-import { sendWorkspaceInviteEmail } from "@/lib/email/resend";
 import { randomBytes } from "crypto";
+import { PRODUCT_CONFIG } from "@/lib/product-config";
 
 const LOCALES = ["pt-BR", "pt-PT", "en", "es"] as const;
-
-const createInviteSchema = z.object({
-  workspaceId: z.string().uuid(),
-  email: z.string().email("E-mail invalido"),
-  role: z.enum(["admin", "editor", "viewer"]).default("editor"),
-});
 
 const createInviteLinkSchema = z.object({
   workspaceId: z.string().uuid(),
@@ -25,10 +19,6 @@ const createInviteLinkSchema = z.object({
     .max(80, "Nome muito longo."),
   role: z.enum(["admin", "editor", "viewer"]).default("editor"),
 });
-
-export type CreateInviteResult =
-  | { ok: true }
-  | { ok: false; error: string };
 
 export type CreateInviteLinkResult =
   | { ok: true; inviteUrl: string }
@@ -91,122 +81,6 @@ async function getLocaleFromRequest(): Promise<(typeof LOCALES)[number]> {
   return "pt-BR";
 }
 
-export async function createWorkspaceInvite(
-  workspaceId: string,
-  email: string,
-  role: "admin" | "editor" | "viewer" = "editor"
-): Promise<CreateInviteResult> {
-  const parsed = createInviteSchema.safeParse({
-    workspaceId,
-    email: email.trim().toLowerCase(),
-    role,
-  });
-  if (!parsed.success) {
-    return { ok: false, error: parsed.error.errors[0]?.message ?? "Dados invalidos" };
-  }
-
-  const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-  if (!user) return { ok: false, error: "Nao autorizado" };
-
-  const { data: memberRow } = await supabase
-    .from("workspace_members")
-    .select("role")
-    .eq("workspace_id", workspaceId)
-    .eq("user_id", user.id)
-    .not("accepted_at", "is", null)
-    .single();
-  const roleStr = (memberRow as { role?: string } | null)?.role;
-  if (!roleStr || !["owner", "admin"].includes(roleStr)) {
-    return { ok: false, error: "Apenas donos e admins podem convidar membros." };
-  }
-
-  const { data: existingInvite } = await supabase
-    .from("workspace_invites")
-    .select("id")
-    .eq("workspace_id", workspaceId)
-    .eq("email", parsed.data.email)
-    .limit(1);
-
-  const { data: members } = await supabase
-    .from("workspace_members")
-    .select("user_id")
-    .eq("workspace_id", workspaceId)
-    .not("accepted_at", "is", null);
-  const memberEmails = await Promise.all(
-    (members ?? []).map(async (m) => {
-      const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
-      if (!serviceKey) return null;
-      const admin = createSupabaseClient(
-        process.env.NEXT_PUBLIC_SUPABASE_URL!,
-        serviceKey,
-        { auth: { persistSession: false } }
-      );
-      const { data } = await admin.auth.admin.getUserById(m.user_id);
-      return data.user?.email?.toLowerCase() ?? null;
-    })
-  );
-  if (memberEmails.includes(parsed.data.email)) {
-    return { ok: false, error: "Este e-mail ja e membro do workspace." };
-  }
-  if (existingInvite?.length) {
-    return { ok: false, error: "Ja existe um convite pendente para este e-mail." };
-  }
-
-  const token = generateInviteToken();
-
-  const { data: profile } = await supabase
-    .from("profiles")
-    .select("full_name")
-    .eq("id", user.id)
-    .single();
-  const { data: workspace } = await supabase
-    .from("workspaces")
-    .select("name")
-    .eq("id", workspaceId)
-    .single();
-
-  const { error: insertError } = await supabase.from("workspace_invites").insert({
-    workspace_id: workspaceId,
-    email: parsed.data.email,
-    role: parsed.data.role,
-    token,
-    invited_by: user.id,
-    expires_at: getInviteExpiryIsoString(),
-  });
-
-  if (insertError) {
-    if (insertError.code === "23505") {
-      return { ok: false, error: "Ja existe um convite pendente para este e-mail." };
-    }
-    return { ok: false, error: insertError.message };
-  }
-
-  const appUrl = await getAppUrl();
-  const locale = await getLocaleFromRequest();
-  const acceptUrl = `${appUrl}/${locale}/i/${token}`;
-  const emailResult = await sendWorkspaceInviteEmail({
-    to: parsed.data.email,
-    inviterName: profile?.full_name ?? "Alguem",
-    workspaceName: workspace?.name ?? "Workspace",
-    acceptUrl,
-  });
-
-  if (!emailResult.ok) {
-    return {
-      ok: false,
-      error: emailResult.error ?? "Convite criado, mas falha ao enviar e-mail.",
-    };
-  }
-
-  revalidatePath("/dashboard/settings");
-  revalidatePath("/pt/dashboard/settings");
-  revalidatePath("/en/dashboard/settings");
-  return { ok: true };
-}
-
 export async function createWorkspaceInviteLink(
   workspaceId: string,
   guestName: string,
@@ -237,6 +111,21 @@ export async function createWorkspaceInviteLink(
   const roleStr = (memberRow as { role?: string } | null)?.role;
   if (!roleStr || !["owner", "admin"].includes(roleStr)) {
     return { ok: false, error: "Apenas donos e admins podem convidar membros." };
+  }
+
+  const { count: membersCount } = await supabase
+    .from("workspace_members")
+    .select("id", { count: "exact", head: true })
+    .eq("workspace_id", workspaceId)
+    .not("accepted_at", "is", null);
+  const { count: invitesCount } = await supabase
+    .from("workspace_invites")
+    .select("id", { count: "exact", head: true })
+    .eq("workspace_id", workspaceId);
+
+  const total = (membersCount ?? 0) + (invitesCount ?? 0);
+  if (total >= PRODUCT_CONFIG.maxMembersPerWorkspace) {
+    return { ok: false, error: `O plano Pro permite até ${PRODUCT_CONFIG.maxMembersPerWorkspace} membros por workspace.` };
   }
 
   const token = generateInviteToken();
@@ -365,6 +254,15 @@ export async function acceptWorkspaceInvite(token: string): Promise<AcceptInvite
 
   if (membershipLookupError) {
     return { ok: false, error: "Erro ao validar acesso ao workspace." };
+  }
+
+  const { count: membersCount } = await admin
+    .from("workspace_members")
+    .select("id", { count: "exact", head: true })
+    .eq("workspace_id", inviteWorkspaceId)
+    .not("accepted_at", "is", null);
+  if ((membersCount ?? 0) >= PRODUCT_CONFIG.maxMembersPerWorkspace) {
+    return { ok: false, error: `Este workspace atingiu o limite de ${PRODUCT_CONFIG.maxMembersPerWorkspace} membros do plano Pro.` };
   }
 
   if (existingMembership) {

@@ -1,6 +1,6 @@
 {
     "common":  {
-                   "brand":  "Nosso Futuro",
+                   "brand":  "Lumyf",
                    "locales":  {
                                    "label":  "Idioma",
                                    "pt-BR":  "Português (Brasil)",
@@ -186,13 +186,13 @@
                               },
                     "faq":  {
                                 "title":  "Perguntas frequentes",
-                                "subtitle":  "Tire suas dúvidas sobre o Nosso Futuro.",
-                                "q1":  "O Nosso Futuro é gratuito?",
+                                "subtitle":  "Tire suas dúvidas sobre o Lumyf.",
+                                "q1":  "O Lumyf é gratuito?",
                                 "a1":  "Sim! O plano Free é 100% gratuito e inclui 1 workspace, até 2 membros, 100 transações por mês e 3 metas financeiras. Ideal para começar a organizar suas finanças em família sem custo.",
                                 "q2":  "Como funciona o compartilhamento com a família?",
                                 "a2":  "Cada família cria um workspace e convida membros por e-mail. Todos podem registrar transações, ver relatórios e acompanhar metas. As informações são sincronizadas em tempo real para todos os integrantes.",
-                                "q3":  "O Nosso Futuro tem alguma ligação com meu banco?",
-                                "a3":  "Não. O Nosso Futuro não tem nenhuma conexão, integração ou vínculo com sua conta bancária. Todas as transações são cadastradas manualmente por você e sua família. Nós não acessamos, conectamos ou importamos dados de instituições financeiras.",
+                                "q3":  "O Lumyf tem alguma ligação com meu banco?",
+                                "a3":  "Não. O Lumyf não tem nenhuma conexão, integração ou vínculo com sua conta bancária. Todas as transações são cadastradas manualmente por você e sua família. Nós não acessamos, conectamos ou importamos dados de instituições financeiras.",
                                 "q4":  "Meus dados estão seguros?",
                                 "a4":  "Sim. Utilizamos criptografia e autenticação segura. Seus dados financeiros ficam protegidos e apenas as pessoas que você convidar terão acesso ao workspace.",
                                 "q5":  "Posso cancelar o plano pago a qualquer momento?",
@@ -202,11 +202,11 @@
                             },
                     "cta":  {
                                 "title":  "Pronto para construir o futuro juntos?",
-                                "subtitle":  "Junte-se a milhares de famílias que já organizam suas finanças com o Nosso Futuro.",
+                                "subtitle":  "Junte-se a milhares de famílias que já organizam suas finanças com o Lumyf.",
                                 "button":  "Criar conta grátis"
                             },
                     "footer":  {
-                                   "copyright":  "© {year} Nosso Futuro. Todos os direitos reservados.",
+                                   "copyright":  "© {year} Lumyf. Todos os direitos reservados.",
                                    "terms":  "Termos",
                                    "privacy":  "Privacidade"
                                }
@@ -219,6 +219,8 @@
                 "investments":  "Investimentos",
                 "cobrancas":  "Cobranças",
                 "goals":  "Metas",
+                "budgets":  "Orçamentos",
+                "recurring":  "Recorrentes",
                 "reports":  "Relatório anual",
                 "settings":  "Configurações",
                 "billing":  "Assinatura",
@@ -235,6 +237,7 @@
                       "settings":  "Configurações",
                       "seeReports":  "Ver relatório anual",
                       "transactions":  "Transações",
+                      "budgets":  "Orçamentos",
                       "backToYear":  "← Voltar ao ano",
                       "monthTransactions":  "Transações do mês",
                       "income":  "Receitas",
@@ -255,6 +258,7 @@
                                       "income":  "Receitas",
                                       "placeholderDesc":  "Ex: Supermercado",
                                       "placeholderAmount":  "Valor (Ex: 5.000 ou 50,99)",
+                                      "invalidAmount":  "Informe um valor válido maior que zero.",
                                       "outflow":  "Saída",
                                       "inflow":  "Entrada",
                                       "saved":  "Salvo!",
@@ -322,6 +326,40 @@
                                      "emptyList":  "Nenhuma cobrança encontrada. Adicione quem te deve.",
                                      "markAsPaid":  "Marcar como pago"
                                  },
+                  "budget":  {
+                                   "category":  "Categoria",
+                                   "selectCategory":  "Selecione uma categoria",
+                                   "limitAmount":  "Limite (R$)",
+                                   "add":  "Adicionar orçamento",
+                                   "saving":  "Salvando...",
+                                   "invalidData":  "Preencha categoria e valor válido.",
+                                   "error":  "Erro ao salvar.",
+                                   "save":  "Salvar",
+                                   "cancel":  "Cancelar",
+                                   "edit":  "Editar",
+                                   "delete":  "Excluir"
+                                 },
+                  "recurring":  {
+                                   "type":  "Tipo",
+                                   "expense":  "Despesa",
+                                   "income":  "Receita",
+                                   "category":  "Categoria",
+                                   "optional":  "Opcional",
+                                   "description":  "Descrição",
+                                   "placeholderDesc":  "Ex: Aluguel",
+                                   "amount":  "Valor",
+                                   "frequency":  "Frequência",
+                                   "weekly":  "Semanal",
+                                   "biweekly":  "Quinzenal",
+                                   "monthly":  "Mensal",
+                                   "yearly":  "Anual",
+                                   "startDate":  "Data início",
+                                   "endDate":  "Data fim",
+                                   "add":  "Adicionar",
+                                   "saving":  "Salvando...",
+                                   "invalidData":  "Preencha descrição e valor válido.",
+                                   "error":  "Erro ao salvar."
+                                 },
                   "goalContribution":  {
                                            "title":  "Poupar para meta",
                                            "selectGoal":  "Selecione a meta",
@@ -336,6 +374,8 @@
     "cobrancas":  {
                       "pageTitle":  "Cobranças",
                       "pageSubtitle":  "Quem te deve, valores e envio para WhatsApp.",
+                      "emptyStateTitle":  "Nenhuma cobrança cadastrada",
+                      "emptyStateDesc":  "Use o formulário ao lado para registrar quem te deve.",
                       "totalToReceive":  "Total a receber",
                       "debtorsFilter":  "Devedores (filtro)",
                       "alreadyReceived":  "Já recebido (pagos)",
@@ -353,6 +393,24 @@
                                      "searchPlaceholder":  "Buscar por nome..."
                                  }
                   },
+    "budgets":  {
+                    "pageTitle":  "Orçamentos",
+                    "pageSubtitle":  "Defina limites por categoria e acompanhe seus gastos.",
+                    "addBudget":  "Novo orçamento",
+                    "budgetsFor":  "Orçamentos de {month} de {year}",
+                    "active":  "ativo",
+                    "actives":  "ativos",
+                    "noBudgets":  "Nenhum orçamento definido. Adicione um limite para uma categoria de despesa."
+                },
+    "recurring":  {
+                    "pageTitle":  "Transações recorrentes",
+                    "pageSubtitle":  "Despesas e receitas que se repetem automaticamente.",
+                    "addRecurring":  "Nova recorrente",
+                    "myRecurring":  "Minhas recorrentes",
+                    "active":  "ativa",
+                    "actives":  "ativas",
+                    "noRecurring":  "Nenhuma transação recorrente. Adicione aluguel, salário, etc."
+                },
     "settings":  {
                      "title":  "Configurações",
                      "subtitle":  "Gerencie a sua conta, espaços de trabalho e plano.",
@@ -402,16 +460,65 @@
                      "activateHighContrast":  "Ativar alto contraste",
                      "deactivateHighContrast":  "Desativar alto contraste",
                      "enableAnimations":  "Ativar animações",
-                     "reduceAnimations":  "Reduzir animações"
+                     "reduceAnimations":  "Reduzir animações",
+                     "account":  "Conta",
+                     "accountDesc":  "Dados da sua conta logada.",
+                     "theme":  "Tema",
+                     "themeCurrent":  "Atual: {theme}",
+                     "themeDark":  "Escuro",
+                     "themeLight":  "Claro",
+                     "support":  "Suporte",
+                     "supportDesc":  "Envie seu problema e ele chega direto em {email}.",
+                     "plan":  "Plano",
+                     "planComingSoon":  "Em breve",
+                     "planFeatures":  "Mais membros por workspace, mais workspaces, automações, exportações avançadas e funcionalidades premium.",
+                     "signOutEmail":  "Sair da conta {email}"
                  },
+    "workspaceMembers":  {
+                      "roles":  {
+                                "owner":  "Dono",
+                                "admin":  "Admin",
+                                "editor":  "Editor",
+                                "viewer":  "Visualizador"
+                            },
+                      "inviteLinkFor":  "Link para: {name}",
+                      "guest":  "convidado",
+                      "members":  "Membros",
+                      "selectWorkspace":  "Selecione um workspace para gerenciar membros.",
+                      "inviteByLink":  "Convidar por link",
+                      "personName":  "Nome da pessoa",
+                      "generateLink":  "Gerar link",
+                      "generating":  "Gerando...",
+                      "inviteLinkLabel":  "Link de convite",
+                      "copy":  "Copiar",
+                      "copied":  "Copiado",
+                      "pendingInvites":  "Convites pendentes",
+                      "noMembers":  "Nenhum membro no momento",
+                      "noMembersDesc":  "Convide sua família ou equipe usando o formulário abaixo.",
+                      "removeMember":  "Remover membro",
+                      "cancelInvite":  "Cancelar convite",
+                      "errorGenerate":  "Erro ao gerar link",
+                      "errorRemove":  "Não foi possível remover membro.",
+                      "errorCancel":  "Não foi possível cancelar convite."
+                  },
+    "invite":  {
+                  "invalidToken":  "Link de convite inválido. Token não encontrado.",
+                  "acceptError":  "Não foi possível aceitar o convite.",
+                  "accepting":  "Aceitando convite...",
+                  "acceptingDesc":  "Aguarde enquanto adicionamos você ao workspace.",
+                  "success":  "Convite aceito!",
+                  "successDesc":  "Você foi adicionado ao workspace. Redirecionando...",
+                  "redirecting":  "Redirecionando para o dashboard...",
+                  "invalidTitle":  "Convite inválido",
+                  "goToDashboard":  "Ir para o dashboard"
+              },
     "billing":  {
-                    "plansTitle":  "Planos para cada família",
-                    "plansSubtitle":  "Comece grátis. Evolua quando precisar.",
-                    "free":  "Free",
+                    "plansTitle":  "Plano Pro",
+                    "plansSubtitle":  "Assine para usar o app. 2 dias grátis.",
                     "pro":  "Pro",
-                    "business":  "Business",
                     "currentPlan":  "Plano atual",
-                    "startFree":  "Começar grátis",
+                    "noSubscription":  "Sem assinatura ativa",
+                    "startPro":  "Assinar Pro",
                     "redirecting":  "Redirecionando...",
                     "activePlan":  "Plano ativo",
                     "managePlan":  "Gerenciar plano",
@@ -421,7 +528,7 @@
     "onboarding":  {
                        "skip":  "Pular",
                        "stepOf":  "Passo {current} de 3",
-                       "whoUse":  "Para quem você vai usar o Nosso Futuro?",
+                       "whoUse":  "Para quem você vai usar o Lumyf?",
                        "chooseOption":  "Escolha a opção que melhor descreve seu uso.",
                        "intents":  {
                                        "personal":  "Só para mim",
@@ -484,6 +591,8 @@
     "transactions":  {
                          "historyTitle":  "Histórico do mês",
                          "noTransactions":  "Nenhuma transação neste mês.",
+                         "emptyStateTitle":  "Nenhuma transação neste mês",
+                         "emptyStateDesc":  "Use o formulário ao lado para registrar sua primeira receita ou despesa.",
                          "noCategory":  "Sem categoria",
                          "date":  "Data",
                          "categoryDescription":  "Categoria / Descrição",

@@ -108,5 +108,31 @@ export async function updateSession(request: NextRequest) {
     }
   }
 
+  // Bloqueia uso do app sem assinatura Pro: redireciona para settings para assinar
+  if (user && path.startsWith("/dashboard") && !path.startsWith("/dashboard/settings")) {
+    let workspaceId = request.cookies.get("workspace_id")?.value;
+    if (!workspaceId) {
+      const { data: members } = await supabase
+        .from("workspace_members")
+        .select("workspace_id")
+        .eq("user_id", user.id)
+        .not("accepted_at", "is", null)
+        .limit(1);
+      workspaceId = members?.[0]?.workspace_id;
+    }
+    if (workspaceId) {
+      const { data: ws } = await supabase
+        .from("workspaces")
+        .select("plan, stripe_subscription_id")
+        .eq("id", workspaceId)
+        .single();
+      if (ws && !ws.stripe_subscription_id) {
+        const redirectUrl = request.nextUrl.clone();
+        redirectUrl.pathname = `${prefix}/dashboard/settings`;
+        return NextResponse.redirect(redirectUrl);
+      }
+    }
+  }
+
   return response;
 }

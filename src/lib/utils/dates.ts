@@ -3,6 +3,21 @@ export const MONTHS = [
   "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro",
 ];
 
+export const MONTH_ICON_NAMES = [
+  "Sun",
+  "Mask",
+  "Leaf",
+  "CloudSun",
+  "Sprout",
+  "Flame",
+  "Snowflake",
+  "Wind",
+  "Flower2",
+  "Ghost",
+  "CloudRain",
+  "TreePine",
+] as const;
+
 // Ícones alinhados às estações no hemisfério sul (Brasil)
 export const MONTH_ICONS = [
   "☀️",  // Jan - verão

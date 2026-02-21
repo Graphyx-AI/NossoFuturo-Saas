@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import {
-  createWorkspaceInvite,
+  createWorkspaceInviteLink,
   acceptWorkspaceInvite,
   cancelWorkspaceInvite,
   removeWorkspaceMember,
@@ -10,6 +10,7 @@ import {
 
 vi.mock("@/lib/supabase/server", () => ({ createClient: vi.fn() }));
 vi.mock("next/cache", () => ({ revalidatePath: vi.fn() }));
+vi.mock("next/headers", () => ({ headers: vi.fn(() => Promise.resolve({ get: () => null })) }));
 vi.mock("@supabase/supabase-js", () => ({
   createClient: vi.fn().mockReturnValue({
     from: () => ({
@@ -27,10 +28,6 @@ vi.mock("@supabase/supabase-js", () => ({
     },
   }),
 }));
-vi.mock("@/lib/email/resend", () => ({
-  sendWorkspaceInviteEmail: vi.fn().mockResolvedValue({ ok: true }),
-}));
-
 const mockCreateClient = vi.mocked((await import("@/lib/supabase/server")).createClient);
 const mockCreateAdminClient = vi.mocked((await import("@supabase/supabase-js")).createClient);
 
@@ -120,23 +117,23 @@ describe("invites actions", () => {
     } as never);
   });
 
-  it("createWorkspaceInvite retorna erro sem usuario", async () => {
+  it("createWorkspaceInviteLink retorna erro sem usuario", async () => {
     mockCreateClient.mockResolvedValue({
       auth: { getUser: () => Promise.resolve({ data: { user: null } }) },
       from: () => ({}),
     } as never);
 
-    const result = await createWorkspaceInvite("a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11", "new@test.com", "editor");
+    const result = await createWorkspaceInviteLink("a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11", "Convidado", "editor");
     expect(result.ok).toBe(false);
   });
 
-  it("createWorkspaceInvite valida email", async () => {
+  it("createWorkspaceInviteLink valida guestName vazio", async () => {
     mockCreateClient.mockResolvedValue({
       auth: { getUser: () => Promise.resolve({ data: { user: { id: "u1" } } }) },
       from: baseFrom,
     } as never);
 
-    const result = await createWorkspaceInvite("a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11", "invalid-email", "editor");
+    const result = await createWorkspaceInviteLink("a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11", "", "editor");
     expect(result.ok).toBe(false);
   });
 

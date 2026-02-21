@@ -1,11 +1,7 @@
 import { getTranslations, getLocale } from "next-intl/server";
 import { cookies } from "next/headers";
 import { Link } from "@/i18n/navigation";
-import {
-  getWorkspaceById,
-  getWorkspacesForUser,
-  ensureDefaultWorkspace,
-} from "@/actions/workspaces";
+import { getResolvedWorkspaceContext } from "@/actions/workspaces";
 import {
   getMonthlyInvestments,
   getYearlyInvestments,
@@ -71,20 +67,8 @@ export default async function InvestmentsPage({
   }
 
   const cookieStore = await cookies();
-  let workspaces = await getWorkspacesForUser();
-  if (workspaces.length === 0) {
-    await ensureDefaultWorkspace();
-    workspaces = await getWorkspacesForUser();
-  }
-  const workspaceId = cookieStore.get(WORKSPACE_COOKIE)?.value ?? null;
-  const firstWorkspaceId = workspaces[0]?.id ?? null;
-  const preferredWorkspaceId = workspaceId ?? firstWorkspaceId;
-  const workspaceFromPreferred = await getWorkspaceById(preferredWorkspaceId);
-  const workspace =
-    workspaceFromPreferred ??
-    (firstWorkspaceId && firstWorkspaceId !== preferredWorkspaceId
-      ? await getWorkspaceById(firstWorkspaceId)
-      : null);
+  const workspaceIdFromCookie = cookieStore.get(WORKSPACE_COOKIE)?.value ?? null;
+  const { workspace } = await getResolvedWorkspaceContext(workspaceIdFromCookie);
 
   if (!workspace) {
     return (

@@ -1,4 +1,4 @@
-# Agentes IA — Nosso Futuro SaaS
+# Agentes IA — Lumyf SaaS
 
 Prompts de sistema para usar no Cursor. Referencie o agente com `@` antes da sua pergunta.
 

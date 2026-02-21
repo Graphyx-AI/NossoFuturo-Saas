@@ -4,11 +4,14 @@ import { createClient } from "@/lib/supabase/server";
 import {
   getResolvedWorkspaceContext,
 } from "@/actions/workspaces";
+import { getBudgetsWithUsage } from "@/actions/budgets";
+import { checkAndCreateNotifications } from "@/actions/notifications-check";
 import { cookies } from "next/headers";
 import { formatCurrency } from "@/lib/utils/currency";
 import { WelcomeBanner } from "@/components/onboarding/welcome-banner";
 import { RealtimeRefresher } from "@/components/realtime/realtime-refresher";
-import { MONTH_ICONS } from "@/lib/utils/dates";
+import { MonthIcon } from "@/components/month-icon";
+import { BudgetAlertsCard } from "@/components/budgets/budget-alerts-card";
 
 const WORKSPACE_COOKIE = "workspace_id";
 
@@ -102,10 +105,20 @@ export default async function DashboardPage() {
     });
   }
 
+  const currentMonth = new Date().getMonth() + 1;
+  const [budgetsWithUsage, _] = await Promise.all([
+    getBudgetsWithUsage(workspace.id, currentYear, currentMonth),
+    checkAndCreateNotifications(workspace.id),
+  ]);
+  const budgetAlerts = budgetsWithUsage.filter((b) => {
+    const pct = b.limit_amount > 0 ? (b.used_amount / b.limit_amount) * 100 : 0;
+    return pct >= 80;
+  });
+
   const grid = MONTH_KEYS.map((_, monthIndex) => {
     const s = summaryByMonth.get(monthIndex) ?? { income: 0, expense: 0, investment: 0, goal: 0 };
     const balance = s.income - s.expense - s.investment - s.goal;
-    return { monthIndex, name: tMonths(MONTH_KEYS[monthIndex]), icon: MONTH_ICONS[monthIndex], balance };
+    return { monthIndex, name: tMonths(MONTH_KEYS[monthIndex]), balance };
   });
 
   return (
@@ -115,18 +128,21 @@ export default async function DashboardPage() {
         options={{ transactions: true, goals: true, investments: true }}
       />
       <WelcomeBanner />
+      {budgetAlerts.length > 0 && (
+        <BudgetAlertsCard alerts={budgetAlerts} locale={locale} />
+      )}
       <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-2">{t("yearView")}</h2>
       <p className="text-muted-foreground font-medium mb-6 sm:mb-8 text-sm sm:text-base">
         {t("smartManagement", { year: currentYear })}
       </p>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4 sm:gap-6">
-        {grid.map(({ monthIndex, name, icon, balance }) => (
+        {grid.map(({ monthIndex, name, balance }) => (
           <Link
             key={monthIndex}
             href={`/dashboard/transactions?year=${currentYear}&month=${monthIndex}`}
             className="bg-card border border-border rounded-2xl shadow-card p-6 flex flex-col items-center cursor-pointer hover:scale-[1.02] hover:border-primary/50 hover:shadow-card-hover transition-all"
           >
-            <span className="text-3xl mb-3">{icon}</span>
+            <MonthIcon monthIndex={monthIndex} className="w-10 h-10 mb-3 text-primary" />
             <h3 className="font-bold text-foreground text-sm">{name}</h3>
             <p
               className={`text-[10px] mt-2 font-bold ${balance >= 0 ? "text-emerald-500" : "text-rose-500"
@@ -149,6 +165,12 @@ export default async function DashboardPage() {
           className="text-sm font-bold text-muted-foreground hover:underline"
         >
           {t("transactions")}
+        </Link>
+        <Link
+          href="/dashboard/budgets"
+          className="text-sm font-bold text-muted-foreground hover:underline"
+        >
+          {t("budgets")}
         </Link>
       </div>
     </div>

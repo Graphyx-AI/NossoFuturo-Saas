@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { PRODUCT_CONFIG } from "@/lib/product-config";
 import { User, LogOut, Trash2, Moon, Palette, Type, Eye, Sun, LifeBuoy } from "lucide-react";
 import { createClient } from "@/lib/supabase/client";
 import { Link } from "@/i18n/navigation";
@@ -14,6 +15,7 @@ import type { Workspace } from "@/types/database";
 import { deleteAccount } from "@/actions/auth";
 import { SupportRequestForm } from "@/components/settings/support-request-form";
 import { LocationConsentCard } from "@/components/settings/location-consent-card";
+import { BillingCard } from "@/components/settings/billing-card";
 
 const FONT_SIZE_OPTIONS: { value: FontSize; label: string; helper: string }[] = [
   { value: "normal", label: "Normal", helper: "Padrão do app" },
@@ -32,10 +34,14 @@ export function SettingsContent({
   userEmail,
   workspaces,
   currentWorkspaceId,
+  currentWorkspacePlan,
+  hasStripeSubscription,
 }: {
   userEmail: string | undefined;
   workspaces: Workspace[];
   currentWorkspaceId: string | null;
+  currentWorkspacePlan?: "pro";
+  hasStripeSubscription?: boolean;
 }) {
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [deleteLoading, setDeleteLoading] = useState(false);
@@ -101,7 +107,7 @@ export function SettingsContent({
         </div>
       </section>
 
-      <section className="rounded-2xl border border-border bg-card p-6 shadow-card sm:p-8">
+      <section id="accessibility" className="rounded-2xl border border-border bg-card p-6 shadow-card sm:p-8 scroll-mt-20">
         <h2 className="text-xl font-bold text-foreground">Visual e acessibilidade</h2>
         <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
           <button
@@ -227,16 +233,13 @@ export function SettingsContent({
 
       <section className="rounded-2xl border border-border bg-card p-6 shadow-card sm:p-8">
         <h2 className="text-xl font-bold text-foreground">Plano</h2>
-        <p className="mt-1 text-sm text-muted-foreground">2 dias de teste grátis e até 2 workspaces.</p>
-        <div className="mt-4 rounded-xl border border-primary/20 bg-primary/5 p-4">
-          <p className="text-sm font-semibold text-primary">Em breve</p>
-          <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-muted-foreground">
-            <li>Mais membros por workspace</li>
-            <li>Mais workspaces</li>
-            <li>Automações inteligentes</li>
-            <li>Exportações avançadas</li>
-            <li>Mais funcionalidades premium</li>
-          </ul>
+        <p className="mt-1 text-sm text-muted-foreground">{PRODUCT_CONFIG.trialDays} dias de teste grátis e até {PRODUCT_CONFIG.maxWorkspaces} workspaces.</p>
+        <div className="mt-4">
+          <BillingCard
+            workspaceId={currentWorkspaceId}
+            currentPlan={currentWorkspacePlan ?? "pro"}
+            hasSubscription={hasStripeSubscription ?? false}
+          />
         </div>
       </section>
 
@@ -260,13 +263,17 @@ export function SettingsContent({
           <Trash2 size={14} />
           Excluir minha conta
         </button>
-        <div className="flex items-center gap-3 text-[11px] font-bold uppercase tracking-[0.2em] text-muted-foreground">
+        <div className="flex flex-wrap items-center gap-3 text-[11px] font-bold uppercase tracking-[0.2em] text-muted-foreground">
           <Link href="/terms" className="transition-colors hover:text-foreground">
             Termos
           </Link>
           <span>/</span>
           <Link href="/privacy" className="transition-colors hover:text-foreground">
             Privacidade
+          </Link>
+          <span>/</span>
+          <Link href="/refund" className="transition-colors hover:text-foreground">
+            Reembolso
           </Link>
         </div>
       </div>

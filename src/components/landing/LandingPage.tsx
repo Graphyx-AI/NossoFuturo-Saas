@@ -1,6 +1,7 @@
 "use client";
 
 import { Link } from "@/i18n/navigation";
+import { PRODUCT_CONFIG } from "@/lib/product-config";
 import { useState } from "react";
 import {
   ArrowRight,
@@ -61,19 +62,19 @@ const FEATURES = [
 const PLANS = [
   {
     name: "Pro",
-    price: "R$ 9,90",
+    price: `R$ ${PRODUCT_CONFIG.priceProMonthly.toFixed(2).replace(".", ",")}`,
     period: "/mês",
-    desc: "Plano único com 7 dias grátis",
+    desc: `Plano único com ${PRODUCT_CONFIG.trialDays} dias grátis`,
     features: [
-      "7 dias de teste grátis",
-      "Até 3 workspaces",
-      "Até 5 membros",
-      "Transações ilimitadas",
+      `${PRODUCT_CONFIG.trialDays} dias de teste grátis`,
+      `Até ${PRODUCT_CONFIG.maxWorkspaces} workspaces`,
+      `Até ${PRODUCT_CONFIG.maxMembersPerWorkspace} membros`,
+      "Lançamentos Ilimitados",
       "Metas ilimitadas",
       "Relatórios avançados",
       "Suporte prioritário",
     ],
-    cta: "Começar 7 dias grátis",
+    cta: `Começar ${PRODUCT_CONFIG.trialDays} dias grátis`,
     highlight: true,
   },
 ];
@@ -87,23 +88,24 @@ const STEPS = [
 
 const FAQ_ITEMS = [
   {
-    q: "O Nosso Futuro é gratuito?",
-    a: "Você tem 7 dias de teste grátis no plano Pro. Após esse período, continua acessando o app normalmente em modo leitura, mas para cadastrar ou editar dados é necessário assinar.",
+    q: "O Lumyf é gratuito?",
+    a: "Não existe uso gratuito. Para usar o app é obrigatório assinar o plano Pro. Você tem 2 dias de teste grátis e, após esse período, o Stripe cobra automaticamente. Cancele quando quiser.",
   },
   {
     q: "Como funciona o compartilhamento com a família?",
     a: "Cada família cria um workspace e convida membros por e-mail. Todos podem registrar transações, ver relatórios e acompanhar metas. As informações são sincronizadas em tempo real para todos os integrantes.",
   },
   {
-    q: "O Nosso Futuro tem alguma ligação com meu banco?",
-    a: "Não. O Nosso Futuro não tem nenhuma conexão, integração ou vínculo com sua conta bancária. Todas as transações são cadastradas manualmente por você e sua família. Nós não acessamos, conectamos ou importamos dados de instituições financeiras.",
+    q: "O Lumyf tem alguma ligação com meu banco?",
+    a: "Não. O Lumyf não tem nenhuma conexão, integração ou vínculo com sua conta bancária. Todas as transações são cadastradas manualmente por você e sua família. Nós não acessamos, conectamos ou importamos dados de instituições financeiras.",
   },
   {
     q: "Meus dados estão seguros?",
     a: "Sim. Utilizamos criptografia e autenticação segura. Seus dados financeiros ficam protegidos e apenas as pessoas que você convidar terão acesso ao workspace.",
   },
   {
-    q: "Ha plano pago agora? Nao. O app esta sem integracao de pagamentos no momento.",
+    q: "Como funciona o pagamento?",
+    a: "O pagamento é feito via Stripe (cartão ou PIX). Após os 2 dias de teste grátis, a cobrança é automática. Você pode cancelar a assinatura a qualquer momento no painel de configurações.",
   },
   {
     q: "Quantas pessoas podem usar um workspace?",
@@ -123,7 +125,7 @@ export function LandingPage() {
         <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-4">
           <Link href="/" className="flex items-center gap-2 text-xl font-bold tracking-tight">
             <Heart className="h-6 w-6 text-accent" fill="currentColor" />
-            <span className="text-gradient-hero">Nosso Futuro</span>
+            <span className="text-gradient-hero">Lumyf</span>
           </Link>
 
           <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-muted-foreground">
@@ -221,7 +223,7 @@ export function LandingPage() {
           </span>
           <h1 className="text-4xl sm:text-5xl md:text-6xl leading-tight tracking-tight mb-6">
             Gestão Financeira Pessoal e Compartilhada —{" "}
-            <span className="text-gradient-hero">Teste por 7 dias grátis</span>
+            <span className="text-gradient-hero">Teste por {PRODUCT_CONFIG.trialDays} dias grátis</span>
           </h1>
           <p className="text-lg text-muted-foreground max-w-xl mx-auto mb-10">
             Registre receitas e despesas, acompanhe investimentos, defina metas financeiras e
@@ -232,7 +234,7 @@ export function LandingPage() {
               href="/register"
               className="bg-hero-gradient text-primary-foreground font-semibold px-8 py-3.5 rounded-xl text-base hover:opacity-90 transition-opacity flex items-center gap-2 w-full sm:w-auto justify-center"
             >
-              Começar 7 dias grátis <ArrowRight className="h-4 w-4" />
+              Começar {PRODUCT_CONFIG.trialDays} dias grátis <ArrowRight className="h-4 w-4" />
             </Link>
             <a
               href="#funcionalidades"
@@ -246,9 +248,9 @@ export function LandingPage() {
         {/* Stats */}
         <div className="mx-auto mt-16 max-w-2xl grid grid-cols-3 gap-6 text-center">
           {[
-            ["12k+", "Famílias"],
-            ["R$ 2.4M", "Economizados"],
-            ["4.9 ★", "Avaliação"],
+            ["100%", "Online"],
+            [PRODUCT_CONFIG.trialDays + " dias", "Grátis"],
+            ["Tempo real", "Sincronizado"],
           ].map(([val, label]) => (
             <div key={label}>
               <p className="text-2xl md:text-3xl font-bold text-gradient-hero">{val}</p>
@@ -316,10 +318,10 @@ export function LandingPage() {
         <div className="mx-auto max-w-6xl">
           <div className="text-center mb-14">
             <h2 className="text-3xl md:text-4xl tracking-tight mb-3">
-              Plano unico
+              Plano único
             </h2>
             <p className="text-muted-foreground max-w-lg mx-auto">
-              R$ 9,90 por mês após 7 dias grátis.
+              R$ {PRODUCT_CONFIG.priceProMonthly.toFixed(2).replace(".", ",")} por mês após {PRODUCT_CONFIG.trialDays} dias grátis.
             </p>
           </div>
           <div className="grid md:grid-cols-1 gap-6 max-w-xl mx-auto">
@@ -386,7 +388,7 @@ export function LandingPage() {
               </h2>
             </div>
             <p className="text-muted-foreground">
-              Tire suas dúvidas sobre o Nosso Futuro.
+              Tire suas dúvidas sobre o Lumyf.
             </p>
           </div>
           <div className="space-y-3">
@@ -430,7 +432,7 @@ export function LandingPage() {
             Pronto para construir o futuro juntos?
           </h2>
           <p className="text-muted-foreground mb-8 max-w-md mx-auto">
-            Junte-se a milhares de famílias que já organizam suas finanças com o Nosso Futuro.
+            Junte-se a milhares de famílias que já organizam suas finanças com o Lumyf.
           </p>
           <Link
             href="/register"
@@ -446,16 +448,22 @@ export function LandingPage() {
         <div className="mx-auto max-w-6xl flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-muted-foreground">
           <Link href="/" className="flex items-center gap-2 font-bold text-foreground">
             <Heart className="h-5 w-5 text-accent" fill="currentColor" />
-            Nosso Futuro
+            Lumyf
           </Link>
-          <p>© {new Date().getFullYear()} Nosso Futuro. Todos os direitos reservados.</p>
-          <div className="flex gap-6">
-            <a href="#" className="hover:text-foreground transition-colors">
+          <p>© {new Date().getFullYear()} Lumyf. Todos os direitos reservados.</p>
+          <div className="flex flex-wrap gap-4 sm:gap-6">
+            <Link href="/terms" className="hover:text-foreground transition-colors">
               Termos
-            </a>
-            <a href="#" className="hover:text-foreground transition-colors">
+            </Link>
+            <Link href="/privacy" className="hover:text-foreground transition-colors">
               Privacidade
-            </a>
+            </Link>
+            <Link href="/refund" className="hover:text-foreground transition-colors">
+              Reembolso
+            </Link>
+            <Link href="/dashboard/settings#accessibility" className="hover:text-foreground transition-colors">
+              Acessibilidade
+            </Link>
           </div>
         </div>
       </footer>

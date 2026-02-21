@@ -1,8 +1,10 @@
-﻿"use client";
+"use client";
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 import { Users, Link as LinkIcon, Loader2, UserMinus, X, Copy, Check } from "lucide-react";
+import { EmptyState } from "@/components/ui/empty-state";
 import {
   createWorkspaceInviteLink,
   cancelWorkspaceInvite,
@@ -11,18 +13,24 @@ import {
 import type { WorkspaceInvite } from "@/types/database";
 import type { WorkspaceMemberWithProfile } from "@/actions/invites";
 
-const ROLE_LABELS: Record<string, string> = {
-  owner: "Dono",
-  admin: "Admin",
-  editor: "Editor",
-  viewer: "Visualizador",
-};
+function useRoleLabels() {
+  const t = useTranslations("workspaceMembers.roles");
+  return {
+    owner: t("owner"),
+    admin: t("admin"),
+    editor: t("editor"),
+    viewer: t("viewer"),
+  } as Record<string, string>;
+}
 
-function getInviteDisplay(email: string) {
-  if (!email.startsWith("link::")) return email;
-  const parts = email.split("::");
-  const name = (parts[1] ?? "convidado").trim();
-  return `Link para: ${name || "convidado"}`;
+function useInviteDisplay() {
+  const t = useTranslations("workspaceMembers");
+  return (email: string) => {
+    if (!email.startsWith("link::")) return email;
+    const parts = email.split("::");
+    const name = (parts[1] ?? "").trim() || t("guest");
+    return t("inviteLinkFor", { name });
+  };
 }
 
 export function WorkspaceMembersClient({
@@ -39,6 +47,9 @@ export function WorkspaceMembersClient({
   currentUserId: string | null;
 }) {
   const router = useRouter();
+  const t = useTranslations("workspaceMembers");
+  const ROLE_LABELS = useRoleLabels();
+  const getInviteDisplay = useInviteDisplay();
   const [guestName, setGuestName] = useState("");
   const [role, setRole] = useState<"editor" | "viewer">("editor");
   const [inviteLoading, setInviteLoading] = useState(false);
@@ -52,9 +63,7 @@ export function WorkspaceMembersClient({
     canManage || currentMembership?.role === "owner" || currentMembership?.role === "admin";
 
   if (!workspaceId) {
-    return (
-      <p className="text-sm text-muted-foreground">Selecione um workspace para gerenciar membros.</p>
-    );
+    return <p className="text-sm text-muted-foreground">{t("selectWorkspace")}</p>;
   }
 
   async function handleInvite(e: React.FormEvent) {
@@ -69,7 +78,7 @@ export function WorkspaceMembersClient({
       setGuestName("");
       setInviteLink(result.inviteUrl);
     } else {
-      setInviteError(result.error ?? "Erro ao gerar link");
+      setInviteError(result.error ?? t("errorGenerate"));
     }
   }
 
@@ -87,7 +96,7 @@ export function WorkspaceMembersClient({
     const result = await removeWorkspaceMember(workspaceId, userId);
     setRemovingId(null);
     if (!result.ok) {
-      setInviteError(result.error ?? "Nao foi possivel remover membro.");
+      setInviteError(result.error ?? t("errorRemove"));
       return;
     }
     router.refresh();
@@ -99,7 +108,7 @@ export function WorkspaceMembersClient({
     const result = await cancelWorkspaceInvite(inviteId);
     setCancellingId(null);
     if (!result.ok) {
-      setInviteError(result.error ?? "Nao foi possivel cancelar convite.");
+      setInviteError(result.error ?? t("errorCancel"));
       return;
     }
     router.refresh();
@@ -108,7 +117,7 @@ export function WorkspaceMembersClient({
   return (
     <div className="space-y-6">
       <div>
-        <h3 className="text-sm font-semibold text-foreground mb-3">Membros</h3>
+        <h3 className="text-sm font-semibold text-foreground mb-3">{t("members")}</h3>
         <ul className="space-y-2">
           {members.map((m) => (
             <li
@@ -134,7 +143,7 @@ export function WorkspaceMembersClient({
                     onClick={() => handleRemove(m.user_id)}
                     disabled={removingId === m.user_id}
                     className="p-2 rounded-lg text-rose-600 hover:bg-rose-500/10 transition-colors disabled:opacity-50"
-                    title="Remover membro"
+                    title={t("removeMember")}
                   >
                     {removingId === m.user_id ? (
                       <Loader2 size={16} className="animate-spin" />
@@ -147,8 +156,12 @@ export function WorkspaceMembersClient({
             </li>
           ))}
           {members.length === 0 && (
-            <li className="p-4 rounded-xl bg-secondary/30 border border-border text-sm text-muted-foreground">
-              Nenhum membro no momento.
+            <li>
+              <EmptyState
+                icon={Users}
+                title={t("noMembers")}
+                description={t("noMembersDesc")}
+              />
             </li>
           )}
         </ul>
@@ -156,7 +169,7 @@ export function WorkspaceMembersClient({
 
       {invites.length > 0 && (
         <div>
-          <h3 className="text-sm font-semibold text-foreground mb-3">Convites pendentes</h3>
+          <h3 className="text-sm font-semibold text-foreground mb-3">{t("pendingInvites")}</h3>
           <ul className="space-y-2">
             {invites.map((inv) => (
               <li
@@ -178,7 +191,7 @@ export function WorkspaceMembersClient({
                     onClick={() => handleCancelInvite(inv.id)}
                     disabled={cancellingId === inv.id}
                     className="p-2 rounded-lg text-muted-foreground hover:bg-secondary transition-colors disabled:opacity-50"
-                    title="Cancelar convite"
+                    title={t("cancelInvite")}
                   >
                     {cancellingId === inv.id ? (
                       <Loader2 size={16} className="animate-spin" />
@@ -194,13 +207,13 @@ export function WorkspaceMembersClient({
       )}
 
       <form onSubmit={handleInvite} className="space-y-3">
-        <h3 className="text-sm font-semibold text-foreground">Convidar por link</h3>
+        <h3 className="text-sm font-semibold text-foreground">{t("inviteByLink")}</h3>
         <div className="flex flex-col sm:flex-row gap-2">
           <input
             type="text"
             value={guestName}
             onChange={(e) => setGuestName(e.target.value)}
-            placeholder="Nome da pessoa"
+            placeholder={t("personName")}
             required
             className="flex-1 px-4 py-2.5 rounded-xl border border-border bg-background text-foreground placeholder:text-muted-foreground focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none"
           />
@@ -209,8 +222,8 @@ export function WorkspaceMembersClient({
             onChange={(e) => setRole(e.target.value as "editor" | "viewer")}
             className="px-4 py-2.5 rounded-xl border border-border bg-background text-foreground focus:ring-2 focus:ring-primary/20 focus:border-primary outline-none"
           >
-            <option value="editor">Editor</option>
-            <option value="viewer">Visualizador</option>
+            <option value="editor">{ROLE_LABELS.editor}</option>
+            <option value="viewer">{ROLE_LABELS.viewer}</option>
           </select>
           <button
             type="submit"
@@ -220,17 +233,17 @@ export function WorkspaceMembersClient({
             {inviteLoading ? (
               <>
                 <Loader2 size={16} className="animate-spin" />
-                Gerando...
+                {t("generating")}
               </>
             ) : (
-              "Gerar link"
+              t("generateLink")
             )}
           </button>
         </div>
 
         {inviteLink && (
           <div className="rounded-xl border border-border p-3 bg-secondary/20 space-y-2">
-            <p className="text-xs text-muted-foreground">Link de convite</p>
+            <p className="text-xs text-muted-foreground">{t("inviteLinkLabel")}</p>
             <div className="flex flex-col sm:flex-row gap-2">
               <input
                 type="text"
@@ -244,7 +257,7 @@ export function WorkspaceMembersClient({
                 className="px-3 py-2 rounded-lg border border-border text-sm font-medium hover:bg-secondary transition-colors inline-flex items-center gap-2 justify-center"
               >
                 {copied ? <Check size={14} /> : <Copy size={14} />}
-                {copied ? "Copiado" : "Copiar"}
+                {copied ? t("copied") : t("copy")}
               </button>
             </div>
           </div>

@@ -22,16 +22,25 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: process.env.NEXT_PUBLIC_APP_URL
     ? new URL(process.env.NEXT_PUBLIC_APP_URL)
-    : new URL("https://nosso-futuro.com"),
+    : new URL("https://lumyf.com"),
   title: {
-    default: "Nosso Futuro - Finanças para Casal e Família",
-    template: "%s | Nosso Futuro",
+    default: "Lumyf - Finanças para Casal e Família",
+    template: "%s | Lumyf",
   },
   description:
     "Gestão inteligente das suas finanças. Controle receitas, despesas, investimentos e metas.",
   keywords: ["finanças pessoais", "controle financeiro", "finanças para casal", "app finanças"],
   openGraph: { locale: "pt_BR" },
   robots: "index, follow",
+  manifest: "/manifest.json",
+  other: {
+    "mobile-web-app-capable": "yes",
+  },
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "Lumyf",
+  },
 };
 
 export default function RootLayout({
@@ -47,7 +56,7 @@ export default function RootLayout({
           strategy="beforeInteractive"
           dangerouslySetInnerHTML={{
             __html:
-              "(function(){try{var t=localStorage.getItem('nosso-futuro-theme');var r=document.documentElement;if(t==='dark'){r.classList.add('dark')}else{r.classList.remove('dark')}}catch(e){}})();",
+              "(function(){try{var t=localStorage.getItem('lumyf-theme');var r=document.documentElement;if(t==='dark'){r.classList.add('dark')}else{r.classList.remove('dark')}}catch(e){}})();",
           }}
         />
         <ThemeProvider>

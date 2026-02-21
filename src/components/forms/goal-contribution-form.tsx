@@ -1,20 +1,37 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { createGoalContribution } from "@/actions/goals";
-import { parseBRL } from "@/lib/utils/currency";
+import { parseBRL, formatCurrency } from "@/lib/utils/currency";
 import type { Goal } from "@/types/database";
 
 export function GoalContributionForm({
   workspaceId,
   goals,
+  contributionsByGoal = {},
+  locale = "pt-BR",
 }: {
   workspaceId: string;
   goals: Goal[];
+  contributionsByGoal?: Record<string, number>;
+  locale?: string;
 }) {
   const [loading, setLoading] = useState(false);
   const [toast, setToast] = useState<string | null>(null);
+  const [selectedGoalId, setSelectedGoalId] = useState("");
   const today = new Date().toISOString().slice(0, 10);
+
+  const selectedGoal = useMemo(() => goals.find((g) => g.id === selectedGoalId), [goals, selectedGoalId]);
+  const suggestedMonthly = useMemo(() => {
+    if (!selectedGoal) return null;
+    const acc = contributionsByGoal[selectedGoal.id] ?? 0;
+    const remaining = Math.max(0, selectedGoal.target_amount - acc);
+    const deadline = selectedGoal.deadline ? new Date(selectedGoal.deadline + "T12:00:00") : null;
+    if (!deadline || remaining <= 0) return null;
+    const now = new Date();
+    const monthsLeft = Math.max(1, Math.ceil((deadline.getTime() - now.getTime()) / (30 * 24 * 60 * 60 * 1000)));
+    return Math.ceil(remaining / monthsLeft);
+  }, [selectedGoal, contributionsByGoal]);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -65,6 +82,8 @@ export function GoalContributionForm({
         <select
           name="goal_id"
           required
+          value={selectedGoalId}
+          onChange={(e) => setSelectedGoalId(e.target.value)}
           className="w-full px-4 py-3 bg-background border border-border rounded-xl outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary font-bold text-primary"
         >
           <option value="">Selecione a meta</option>
@@ -74,12 +93,17 @@ export function GoalContributionForm({
             </option>
           ))}
         </select>
+        {suggestedMonthly != null && (
+          <p className="text-xs text-muted-foreground">
+            Sugestão: {formatCurrency(suggestedMonthly, locale)}/mês para atingir no prazo
+          </p>
+        )}
         <input
           type="text"
           inputMode="decimal"
           name="amount"
           required
-          placeholder="Valor (Ex: 500 ou 1.500,50)"
+          placeholder={suggestedMonthly != null ? formatCurrency(suggestedMonthly, locale) : "Valor (Ex: 500 ou 1.500,50)"}
           className="w-full px-4 py-3 bg-background border border-border rounded-xl outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary text-foreground placeholder:text-muted-foreground"
         />
         {toast && (

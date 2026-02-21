@@ -4,10 +4,11 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useLocale } from "next-intl";
 import { useTranslations } from "next-intl";
-import { Filter, CheckCircle } from "lucide-react";
+import { Filter, CheckCircle, Receipt } from "lucide-react";
 import { formatCurrency } from "@/lib/utils/currency";
 import { formatDate } from "@/lib/utils/dates";
 import { ReceivableForm } from "@/components/forms/receivable-form";
+import { EmptyState } from "@/components/ui/empty-state";
 import { deleteReceivable, markReceivableAsPaid } from "@/actions/receivables";
 import type { ReceivableRow } from "@/actions/receivables";
 
@@ -82,9 +83,11 @@ export function CobrancasListWithModal({
 
         <div className="divide-y divide-border">
           {receivables.length === 0 ? (
-            <div className="p-10 text-center text-muted-foreground italic text-sm">
-              {t("emptyList")}
-            </div>
+            <EmptyState
+              icon={Receipt}
+              title={tCobrancas("emptyStateTitle")}
+              description={tCobrancas("emptyStateDesc")}
+            />
           ) : (
             receivables.map((r) => (
               <div
