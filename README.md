@@ -1,88 +1,65 @@
-# CRM GRAPYX - Prospecção
+﻿# CRM GRAPYX - Prospeccao
 
-CRM multi-nicho com Next.js e Supabase.
+CRM multi-nicho com Next.js e Supabase, com dois workspaces isolados:
+- `graphyx`
+- `lumyf`
 
 ## Setup
 
 ### 1. Banco de dados (Supabase)
 
-1. Crie um projeto no [Supabase](https://supabase.com).
-2. Rode primeiro `supabase/setup_database.sql` (legado) se necessário.
-3. Rode a migration `migrations/20260217110000_create_clients_table.sql` para criar a nova tabela canônica `public.clients`.
-4. **Criar usuário admin** (uma das opções):
+1. Crie um projeto no Supabase.
+2. Rode `supabase/setup_database.sql` (legado) se necessario.
+3. Rode as migrations em `migrations/`.
+4. Crie os admins (script automatico recomendado).
 
-   **Opção A – Script automático:**
-   - Adicione no `.env`: `SUPABASE_SERVICE_ROLE_KEY=sua-service-role-key` (em Settings > API)
-   - Execute: `npm run setup:admin`
+### 2. Variaveis de ambiente
 
-   **Opção B – Manual:**
-   - Em **Authentication** > **Users** > **Add user** crie:
-   - Email: `graphyx.ai@gmail.com`
-   - Password: `@101222Tlc`
-   - Marque "Auto Confirm User"
-
-### 2. Variáveis de ambiente
-
-Copie `.env.example` para `.env` e preencha:
+Crie `.env` na raiz:
 
 ```bash
 NEXT_PUBLIC_SUPABASE_URL=https://seu-projeto.supabase.co
 NEXT_PUBLIC_SUPABASE_ANON_KEY=sua-anon-key
 SUPABASE_SERVICE_ROLE_KEY=sua-service-role-key
+
+# Admins e workspaces
+NEXT_PUBLIC_GRAPHYX_ADMIN_EMAIL=graphyx.ai@gmail.com
+NEXT_PUBLIC_LUMYF_ADMIN_EMAIL=lumyf@gmail.com
+GRAPHYX_ADMIN_PASSWORD=sua-senha-graphyx
+LUMYF_ADMIN_PASSWORD=sua-senha-lumyf
 ```
 
-
-### 2.1 Troubleshooting de login (Supabase não configurado)
-
-Se aparecer o erro de ambiente no login:
-
-- Garanta que as chaves estejam em `.env.local` (ou `.env`) com os nomes `NEXT_PUBLIC_SUPABASE_URL` e `NEXT_PUBLIC_SUPABASE_ANON_KEY`.
-- Reinicie o `npm run dev` após alterar variáveis de ambiente.
-- Este projeto também aceita aliases legados: `VITE_SUPABASE_URL`, `VITE_SUPABASE_ANON_KEY`, `SUPABASE_URL`, `SUPABASE_ANON_KEY`.
-
-### 3. Importar CSV processado para Supabase
-
-O script abaixo lê os CSVs da pasta `dados/` e insere/atualiza na tabela `public.clients`:
+### 3. Criar usuarios admin
 
 ```bash
-pip install supabase
-SUPABASE_URL=https://seu-projeto.supabase.co \
-SUPABASE_SERVICE_ROLE_KEY=sua-service-role-key \
-python scripts/import_csv_to_supabase.py
+npm run setup:admin
 ```
 
-### 4. Executar app
+O script cria (ou ignora se ja existir) os dois admins:
+- admin Graphyx (`workspace: graphyx`)
+- admin Lumyf (`workspace: lumyf`)
+
+### 4. Rodar o app
 
 ```bash
 npm install
 npm run dev
 ```
 
-O app estará em http://localhost:3000.
+App em `http://localhost:3000`.
+
+## Testes
+
+```bash
+npm run test:unit
+npm run test:e2e
+```
+
+Os testes E2E sobem o Next em modo mock (`NEXT_PUBLIC_E2E_MOCK=1`), sem depender de Supabase real.
 
 ## Funcionalidades
 
-- Login
-- Dashboard com dados do Supabase
-- Prospecção por nicho com CRUD de clientes
-- Delete remove do UI e do Supabase
-
-## Resolver conflito de merge em `lib/clientes.js`
-
-Se aparecer conflito entre as versões `main` (somente `clients`) e `codex/...` (suporte híbrido), mantenha a versão híbrida enquanto existir dado em `public.clientes`.
-
-```bash
-git checkout --theirs lib/clientes.js  # se "theirs" for a branch codex com suporte híbrido
-# ou abra o arquivo e remova todos os marcadores <<<<<<< ======= >>>>>>>
-git add lib/clientes.js
-git commit -m "Resolve merge conflict in clientes data access"
-```
-
-A versão correta para ambiente híbrido deve:
-- ler de `clients` e `clientes`
-- normalizar campos (`name` -> `nome`, `phone` -> `telefone`, etc.)
-- deduplicar por chave de negócio (nicho+nome+telefone+endereço)
-- deletar em ambas tabelas
-
-
-> Observação: o app agora tenta **inserir/atualizar primeiro em `public.clients`** e, se a tabela canônica não existir no projeto, faz fallback automático para `public.clientes`.
+- Login com separacao de workspace por admin
+- Dashboard diferente por projeto (Graphyx x Lumyf)
+- CRUD de clientes com isolamento por workspace no banco (RLS)
+- Prospecao por nicho com contadores por workspace

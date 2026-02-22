@@ -6,7 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "setup:admin": "node scripts/setup-admin.mjs"
+    "setup:admin": "node scripts/setup-admin.mjs",
+    "test": "npm run test:unit && npm run test:e2e",
+    "test:unit": "vitest run",
+    "test:e2e": "cross-env NEXT_PUBLIC_E2E_MOCK=1 playwright test"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.96.0",
@@ -14,5 +17,13 @@
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "recharts": "^2.12.0"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.58.2",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "cross-env": "^10.1.0",
+    "jsdom": "^28.1.0",
+    "vitest": "^4.0.18"
   }
 }

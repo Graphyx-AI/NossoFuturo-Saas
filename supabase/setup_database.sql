@@ -1,14 +1,13 @@
--- ============================================
--- CRM GRAPYX - Setup Database
+﻿-- ============================================
+-- CRM - Setup Database
 -- Execute no Supabase SQL Editor
 -- ============================================
 
--- Extensão UUID (já habilitada por padrão no Supabase)
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
--- Tabela de clientes
 CREATE TABLE IF NOT EXISTS public.clientes (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  workspace TEXT NOT NULL DEFAULT 'graphyx',
   nicho TEXT NOT NULL,
   nome TEXT NOT NULL,
   telefone TEXT,
@@ -16,20 +15,20 @@ CREATE TABLE IF NOT EXISTS public.clientes (
   site TEXT,
   tem_site BOOLEAN DEFAULT false,
   status TEXT NOT NULL DEFAULT 'novo' CHECK (status IN (
-    'novo', 'contatado', 'interessado', 'negociacao', 'fechado', 'recusado'
+    'novo', 'contatado', 'interessado', 'negociacao', 'fechado', 'recusado',
+    'testando', 'cliente', 'perdido'
   )),
   observacoes TEXT,
   created_at TIMESTAMPTZ DEFAULT now(),
   updated_at TIMESTAMPTZ DEFAULT now()
 );
 
--- Índices para performance
-CREATE INDEX IF NOT EXISTS idx_clientes_nicho ON public.clientes(nicho);
+CREATE INDEX IF NOT EXISTS idx_clientes_workspace ON public.clientes(workspace);
+CREATE INDEX IF NOT EXISTS idx_clientes_workspace_nicho ON public.clientes(workspace, nicho);
 CREATE INDEX IF NOT EXISTS idx_clientes_status ON public.clientes(status);
 CREATE INDEX IF NOT EXISTS idx_clientes_nome ON public.clientes(nome);
 CREATE INDEX IF NOT EXISTS idx_clientes_created_at ON public.clientes(created_at);
 
--- Trigger para updated_at
 CREATE OR REPLACE FUNCTION update_updated_at()
 RETURNS TRIGGER AS $$
 BEGIN
@@ -43,54 +42,69 @@ CREATE TRIGGER trigger_clientes_updated_at
   BEFORE UPDATE ON public.clientes
   FOR EACH ROW EXECUTE FUNCTION update_updated_at();
 
--- Habilitar RLS (Row Level Security)
+CREATE OR REPLACE FUNCTION public.current_workspace_from_email()
+RETURNS TEXT
+LANGUAGE sql
+STABLE
+AS $$
+  SELECT CASE lower(auth.jwt() ->> 'email')
+    WHEN 'graphyx.ai@gmail.com' THEN 'graphyx'
+    WHEN 'lumyf@gmail.com' THEN 'lumyf'
+    ELSE NULL
+  END
+$$;
+
 ALTER TABLE public.clientes ENABLE ROW LEVEL SECURITY;
 
--- Políticas: apenas graphyx.ai@gmail.com pode acessar
-DROP POLICY IF EXISTS "Admin pode ler clientes" ON public.clientes;
-DROP POLICY IF EXISTS "Usuarios autenticados podem ler clientes" ON public.clientes;
-DROP POLICY IF EXISTS "Usuarios autenticados podem inserir clientes" ON public.clientes;
-DROP POLICY IF EXISTS "Usuarios autenticados podem atualizar clientes" ON public.clientes;
-DROP POLICY IF EXISTS "Usuarios autenticados podem deletar clientes" ON public.clientes;
-DROP POLICY IF EXISTS "Admin pode inserir clientes" ON public.clientes;
-DROP POLICY IF EXISTS "Admin pode atualizar clientes" ON public.clientes;
-DROP POLICY IF EXISTS "Admin pode deletar clientes" ON public.clientes;
+DROP POLICY IF EXISTS "Workspace clientes read" ON public.clientes;
+DROP POLICY IF EXISTS "Workspace clientes insert" ON public.clientes;
+DROP POLICY IF EXISTS "Workspace clientes update" ON public.clientes;
+DROP POLICY IF EXISTS "Workspace clientes delete" ON public.clientes;
 
-CREATE POLICY "Admin pode ler clientes"
+CREATE POLICY "Workspace clientes read"
   ON public.clientes FOR SELECT
   TO authenticated
-  USING (auth.jwt() ->> 'email' = 'graphyx.ai@gmail.com');
+  USING (workspace = public.current_workspace_from_email());
 
-CREATE POLICY "Admin pode inserir clientes"
+CREATE POLICY "Workspace clientes insert"
   ON public.clientes FOR INSERT
   TO authenticated
-  WITH CHECK (auth.jwt() ->> 'email' = 'graphyx.ai@gmail.com');
+  WITH CHECK (workspace = public.current_workspace_from_email());
 
-CREATE POLICY "Admin pode atualizar clientes"
+CREATE POLICY "Workspace clientes update"
   ON public.clientes FOR UPDATE
   TO authenticated
-  USING (auth.jwt() ->> 'email' = 'graphyx.ai@gmail.com');
+  USING (workspace = public.current_workspace_from_email())
+  WITH CHECK (workspace = public.current_workspace_from_email());
 
-CREATE POLICY "Admin pode deletar clientes"
+CREATE POLICY "Workspace clientes delete"
   ON public.clientes FOR DELETE
   TO authenticated
-  USING (auth.jwt() ->> 'email' = 'graphyx.ai@gmail.com');
+  USING (workspace = public.current_workspace_from_email());
 
--- Tabela auxiliar de nichos (opcional, para referência)
 CREATE TABLE IF NOT EXISTS public.nichos (
   id TEXT PRIMARY KEY,
   label TEXT NOT NULL
 );
 
 INSERT INTO public.nichos (id, label) VALUES
-  ('psicologo', 'Psicólogo'),
-  ('imobiliaria', 'Imobiliária'),
+  ('reddit', 'Reddit'),
+  ('youtube', 'Youtube'),
+  ('instagram', 'Instagram'),
+  ('facebook', 'Facebook'),
+  ('twitter', 'Twitter'),
+  ('lp', 'LP'),
+  ('ommigle', 'Ommigle'),
+  ('grupos', 'Grupos'),
+  ('outros', 'Outros'),
+  ('psicologo', 'Psicologo'),
+  ('imobiliaria', 'Imobiliaria'),
   ('curso_online', 'Curso Online'),
   ('dentista', 'Dentista'),
-  ('clinica_estetica', 'Clínica de Estética'),
+  ('clinica_estetica', 'Clinica de Estetica'),
   ('barbearia', 'Barbearia'),
   ('empresa_limpeza', 'Empresa de Limpeza'),
   ('coach', 'Coach'),
-  ('turismo_excursao', 'Turismo e Excursão'),
+  ('turismo_excursao', 'Turismo e Excursao'),
   ('mvp', 'MVP')
 ON CONFLICT (id) DO UPDATE SET label = EXCLUDED.label;

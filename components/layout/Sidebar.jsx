@@ -1,30 +1,59 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useAuth } from '@/hooks/useAuth';
-import { NICHOS } from '@/lib/config';
 import ThemeToggle from './ThemeToggle';
 
-const SIDEBAR_ITEMS = [
-  { to: '/', label: 'Dashboard', icon: '📊' },
-  { to: '/mvp', label: 'MVP', nicho: 'mvp', icon: '🖥️' },
-  ...Object.entries(NICHOS)
-    .filter(([id]) => id !== 'mvp')
-    .map(([id, label]) => ({
-      to: `/prospeccao/${id}`,
-      label,
-      nicho: id,
-      icon: '📁'
-    }))
-];
+const NICHE_ICONS = {
+  // Lumyf channels
+  reddit: '👽',
+  youtube: '▶️',
+  instagram: '📸',
+  facebook: '📘',
+  twitter: '🐦',
+  lp: '🧾',
+  ommigle: '💬',
+  grupos: '👥',
+  outros: '📦',
+  // Graphyx niches
+  psicologo: '🧠',
+  imobiliaria: '🏠',
+  curso_online: '🎓',
+  dentista: '🦷',
+  clinica_estetica: '✨',
+  barbearia: '💈',
+  empresa_limpeza: '🧹',
+  coach: '🎯',
+  turismo_excursao: '🧳',
+  mvp: '🚀'
+};
+
+function getNicheIcon(id) {
+  return NICHE_ICONS[id] || '📁';
+}
 
 export default function Sidebar({ clientCounts = {} }) {
   const [collapsed, setCollapsed] = useState(false);
   const pathname = usePathname();
-  const { signOut } = useAuth();
+  const { signOut, workspace } = useAuth();
   const router = useRouter();
+
+  const sidebarItems = useMemo(() => {
+    const niches = workspace?.niches || {};
+    const base = [{ to: '/dashboard', label: 'Dashboard', icon: '\u{1F4CA}' }];
+
+    return [
+      ...base,
+      ...Object.entries(niches).map(([id, label]) => ({
+        to: id === 'mvp' ? '/mvp' : `/prospeccao/${id}`,
+        label,
+        nicho: id,
+        icon: getNicheIcon(id)
+      }))
+    ];
+  }, [workspace]);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -40,7 +69,8 @@ export default function Sidebar({ clientCounts = {} }) {
 
   const handleLogout = async () => {
     await signOut();
-    router.replace('/');
+    router.replace('/login');
+    router.refresh();
   };
 
   return (
@@ -52,7 +82,6 @@ export default function Sidebar({ clientCounts = {} }) {
         height: '100vh'
       }}
     >
-      {/* HEADER */}
       <div className="sidebar-header">
         <button
           type="button"
@@ -64,7 +93,7 @@ export default function Sidebar({ clientCounts = {} }) {
           {collapsed ? '›' : '‹'}
         </button>
 
-        {!collapsed && <h2>GRAPYX CRM</h2>}
+        {!collapsed && <h2>{workspace?.appLabel || 'CRM'}</h2>}
 
         {!collapsed && (
           <div className="sidebar-theme" style={{ marginLeft: '1rem' }}>
@@ -73,7 +102,6 @@ export default function Sidebar({ clientCounts = {} }) {
         )}
       </div>
 
-      {/* BODY COM SCROLL */}
       <div
         className="sidebar-body"
         style={{
@@ -91,9 +119,8 @@ export default function Sidebar({ clientCounts = {} }) {
             gap: '0.5rem'
           }}
         >
-          {SIDEBAR_ITEMS.map(({ to, label, nicho, icon }) => {
-            const isActive =
-              to === '/' ? pathname === '/' : pathname.startsWith(to);
+          {sidebarItems.map(({ to, label, nicho, icon }) => {
+            const isActive = pathname === to || pathname.startsWith(`${to}/`);
 
             return (
               <Link
@@ -107,12 +134,11 @@ export default function Sidebar({ clientCounts = {} }) {
                   <>
                     <span className="sidebar-label">{label}</span>
 
-                    {nicho !== undefined &&
-                      clientCounts[nicho] !== undefined && (
-                        <span className="sidebar-count">
-                          {clientCounts[nicho]}
-                        </span>
-                      )}
+                    {nicho !== undefined && clientCounts[nicho] !== undefined && (
+                      <span className="sidebar-count">
+                        {clientCounts[nicho]}
+                      </span>
+                    )}
                   </>
                 )}
               </Link>
@@ -121,7 +147,6 @@ export default function Sidebar({ clientCounts = {} }) {
         </nav>
       </div>
 
-      {/* FOOTER FIXO */}
       <div
         className="sidebar-footer"
         style={{
@@ -136,7 +161,7 @@ export default function Sidebar({ clientCounts = {} }) {
           title="Sair"
           style={{ width: '100%' }}
         >
-          <span className="sidebar-icon">🚪</span>
+          <span className="sidebar-icon">{'\u{1F6AA}'}</span>
           {!collapsed && <span className="sidebar-label">Sair</span>}
         </button>
       </div>
